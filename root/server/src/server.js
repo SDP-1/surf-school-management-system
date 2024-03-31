@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8070
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '20MB' }));
 
 
 const URL = process.env.MONGODB_URL;
@@ -26,9 +26,9 @@ connection.once("open",()=> {
 });
 
 
-const studentRouter = require("./routs/students.js");
+const studentRouter = require("./routs/events.js");
 //htttp://localhost:5000/student
-app.use("/student",studentRouter);
+app.use("/event",studentRouter);
 
 
 app.listen(PORT , () => {
