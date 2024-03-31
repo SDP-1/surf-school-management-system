@@ -20,10 +20,8 @@ module.exports.setPayment = async function (req, res) {
     totalAmount: req.body.totalAmount,
     amountPaid: req.body.amountPaid,
     amountDue: req.body.amountDue,
-    slip: slip
+    slip: slip,
   });
-
-  console.log(newPayment);
 
   newPayment
     .save()

@@ -51,7 +51,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   slip: {
-    Image: String,
+    type: String,
   },
 });
 

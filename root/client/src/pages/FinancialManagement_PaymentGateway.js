@@ -12,7 +12,7 @@ export default function PaymentGateway() {
   const [slip, setSlip] = useState(null);
 
   const onInputChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     setSlip(e.target.files[0]);
   };
 
@@ -121,7 +121,7 @@ export default function PaymentGateway() {
     // Make a POST request to your backend server to save the data to MongoDB
     axios
       .post("http://localhost:4000/payment/save", data, {
-        headers: { "Content-Type": "multipart/form-data" },//meka ain karanna
+        headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
         console.log("Data saved successfully:", response.data);
@@ -166,7 +166,6 @@ export default function PaymentGateway() {
           right: 0;
           height: 56px;
           content: "";
-          background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
           display: block;
           margin: 0 auto;
           background-size: 100%;
@@ -393,7 +392,6 @@ export default function PaymentGateway() {
                 style={{
                   width: "60rem",
                   height: "200px",
-                  "margin-left": "-5rem",
                   // border: "2px dashed #ccc",
                   // padding: "1rem",
                   // display: "flex",
@@ -411,6 +409,7 @@ export default function PaymentGateway() {
                             type="file"
                             className="form-control"
                             multiple=""
+                            accept="image/*,application/pdf"
                             onChange={onInputChange}
                           />
                         </div>

@@ -10,12 +10,9 @@ const {
   getpayment,
 } = require("../controller/FinancialManagement_payment");
 
-// Save Payment
-// router.post("/payment/save", setPayment);
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./src/data");
+    cb(null, "./src/data/slips");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
@@ -25,6 +22,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Save Payment
+// router.post("/payment/save", setPayment);
 router.post("/payment/save", upload.single("slip"), setPayment);
 
 // Get all Payments
