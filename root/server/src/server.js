@@ -26,10 +26,12 @@ connection.once("open",()=> {
 });
 
 
-const studentRouter = require("./routs/students.js");
+const employeeRouter = require("./routs/employee.js");
 //htttp://localhost:5000/student
-app.use("/student",studentRouter);
+app.use("/employee",employeeRouter);
 
+const worksheetRouter=require("./routs/worksheet.js");
+app.use("/worksheet",worksheetRouter);
 
 app.listen(PORT , () => {
     console.log(`Server is running on port ${PORT}`);

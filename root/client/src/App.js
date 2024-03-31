@@ -1,7 +1,10 @@
 import './App.css';
-import AddStudent from './components/AddStudent';
-import Heder from './components/Heder';
-import AllStudent from './components/AlllStudent';
+
+import Header from './components/StaffHeader';
+import AllEmployees from './components/AllEmployees';
+import AddEmployee from './components/AddEmployee';
+import EditEmployees from './components/EditEmployees';
+import DeleteEmployees from './components/DeleteEmployees';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() { 
@@ -9,16 +12,28 @@ function App() {
     <Router>
       <div>
         
-        <Heder/>
-
+      <Header/>
+      <Routes>
+      <Route path ="/add" exact element={<AddEmployee/>}/>
+        </Routes>  
+    
         <Routes>
-          <Route path="/add" exact Component={AddStudent} />
-        </Routes>
+        <Route path ="/" exact element={<AllEmployees/>}/>
+          </Routes>  
+       
+       
+          <Routes>
+        
+        <Route path ="/update/:eid" exact element={<EditEmployees/>}/>
+          </Routes>  
 
-        <Routes>
-        <Route path="/" exact Component={AllStudent} />
-        </Routes>
+          <Routes>
+            
+            <Route path ="/delete/:eid" exact element={<DeleteEmployees/>}/>
+              </Routes>  
+    
 
+   
       </div>
     </Router>
   );
