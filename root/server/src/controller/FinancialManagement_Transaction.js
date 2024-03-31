@@ -1,5 +1,5 @@
 // Save Transaction
-const Transaction = require("../models/Transaction");
+const Transaction = require("../models/FinancialManagement_Transaction");
 
 module.exports.setTransaction = async function (req, res) {
   let newTransaction = new Transaction(req.body);

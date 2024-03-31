@@ -25,11 +25,11 @@ connection.once("open", () => {
 
 //import routes
 //htttp://localhost:4000/payment
-const postPayments = require("./routs/payment");
+const postPayments = require("./routs/FinancialManagement_payment");
 app.use(postPayments);
 
 //htttp://localhost:4000/transaction
-const postTransaction = require("./routs/Transaction");
+const postTransaction = require("./routs/FinancialManagement_Transaction");
 app.use(postTransaction);
 
 app.listen(PORT, () => {

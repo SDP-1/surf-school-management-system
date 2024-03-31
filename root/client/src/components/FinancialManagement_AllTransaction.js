@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditTransaction from "./EditTransaction";
+import EditTransaction from "./FinancialManagement_EditTransaction";
 
 function AllTransaction() {
   const [transactions, setTransactions] = useState([]);

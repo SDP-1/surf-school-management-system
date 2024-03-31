@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import AddStudent from "./AddStudent";
-import PaymentGateway from "../pages/PaymentGateway";
+import PaymentGateway from "../pages/FinancialManagement_PaymentGateway";
 
 export default function () {
   return (
@@ -24,9 +23,9 @@ export default function () {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog " >
+        <div class="modal-dialog ">
           <div class="modal-content">
-            <div class="modal-header" >
+            <div class="modal-header">
               <h1 class="modal-title fs-5" id="staticBackdropLabel">
                 Paymenet
               </h1>

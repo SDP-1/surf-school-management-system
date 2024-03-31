@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
-import NavBar from "./pages/Navbar";
-import AllTransaction from "./components/AllTransaction";
-import PaymentGateway from "./pages/PaymentGateway";
+import NavBar from "./pages/FinancialManagement_Navbar";
+import AllTransaction from "./components/FinancialManagement_AllTransaction";
+import PaymentGateway from "./pages/FinancialManagement_PaymentGateway";
+import Income from "./pages/FinancialManagement_Income";
 
 function App() {
   return (
@@ -24,10 +25,13 @@ function App() {
         <NavBar />
 
         <Routes>
-          <Route path="/" exact Component={AllTransaction} />
+          <Route path="/transaction" exact Component={AllTransaction} />
         </Routes>
         <Routes>
           <Route path="/payment" exact Component={PaymentGateway} />
+        </Routes>
+        <Routes>
+          <Route path="/income" exact Component={Income} />
         </Routes>
       </Router>
     </div>

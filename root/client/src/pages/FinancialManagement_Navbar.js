@@ -33,7 +33,11 @@ export default function NavBar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/transaction"
+                >
                   All Transaction
                 </Link>
               </li>
@@ -81,12 +85,23 @@ export default function NavBar() {
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/payment">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/payment"
+                >
                   Payment
                 </Link>
               </li>
-
-
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/income"
+                >
+                  Income
+                </Link>
+              </li>
             </ul>
             <form className="d-flex" role="search">
               <input

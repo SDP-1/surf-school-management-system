@@ -7,7 +7,7 @@ const {
   getTransactionByStatus,
   updateTransactionById,
   deleteTransactionById,
-} = require("../controller/Transaction");
+} = require("../controller/FinancialManagement_Transaction");
 
 // Save Transaction
 router.post("/transaction/save", setTransaction);
