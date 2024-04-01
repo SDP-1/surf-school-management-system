@@ -12,6 +12,7 @@ import InsertTicket from './components/insertTicketCount';
 import SearchView from './components/eventsearch';
 import FreeEvents from './components/freeEvents';
 import CurrentEvents from './components/currentEvents';
+import Reports from './components/eventReport';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() { 
@@ -60,7 +61,11 @@ function App() {
     <Routes>  
     <Route path="/currentevents" element={<CurrentEvents />} /> 
     </Routes>
-   
+     
+
+    <Routes>  
+    <Route path="/Report" element={<Reports />} /> 
+    </Routes>
 
     <Footer/>
       </div>

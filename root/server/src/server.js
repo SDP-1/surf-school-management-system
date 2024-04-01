@@ -26,9 +26,9 @@ connection.once("open",()=> {
 });
 
 
-const studentRouter = require("./routs/events.js");
+const eventRouter = require("./routs/events.js");
 
-app.use("/event",studentRouter);
+app.use("/event",eventRouter);
 
 
 app.listen(PORT , () => {
