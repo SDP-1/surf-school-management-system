@@ -27,7 +27,7 @@ connection.once("open",()=> {
 
 
 const studentRouter = require("./routs/events.js");
-//htttp://localhost:5000/student
+
 app.use("/event",studentRouter);
 
 
