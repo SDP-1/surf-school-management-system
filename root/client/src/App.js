@@ -1,11 +1,17 @@
 import './App.css';
 
-import Header from './components/header';
+import Header from './components/eventheader';
 import Addevent from './components/addevent';
 import ReadEvents from './components/readevents';
 import DeleteEvents from './components/deleteEvent';
 import UpdateEvent from './components/updateEvent';
 import ReadSingleEvents from './components/readsingleEvent';
+import Footer from './components/eventfooter';
+import TicketPurchaseForm from './components/eventpurchase';
+import InsertTicket from './components/insertTicketCount';
+import SearchView from './components/eventsearch';
+import FreeEvents from './components/freeEvents';
+import CurrentEvents from './components/currentEvents';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() { 
@@ -26,7 +32,7 @@ function App() {
     <Routes>  
     <Route path="/getsingleEvent/:Title" element={<ReadSingleEvents />} /> 
     </Routes>
-    
+
     <Routes>  
     <Route path="/deleteEvent/:Title" element={<DeleteEvents />} /> 
     </Routes>
@@ -35,7 +41,28 @@ function App() {
     <Route path="/updateEvent/:Title" element={<UpdateEvent />} /> 
     </Routes>
     
+    <Routes>  
+    <Route path="/Purchaseform/:Title" element={<TicketPurchaseForm />} /> 
+    </Routes>
     
+    <Routes>  
+    <Route path="/insertCount/:Title/:ticketCount" element={<InsertTicket/>} />
+    </Routes>
+    
+    <Routes>  
+    <Route path="/search" element={<SearchView />} /> 
+    </Routes>
+
+    <Routes>  
+    <Route path="/freeevents" element={<FreeEvents />} /> 
+    </Routes>
+    
+    <Routes>  
+    <Route path="/currentevents" element={<CurrentEvents />} /> 
+    </Routes>
+   
+
+    <Footer/>
       </div>
     </Router>
   );
