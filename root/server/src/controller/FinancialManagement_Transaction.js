@@ -4,6 +4,8 @@ const Transaction = require("../models/FinancialManagement_Transaction");
 module.exports.setTransaction = async function (req, res) {
   let newTransaction = new Transaction(req.body);
 
+  // console.log(req.body);
+
   newTransaction
     .save()
     .then((newTransaction) => {
@@ -47,11 +49,24 @@ module.exports.getTransactionById = async (req, res) => {
     });
 };
 
+// GET route to retrieve slip by Transaction ID
+module.exports.getSlipById = async (req, res) => {
+  try {
+    const transaction = await Transaction.findById(req.params.id);
+    if (!transaction || !transaction.slip) {
+      return res.status(404).json({ message: "Slip not found" });
+    }
+    res.json({ slipUrl: transaction.slip }); 
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 //  get transactions by status
 exports.getTransactionByStatus = async (req, res) => {
   let status = req.params.status;
 
-  Transaction.find({ status2: status })
+  Transaction.find({ incomeOrOutgoing: status })
     .then((transactions) => {
       res.json(transactions);
     })

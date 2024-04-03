@@ -22,6 +22,26 @@ function AllTransaction() {
     getTransactions();
   }, []);
 
+  // const [slipUrl, setSlipUrl] = useState("");
+  const handleGetSlip = (transactionId) => {
+    // console.log(transactionId);
+    axios
+      .get(`http://localhost:4000/transaction/slip/${transactionId}`) // Send request with payment ID
+      .then((res) => {
+        // Assuming the response contains the URL of the slip image
+        // setSlipUrl(res.data.slipUrl);
+        // setSlipUrl( { url: res.data.slipUrl , id : transactionId});
+        // console.log(slipUrl);
+        window.open(
+          require(`../../../server/src/data/slips/${res.data.slipUrl}`),
+          "_blank"
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const openModal = (transaction) => {
     setEditingTransaction(transaction);
     setShowModal(true);
@@ -79,7 +99,7 @@ function AllTransaction() {
                 <div className="btn-group" data-toggle="buttons">
                   <label
                     className={`btn btn-info ${
-                      filterStatus === "all" && "pending"
+                      filterStatus === "all" && "income"
                     }`}
                   >
                     <input
@@ -93,31 +113,31 @@ function AllTransaction() {
                   </label>
                   <label
                     className={`btn btn-success ${
-                      filterStatus === "pending" && "pending"
+                      filterStatus === "income" && "income"
                     }`}
                   >
                     <input
                       type="radio"
                       name="status"
-                      value="pending"
-                      checked={filterStatus === "pending"}
+                      value="income"
+                      checked={filterStatus === "income"}
                       onChange={handleFilterChange}
                     />{" "}
-                    Pending
+                    income
                   </label>
                   <label
                     className={`btn btn-warning ${
-                      filterStatus === "conform" && "pending"
+                      filterStatus === "coutgoing" && "income"
                     }`}
                   >
                     <input
                       type="radio"
                       name="status"
-                      value="conform"
-                      checked={filterStatus === "conform"}
+                      value="coutgoing"
+                      checked={filterStatus === "coutgoing"}
                       onChange={handleFilterChange}
                     />{" "}
-                    Confirm
+                    Outgoing
                   </label>
                 </div>
               </div>
@@ -127,34 +147,56 @@ function AllTransaction() {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">refid</th>
-                <th scope="col">date</th>
-                <th scope="col">details</th>
-                <th scope="col">status1</th>
-                <th scope="col">status2</th>
-                <th scope="col">acceptBy</th>
-                <th scope="col">Edit</th>
+                <th scope="col">RefId</th>
+                <th scope="col">payment Date/Time</th>
+                <th scope="col">confirmed Date/Time</th>
+                <th scope="col">Details</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Status</th>
+                <th scope="col">income/outgoing</th>
+                <th scope="col">AcceptBy</th>
+                <th scope="col">Cashtype</th>
+                <th scope="col">Is advance</th>
+                <th scope="col">Total</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Due</th>
+                <th scope="col">Show sliip</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((transaction, index) => (
                 <tr key={transaction._id} data-status={transaction.status}>
                   <td>{index + 1}</td>
-                  <td>{transaction.refid}</td>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.details}</td>
-                  <td>{transaction.status1}</td>
-                  <td>{transaction.status2}</td>
-                  <td>{transaction.acceptBy}</td>
+                  <td>{transaction.refId}</td>
                   <td>
-                    <button
-                      type="button"
-                      className="btn btn-dark"
-                      onClick={() => openModal(transaction)}
-                    >
-                      Edit
-                    </button>
+                    {transaction.date} / {transaction.time}
                   </td>
+                  <td>
+                    {transaction.confirmDate} / {transaction.confirmTime}
+                  </td>
+                  <td>{transaction.details}</td>
+                  <td>{transaction.comment}</td>
+                  <td>{transaction.status ? "haveto pay" :"payment complete"}</td>
+                  <td>{transaction.incomeOrOutgoing}</td>
+                  <td>{transaction.acceptBy}</td>
+                  <td>{transaction.cashType}</td>
+                  <td>{transaction.Advance ? "Yes" : "No"}</td>
+                  <td>{transaction.totalAmount}</td>
+                  <td>{transaction.amountPaid}</td>
+                  <td>{transaction.amountDue}</td>
+                  {transaction.cashType === "Bank Transfer" ? (
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        onClick={() => handleGetSlip(transaction._id)}
+                      >
+                        Slip
+                      </button>
+                    </td>
+                  ) : (
+                    <td></td>
+                  )}
                 </tr>
               ))}
             </tbody>

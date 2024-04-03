@@ -7,6 +7,7 @@ const {
   getTransactionByStatus,
   updateTransactionById,
   deleteTransactionById,
+  getSlipById,
 } = require("../controller/FinancialManagement_Transaction");
 
 // Save Transaction
@@ -17,6 +18,9 @@ router.get("/transaction", getTransaction);
 
 // Get Transaction by ID
 router.get("/transaction/:id", getTransactionById);
+
+// GET Slip by Transaction ID
+router.get("/transaction/slip/:id", getSlipById);
 
 // Get Transactions by Status
 router.get("/transaction/status/:status", getTransactionByStatus);

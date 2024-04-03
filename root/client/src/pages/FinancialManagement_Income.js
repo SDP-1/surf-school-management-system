@@ -1,39 +1,134 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import EditTransaction from "./FinancialManagement_EditTransaction";
+import EditPayment from "../components/FinancialManagement_EditPayment";
 
 function Income() {
-  const [transactions, setTransactions] = useState([]);
-  const [editingTransaction, setEditingTransaction] = useState(null);
+  const [payments, setPayments] = useState([]);
+  const [editPayment, setEditPayment] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
 
+  const loginUser = "Sehan Devidna";
+
   useEffect(() => {
-    function getTransactions() {
-      axios
-        .get("http://localhost:4000/income/")
-        .then((res) => {
-          setTransactions(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    getTransactions();
+    fetchPayments();
   }, []);
 
-  const openModal = (transaction) => {
-    setEditingTransaction(transaction);
+  const fetchPayments = () => {
+    axios
+      .get("http://localhost:4000/payment/")
+      .then((res) => {
+        setPayments(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleConfirm = (paymentId) => {
+    if (window.confirm("Are you sure you want to confirm this payment?")) {
+      // If user confirms, update payment status and acceptBy
+
+      axios
+        .get(`http://localhost:4000/payment/${paymentId}`)
+        .then((res) => {
+          console.log("payment feach successfully");
+
+          let data = {
+            refId : res.data.refId,
+            date : res.data.date,
+            time :  res.data.time,
+            cashType :  res.data.cashType,
+            Advance :  res.data.Advance,
+            details :  res.data.details,
+            comment : res.data.comment,
+            status :  res.data.amountDue > 0 ? true : false,
+            acceptBy : loginUser,
+            incomeOrOutgoing:"income",  //income or outgoing
+            totalAmount : res.data.totalAmount,
+            amountPaid : res.data.amountPaid,
+            amountDue : res.data.amountDue,
+            slip : res.data.slip,
+          };
+
+          console.log(data);
+
+          axios
+            .post("http://localhost:4000/transaction/save", data)
+            .then((response) => {
+              console.log("Transaction saved successfully:", response.data);
+
+              axios
+                .put(`http://localhost:4000/payment/confirm/${paymentId}`, {
+                  acceptBy: `${loginUser}`, // Replace 'username' with actual username
+                })
+                .then((res) => {
+                  console.log("Payment confirmed.");
+                  // Fetch updated payments after confirmation
+                  fetchPayments();
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            })
+            .catch((error) => {
+              console.error("Error saving Transaction:", error);
+              // Handle error (e.g., show an error message to the user)
+            });
+        })
+        .catch((err) => {
+          console.error("Error feching payment:", err);
+        });
+
+      // axios
+      //   .put(`http://localhost:4000/payment/confirm/${paymentId}`, {
+      //     acceptBy: `${loginUser}`, // Replace 'username' with actual username
+      //   })
+      //   .then((res) => {
+      //     console.log("Payment confirmed.");
+      //     // Fetch updated payments after confirmation
+      //     fetchPayments();
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    } else {
+      console.log("Payment confirmation cancelled.");
+    }
+  };
+
+  // const [slipUrl, setSlipUrl] = useState("");
+  const handleGetSlip = (paymentId) => {
+    // console.log(paymentId);
+    axios
+      .get(`http://localhost:4000/payment/slip/${paymentId}`) // Send request with payment ID
+      .then((res) => {
+        // Assuming the response contains the URL of the slip image
+        // setSlipUrl(res.data.slipUrl);
+        // setSlipUrl( { url: res.data.slipUrl , id : paymentId});
+        // console.log(slipUrl);
+        window.open(
+          require(`../../../server/src/data/slips/${res.data.slipUrl}`),
+          "_blank"
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const openModal = (payment) => {
+    setEditPayment(payment);
     setShowModal(true);
   };
 
   const closeModal = () => {
-    setEditingTransaction(null);
+    setEditPayment(null);
     setShowModal(false);
   };
 
   const handleEdit = () => {
-    // Logic to handle editing the transaction
+    // Logic to handle editing the payment
     // You can perform axios.put or any other operation here
     closeModal(); // Close the modal after editing
   };
@@ -43,18 +138,19 @@ function Income() {
 
     if (selectedStatus === "all") {
       axios
-        .get("http://localhost:4000/income/")
+        .get("http://localhost:4000/payment/")
         .then((res) => {
-          setTransactions(res.data); // Show all transactions
+          setPayments(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
+      console.log(selectedStatus);
       axios
-        .get(`http://localhost:4000/income/status/${selectedStatus}`)
+        .get(`http://localhost:4000/payment/status/${selectedStatus}`)
         .then((res) => {
-          setTransactions(res.data); // Filter transactions based on selected status
+          setPayments(res.data); // Filter payments based on selected status
         })
         .catch((err) => {
           console.log(err);
@@ -98,7 +194,7 @@ function Income() {
                   >
                     <input
                       type="radio"
-                      name="status"
+                      name="pending"
                       value="pending"
                       checked={filterStatus === "pending"}
                       onChange={handleFilterChange}
@@ -107,14 +203,14 @@ function Income() {
                   </label>
                   <label
                     className={`btn btn-warning ${
-                      filterStatus === "conform" && "pending"
+                      filterStatus === "confirm" && "pending"
                     }`}
                   >
                     <input
                       type="radio"
-                      name="status"
-                      value="conform"
-                      checked={filterStatus === "conform"}
+                      name="confirm"
+                      value="confirm"
+                      checked={filterStatus === "confirm"}
                       onChange={handleFilterChange}
                     />{" "}
                     Confirm
@@ -123,45 +219,100 @@ function Income() {
               </div>
             </div>
           </div>
+
           <table className="table table-striped table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">refid</th>
-                <th scope="col">date</th>
-                <th scope="col">details</th>
-                <th scope="col">status1</th>
-                <th scope="col">status2</th>
-                <th scope="col">acceptBy</th>
+                <th scope="col">RefId</th>
+                <th scope="col">Date/Time</th>
+                <th scope="col">Details</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Status</th>
+                <th scope="col">AcceptBy</th>
+                <th scope="col">Cashtype</th>
+                <th scope="col">Is advance</th>
+                <th scope="col">Total</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Due</th>
+                <th scope="col">Show sliip</th>
+                <th scope="col">Confirm</th>
                 <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody>
-              {transactions.map((transaction, index) => (
-                <tr key={transaction._id} data-status={transaction.status}>
+              {payments.map((payment, index) => (
+                <tr key={payment._id} data-status={payment.status}>
                   <td>{index + 1}</td>
-                  <td>{transaction.refid}</td>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.details}</td>
-                  <td>{transaction.status1}</td>
-                  <td>{transaction.status2}</td>
-                  <td>{transaction.acceptBy}</td>
+                  <td>{payment.refId}</td>
                   <td>
-                    <button
-                      type="button"
-                      className="btn btn-dark"
-                      onClick={() => openModal(transaction)}
-                    >
-                      Edit
-                    </button>
+                    {payment.date} / {payment.time}
                   </td>
+                  <td>{payment.details}</td>
+                  <td>{payment.comment}</td>
+                  <td>{payment.status}</td>
+                  <td>{payment.acceptBy}</td>
+                  <td>{payment.cashType}</td>
+                  <td>{payment.Advance ? "Yes" : "No"}</td>
+                  <td>{payment.totalAmount}</td>
+                  <td>{payment.amountPaid}</td>
+                  <td>{payment.amountDue}</td>
+                  {payment.cashType === "Bank Transfer" ? (
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        onClick={() => handleGetSlip(payment._id)}
+                      >
+                        Slip
+                      </button>
+
+                      {/* {slipUrl && (
+                        <img
+                          // src={require(`D:/Surf-school-management-system/root/server/src/data/slips/${slipUrl}`)}
+                          src={require(`../../../server/src/data/slips/${slipUrl}`)}
+                          height={50}
+                          width={50}
+                        />
+                      )} */}
+                    </td>
+                  ) : (
+                    <td></td>
+                  )}
+                  {payment.status === "pending" ? (
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        onClick={() => handleConfirm(payment._id)}
+                      >
+                        Confirm
+                      </button>
+                      {/* {slipUrl && <img src={slipUrl} alt="Slip" />} */}
+                    </td>
+                  ) : (
+                    <td></td>
+                  )}
+                  {payment.status === "pending" ? (
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        onClick={() => openModal(payment)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  ) : (
+                    <td></td>
+                  )}
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {/* Modal for editing transactions */}
-          {editingTransaction && (
+          {/* Modal for editing payments */}
+          {editPayment && (
             <div
               className={`modal ${showModal ? "show" : ""}`}
               tabIndex="-1"
@@ -171,7 +322,7 @@ function Income() {
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h5 className="modal-title">Edit Transaction</h5>
+                    <h5 className="modal-title">Edit Payment</h5>
                     <button
                       type="button"
                       className="close"
@@ -181,10 +332,10 @@ function Income() {
                     </button>
                   </div>
                   <div className="modal-body">
-                    {/* <EditTransaction
-                      transaction={editingTransaction}
+                    <EditPayment
+                      payment={editPayment}
                       closeModal={closeModal}
-                    /> */}
+                    />
                   </div>
                 </div>
               </div>

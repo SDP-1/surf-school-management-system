@@ -8,8 +8,49 @@ export default function PaymentGateway() {
   let amountDue = 0;
   let cashType = "Cash Payment";
   let advancePayment = false;
+  let details = "Buy surf bord";
 
   const [slip, setSlip] = useState(null);
+
+  function resetValues() {
+    const nowPayAmountElement = document.getElementById("nowPayAmount");
+    const nowPaybleAmountElement = document.getElementById("nowPaybleAmount");
+    const amountDueElement = document.getElementById("amountDue");
+
+    nowPaybleAmount = nowPayAmountElement.value;
+    if (nowPaybleAmount == "") {
+      nowPaybleAmount = 0;
+    } else {
+      nowPaybleAmount = parseFloat(nowPaybleAmount);
+    }
+
+    amountDue = payableAmount - nowPaybleAmount;
+    if (amountDue > 0) {
+      advancePayment = true;
+    } else {
+      advancePayment = false;
+    }
+
+    nowPaybleAmountElement.textContent = `Rs. ${nowPaybleAmount.toFixed(2)}`;
+    amountDueElement.textContent = `Rs. ${amountDue.toFixed(2)}`;
+
+    // Add bold font style when the value changes
+    nowPaybleAmountElement.style.fontWeight = "bold";
+    amountDueElement.style.fontWeight = "bold";
+  }
+
+  // function print() {
+  //   console.log(
+  //     payableAmount,
+  //     nowPaybleAmount,
+  //     amountDue,
+  //     referenceNo,
+  //     cashType,
+  //     advancePayment,
+  //     details,
+  //     slip
+  //   );
+  // }
 
   const onInputChange = (e) => {
     // console.log(e.target.files[0]);
@@ -58,6 +99,12 @@ export default function PaymentGateway() {
       nowPaybleAmountElement.style.fontWeight = "bold";
       amountDueElement.style.fontWeight = "bold";
     });
+
+    document
+      .getElementById("dragAndDrop-container")
+      .addEventListener("click", function (event) {
+        bankTransferSelect();
+      });
   }, []);
 
   function cashPaymentSelect() {
@@ -66,6 +113,9 @@ export default function PaymentGateway() {
     const dragandDropContainer = document.getElementById(
       "dragand-drop-container"
     );
+    const dragandDrop = document.getElementById("dragAndDrop-container");
+    dragandDrop.value = null;
+    setSlip(null);
 
     // Set cash payment selected
     cashPaymentElement.style.backgroundColor = "red";
@@ -73,9 +123,11 @@ export default function PaymentGateway() {
     dragandDropContainer.style.display = "none";
 
     cashType = "Cash Payment";
-    console.log("clicked cash payment");
+    // console.log("clicked cash payment");
     // Call your specific function here
     // Example: YourFunction();
+    resetValues();
+    // print();
   }
 
   function bankTransferSelect() {
@@ -91,23 +143,23 @@ export default function PaymentGateway() {
     dragandDropContainer.style.display = "block";
 
     cashType = "Bank Transfer";
-    console.log("clicked bank transfer");
-    // Call your specific function here
-    // Example: YourFunction();
+
+    resetValues();
+    // print();
   }
 
   const handleProceedToPayment = () => {
-    // // Get the file input element
-    // const fileInput = document.querySelector('input[type="file"]');
+    const dragandDropContainer = document.getElementById(
+      "dragand-drop-container"
+    );
+    if (dragandDropContainer.style.display !== "none") {
+      // Call your function here
+      bankTransferSelect();
+    } else {
+      cashPaymentSelect();
+    }
 
-    // // Create a FormData object
-    // const formData = new FormData();
-
-    // // Append the selected files to the FormData object
-    // for (let i = 0; i < fileInput.files.length; i++) {
-    //   formData.append("sliip", fileInput.files[i]);
-    // }
-
+    // print();
     const data = {
       refId: referenceNo,
       cashType: cashType,
@@ -115,6 +167,7 @@ export default function PaymentGateway() {
       totalAmount: payableAmount,
       amountPaid: nowPaybleAmount,
       amountDue: amountDue,
+      details: details,
       slip: slip,
     };
 
@@ -286,7 +339,7 @@ export default function PaymentGateway() {
                       type="number"
                       className="form-control"
                       id="nowPayAmount"
-                      aria-label="Dollar amount (with dot and two decimal places)"
+                      aria-label="LKR amount (with dot and two decimal places)"
                       defaultValue={payableAmount}
                     />
                   </div>
@@ -406,6 +459,7 @@ export default function PaymentGateway() {
                         <div className="form-group files">
                           <label>Drag & Drop Files Here</label>
                           <input
+                            id="dragAndDrop-container"
                             type="file"
                             className="form-control"
                             multiple=""
