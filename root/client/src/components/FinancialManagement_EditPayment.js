@@ -91,12 +91,15 @@ const EditePayment = ({ payment, closeModal, onDelete }) => {
       .delete(`http://localhost:4000/payment/delete/${editPayment._id}`)
       .then((res) => {
         console.log("Transaction deleted successfully");
+        onDelete(); // Call the onDelete function passed from the parent component
         closeModal(); // Close the modal after deleting
       })
       .catch((err) => {
         console.error("Error deleting payment:", err);
       });
   };
+  
+  
 
   return (
     <div className="container">

@@ -7,12 +7,13 @@ function Income() {
   const [editPayment, setEditPayment] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
+  const [refreshTable, setRefreshTable] = useState(false);
 
   const loginUser = "Sehan Devidna";
 
   useEffect(() => {
-    fetchPayments();
-  }, []);
+    handleFilterChange({ target: { value: filterStatus } });
+  }, [refreshTable]);
 
   const fetchPayments = () => {
     axios
@@ -35,20 +36,20 @@ function Income() {
           console.log("payment feach successfully");
 
           let data = {
-            refId : res.data.refId,
-            date : res.data.date,
-            time :  res.data.time,
-            cashType :  res.data.cashType,
-            Advance :  res.data.Advance,
-            details :  res.data.details,
-            comment : res.data.comment,
-            status :  res.data.amountDue > 0 ? true : false,
-            acceptBy : loginUser,
-            incomeOrOutgoing:"income",  //income or outgoing
-            totalAmount : res.data.totalAmount,
-            amountPaid : res.data.amountPaid,
-            amountDue : res.data.amountDue,
-            slip : res.data.slip,
+            refId: res.data.refId,
+            date: res.data.date,
+            time: res.data.time,
+            cashType: res.data.cashType,
+            Advance: res.data.Advance,
+            details: res.data.details,
+            comment: res.data.comment,
+            status: res.data.amountDue > 0 ? true : false,
+            acceptBy: loginUser,
+            incomeOrOutgoing: "income", //income or outgoing
+            totalAmount: res.data.totalAmount,
+            amountPaid: res.data.amountPaid,
+            amountDue: res.data.amountDue,
+            slip: res.data.slip,
           };
 
           console.log(data);
@@ -79,19 +80,6 @@ function Income() {
         .catch((err) => {
           console.error("Error feching payment:", err);
         });
-
-      // axios
-      //   .put(`http://localhost:4000/payment/confirm/${paymentId}`, {
-      //     acceptBy: `${loginUser}`, // Replace 'username' with actual username
-      //   })
-      //   .then((res) => {
-      //     console.log("Payment confirmed.");
-      //     // Fetch updated payments after confirmation
-      //     fetchPayments();
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     } else {
       console.log("Payment confirmation cancelled.");
     }
@@ -117,6 +105,11 @@ function Income() {
       });
   };
 
+  // Function to toggle the refresh state
+  const toggleRefreshTable = () => {
+    setRefreshTable(prevState => !prevState);
+  };
+
   const openModal = (payment) => {
     setEditPayment(payment);
     setShowModal(true);
@@ -125,12 +118,6 @@ function Income() {
   const closeModal = () => {
     setEditPayment(null);
     setShowModal(false);
-  };
-
-  const handleEdit = () => {
-    // Logic to handle editing the payment
-    // You can perform axios.put or any other operation here
-    closeModal(); // Close the modal after editing
   };
 
   const handleFilterChange = (e) => {
@@ -266,15 +253,6 @@ function Income() {
                       >
                         Slip
                       </button>
-
-                      {/* {slipUrl && (
-                        <img
-                          // src={require(`D:/Surf-school-management-system/root/server/src/data/slips/${slipUrl}`)}
-                          src={require(`../../../server/src/data/slips/${slipUrl}`)}
-                          height={50}
-                          width={50}
-                        />
-                      )} */}
                     </td>
                   ) : (
                     <td></td>
@@ -288,7 +266,7 @@ function Income() {
                       >
                         Confirm
                       </button>
-                      {/* {slipUrl && <img src={slipUrl} alt="Slip" />} */}
+ 
                     </td>
                   ) : (
                     <td></td>
@@ -319,6 +297,7 @@ function Income() {
               role="dialog"
               style={{ display: showModal ? "block" : "none" }}
             >
+
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -332,13 +311,11 @@ function Income() {
                     </button>
                   </div>
                   <div className="modal-body">
-                    <EditPayment
-                      payment={editPayment}
-                      closeModal={closeModal}
-                    />
+                     <EditPayment payment={editPayment} closeModal={closeModal} onDelete={toggleRefreshTable} />
                   </div>
                 </div>
               </div>
+
             </div>
           )}
         </div>
