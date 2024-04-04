@@ -46,6 +46,51 @@ function Header() {
               <a className="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
           </ul>
+          
+            <div className="dropdown" style={{ marginRight: '20px' }}>  
+            <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              Filter
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton"  >
+              <li className="p-3">
+                <form onSubmit={handleSearch}>
+                  <div className="mb-3">
+                    <label htmlFor="locationInput" className="form-label">Location</label>
+                    <input 
+                      id="locationInput"
+                      className="form-control" 
+                      type="text" 
+                      placeholder="Enter Location" 
+                      
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="timeInput" className="form-label">Time</label>
+                    <input 
+                      id="timeInput"
+                      className="form-control" 
+                      type="text" 
+                      placeholder="Enter Time" 
+                    
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="dateInput" className="form-label">Date</label>
+                    <input 
+                      id="dateInput"
+                      className="form-control" 
+                      type="text" 
+                      placeholder="Enter Date" 
+                    
+                    />
+                  </div>
+                  <button className="btn btn-primary" type="submit">Search</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+
+          
           <form className="d-flex" onSubmit={handleSearch} role="search" aria-label="Site search">
             <input 
               className="form-control me-2" 
