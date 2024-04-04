@@ -1,5 +1,9 @@
 import './App.css';
 
+import AddStudent from './components/AddStudent';
+import Heder from './components/Heder';
+import AllStudent from './components/AlllStudent';
+
 import Header from './components/eventheader';
 import Addevent from './components/addevent';
 import ReadEvents from './components/readevents';
