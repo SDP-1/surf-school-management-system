@@ -1,7 +1,58 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
+// import income from "./FinancialManagement_Income";
 
 export default function NavBar() {
+  // const [payments, setPayments] = useState([]);
+  // const [searchQuery, setSearchQuery] = useState("");
+
+  // useEffect(() => {
+  //   fetchPayments();
+  // }, []);
+
+  // const handleSearch = (e) => {
+  //   if (e) {
+  //     e.preventDefault();
+  //   }
+
+  //   if (!searchQuery) {
+  //     fetchPayments();
+  //     return;
+  //   }
+
+  //   console.log(payments);
+
+  //   const filteredPayments = payments.filter((payment) =>
+  //     Object.values(payment).some((field) => {
+  //       if (field != null) {
+  //         // Check if field is not null or undefined
+  //         const fieldValueAsString = field.toString();
+  //         return fieldValueAsString
+  //           .toLowerCase()
+  //           .includes(searchQuery.toLowerCase());
+  //       }
+  //       return false; // Skip this field if it's null or undefined
+  //     })
+  //   );
+
+  //   setPayments(filteredPayments); // Update payments with filtered payments
+  //   console.log(filteredPayments);
+  //   // }
+  // };
+
+  // const fetchPayments = () => {
+  //   axios
+  //     .get("http://localhost:4000/payment/")
+  //     .then((res) => {
+  //       setPayments(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -72,11 +123,6 @@ export default function NavBar() {
                   </li>
                 </ul>
               </li>
-              {/* <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">
-                  Allert
-                </a>
-              </li> */}
 
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="#">
@@ -105,6 +151,24 @@ export default function NavBar() {
             </ul>
             <form className="d-flex" role="search">
               <input
+                // onChange={(e) => setSearchQuery(e.target.value)}
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button
+                className="btn btn-outline-success"
+                type="submit"
+                // onClick={handleSearch}
+              >
+                Search
+              </button>
+            </form>
+            {/* <form className="d-flex" onSubmit={handleSearch}>
+              <input
+                // onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
@@ -113,7 +177,7 @@ export default function NavBar() {
               <button className="btn btn-outline-success" type="submit">
                 Search
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
       </nav>
