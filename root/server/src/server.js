@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 8070;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "20MB" }));
 
 const URL = process.env.MONGODB_URL;
 
@@ -23,12 +23,12 @@ connection.once("open", () => {
   console.log("MongoDB database connected successfully!");
 });
 
-//import routes
-//htttp://localhost:4000/payment
+const eventRouter = require("./routs/events.js");
+app.use("/event", eventRouter);
+
 const postPayments = require("./routs/FinancialManagement_payment");
 app.use(postPayments);
 
-//htttp://localhost:4000/transaction
 const postTransaction = require("./routs/FinancialManagement_Transaction");
 app.use(postTransaction);
 
