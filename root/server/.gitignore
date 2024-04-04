@@ -19,6 +19,10 @@
 .env.production.local
 .env
 
+*.png
+*.pdf
+*.jpg
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
