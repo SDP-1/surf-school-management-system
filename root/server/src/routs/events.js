@@ -1,43 +1,94 @@
-const router=require("express").Router();
-const mongoose=require("mongoose");
-const schema=mongoose.schema;
-let event=require("../models/event");
-//crud create 
- router.route("/add").post((req,res)=>{         //if add url called this body will execute
+const { IgApiClient, IgResponseError } = require('instagram-private-api');
+const router = require("express").Router();
+const event = require("../models/event");
 
-     const Title=req.body.Title;
-     const Location=req.body.Location;           //request ekk widiyta request body eken ena ewa gnnwa
-     const  Capacity=Number(req.body.Capacity);
-     const Description=req.body.Description;
-     const Image=req.body.Image;
-     const Type=req.body.Type;
-     const Date=req.body.Date;
-     const Start=req.body.Start;
-     const End=req.body.End;
-     let TicketCount=0;
-     
+// Function to post to Instagram
+const postToInsta = async (imageData, title) => {
+    try {
+        console.log("Posting image to Instagram...");
 
-     
-     const newevent=new event({
-        Title,
-        Location,
-        Capacity,
-        Description,
-        Image,
-        Type,
-        Date,
-        Start,
-        End,
-        TicketCount
+        const ig = new IgApiClient();
+        ig.state.generateDevice(process.env.IG_USERNAME);
+        await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
+
+        // Decode base64 image back to binary
+        const imageBuffer = Buffer.from(imageData, 'base64');
+
+        await ig.publish.photo({
+            file: imageBuffer,
+            caption: `${title}`,
+        });
+
+        console.log("Image posted to Instagram successfully");
+    } catch (error) {
+        console.error("Error posting image to Instagram:", error);
+
+        if (error instanceof IgResponseError) {
+            console.error("Instagram API error:");
+            // Handle specific Instagram API errors
+            // For example, handle rate limit errors, invalid credentials, etc.
+        } else {
+            // Handle other errors
+            console.error("Unknown error:", error);
+        }
+
+        throw error; // Rethrow the error for further handling
+    }
+}
+
+// Route to add an event
+router.route("/add").post(async (req, res) => {
+    try {
+        console.log("Received request to add event:", req.body);
+
+        // Extract request body data
+        const { Title, Location, Capacity, Description, Image, Type, Date, Start, End } = req.body;
+
+        // Create a new event object
+        const newEvent = new event({
+            Title,
+            Location,
+            Capacity: Number(Capacity),
+            Description,
+            Image,
+            Type,
+            Date,
+            Start,
+            End,
+            TicketCount: 0
+        });
+
+        // Save the event to the database
+        await newEvent.save();
+        console.log("Event saved to the database");
         
+        // Upload image to Instagram
+        await uploadImageToInstagram(Image, Title);
 
-     })
-     newevent.save().then(()=>{                  //sending object to database with values
-                res.json("Event added");       //sending a response in json format to frontend
-     }).catch((err)=>{
-        console.log(err);
-     })
- })
+        // Send response
+        res.json("Event added successfully");
+    } catch (error) {
+        console.error("Error adding event:", error);
+        res.status(500).json("Error adding event");
+    }
+});
+
+// Function to upload image to Instagram after event creation
+const uploadImageToInstagram = async (imageData, title) => {
+    try {
+        // Remove data URL prefix if present
+        const base64String = imageData.split(',')[1];
+        // Decode base64 image string
+        const imageBuffer = Buffer.from(base64String, 'base64');
+
+        // Call postToInsta function to upload the image to Instagram
+        await postToInsta(imageBuffer, title);
+    } catch (error) {
+        console.error("Error uploading image to Instagram:", error);
+        // Handle error if needed
+    }
+}
+
 
  //crud read
  router.route("/").get((req,res)=>{
