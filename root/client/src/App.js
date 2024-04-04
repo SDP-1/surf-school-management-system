@@ -1,7 +1,4 @@
 import './App.css';
-
-
-
 import Header from './components/eventheader';
 import Addevent from './components/addevent';
 import ReadEvents from './components/readevents';
