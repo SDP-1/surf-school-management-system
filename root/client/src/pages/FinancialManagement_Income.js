@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditPayment from "../components/FinancialManagement_EditPayment";
+import { Link } from "react-router-dom";
 
 function Income() {
   const [payments, setPayments] = useState([]);
@@ -386,6 +387,23 @@ function Income() {
           )}
         </div>
       </div>
+
+      <>
+        <Link
+          to={`/income/exportCSV/${filterStatus}`}
+          style={{
+            textDecoration: "none",
+            color: "white",
+            backgroundColor: "blue",
+            padding: "10px",
+            borderRadius: "5px",
+            marginTop: "20px",
+            display: "inline-block",
+          }}
+        >
+          Export CSV
+        </Link>
+      </>
     </div>
   );
 }
