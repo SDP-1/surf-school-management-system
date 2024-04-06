@@ -176,7 +176,9 @@ function AllTransaction() {
                   </td>
                   <td>{transaction.details}</td>
                   <td>{transaction.comment}</td>
-                  <td>{transaction.status ? "haveto pay" :"payment complete"}</td>
+                  <td>
+                    {transaction.status ? "incomplete" : "payment complete"}
+                  </td>
                   <td>{transaction.incomeOrOutgoing}</td>
                   <td>{transaction.acceptBy}</td>
                   <td>{transaction.cashType}</td>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditPayment from "../components/FinancialManagement_EditPayment";
+import { Link } from "react-router-dom";
 
 function Income() {
   const [payments, setPayments] = useState([]);
@@ -8,12 +9,55 @@ function Income() {
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
   const [refreshTable, setRefreshTable] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const loginUser = "Sehan Devidna";
 
   useEffect(() => {
     handleFilterChange({ target: { value: filterStatus } });
   }, [refreshTable]);
+
+  useEffect(() => {
+    handleSearch();
+
+    const inputElement = document.getElementById("search-bar");
+    const handleChange = (event) => {
+      let value = event.target.value;
+
+      if (value == "") {
+        // handleSearch();
+        let e = { target: { value: filterStatus } };
+        handleFilterChange(e);
+      }
+    };
+
+    inputElement.addEventListener("input", handleChange);
+  }, []); // Update search results when search query or payments change
+
+  const handleSearch = () => {
+    console.log("hadel search Call");
+
+    if (!searchQuery) {
+      // If search query is empty, reset to original payments
+      fetchPayments();
+      return;
+    }
+
+    const filteredPayments = payments.filter((payment) =>
+      Object.values(payment).some((field) => {
+        if (field != null) {
+          // Check if field is not null or undefined
+          const fieldValueAsString = field.toString();
+          return fieldValueAsString
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase());
+        }
+        return false; // Skip this field if it's null or undefined
+      })
+    );
+
+    setPayments(filteredPayments);
+  };
 
   const fetchPayments = () => {
     axios
@@ -107,7 +151,7 @@ function Income() {
 
   // Function to toggle the refresh state
   const toggleRefreshTable = () => {
-    setRefreshTable(prevState => !prevState);
+    setRefreshTable((prevState) => !prevState);
   };
 
   const openModal = (payment) => {
@@ -202,6 +246,28 @@ function Income() {
                     />{" "}
                     Confirm
                   </label>
+                  <div
+                    className="d-flex"
+                    role="search"
+                    style={{ marginLeft: "80px" }}
+                  >
+                    <input
+                      className="form-control me-2"
+                      id="search-bar"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      value={searchQuery}
+                      name="search"
+                    />
+                    <button
+                      className="btn btn-outline-success"
+                      onClick={handleSearch}
+                    >
+                      Search
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -266,7 +332,6 @@ function Income() {
                       >
                         Confirm
                       </button>
- 
                     </td>
                   ) : (
                     <td></td>
@@ -297,7 +362,6 @@ function Income() {
               role="dialog"
               style={{ display: showModal ? "block" : "none" }}
             >
-
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -311,15 +375,35 @@ function Income() {
                     </button>
                   </div>
                   <div className="modal-body">
-                     <EditPayment payment={editPayment} closeModal={closeModal} onDelete={toggleRefreshTable} />
+                    <EditPayment
+                      payment={editPayment}
+                      closeModal={closeModal}
+                      onDelete={toggleRefreshTable}
+                    />
                   </div>
                 </div>
               </div>
-
             </div>
           )}
         </div>
       </div>
+
+      <>
+        <Link
+          to={`/FinancialManagement/income/exportCSV/${filterStatus}`}
+          style={{
+            textDecoration: "none",
+            color: "white",
+            backgroundColor: "blue",
+            padding: "10px",
+            borderRadius: "5px",
+            marginTop: "20px",
+            display: "inline-block",
+          }}
+        >
+          Export CSV
+        </Link>
+      </>
     </div>
   );
 }

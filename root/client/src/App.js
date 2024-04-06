@@ -19,13 +19,14 @@ import NavBar from "./pages/FinancialManagement_Navbar";
 import AllTransaction from "./components/FinancialManagement_AllTransaction";
 import PaymentGateway from "./pages/FinancialManagement_PaymentGateway";
 import Income from "./pages/FinancialManagement_Income";
+import RepostGeanarateCSV from "./components/FinancialManagement_IncomeReportGenaratorCSVFile";
+import Sidebar from "./components/SideBar";
 
 function App() {
   return (
-    <div>
+    <Sidebar>
       <Router>
-        <NavBar />
-        <Header />
+        {/* <Header /> */}
 
         <Routes>
           <Route path="/" element={<ReadEvents />} />
@@ -73,20 +74,48 @@ function App() {
         <Routes>
           <Route path="/Report" element={<Reports />} />
         </Routes>
+        <Routes>
+          <Route path="/FinancialManagement/*" exact Component={NavBar} />
+        </Routes>
+        <Routes>
+          <Route
+            path="/FinancialManagement/transaction"
+            exact
+            Component={AllTransaction}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/FinancialManagement/payment"
+            exact
+            Component={PaymentGateway}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/FinancialManagement/income/exportCSV/all"
+            exact
+            element={<RepostGeanarateCSV data="all" />}
+          />
+          <Route
+            path="/FinancialManagement/income/exportCSV/pending"
+            exact
+            element={<RepostGeanarateCSV data="pending" />}
+          />
+          <Route
+            path="/FinancialManagement/income/exportCSV/confirm"
+            exact
+            element={<RepostGeanarateCSV data="confirm" />}
+          />
+        </Routes>
 
         <Routes>
-          <Route path="/transaction" exact Component={AllTransaction} />
-        </Routes>
-        <Routes>
-          <Route path="/payment" exact Component={PaymentGateway} />
-        </Routes>
-        <Routes>
-          <Route path="/income" exact Component={Income} />
+          <Route path="/FinancialManagement/income" exact Component={Income} />
         </Routes>
 
-        <Footer />
+        {/* <Footer /> */}
       </Router>
-    </div>
+    </Sidebar>
   );
 }
 
