@@ -78,7 +78,7 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/dashbord"
+                  to="/FinancialManagement/dashbord"
                 >
                   Dashbord
                 </Link>
@@ -87,7 +87,7 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/transaction"
+                  to="/FinancialManagement/transaction"
                 >
                   All Transaction
                 </Link>
@@ -134,7 +134,7 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/payment"
+                  to="/FinancialManagement/payment"
                 >
                   Payment
                 </Link>
@@ -143,7 +143,7 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/income"
+                  to="/FinancialManagement/income"
                 >
                   Income
                 </Link>

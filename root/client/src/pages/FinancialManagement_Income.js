@@ -390,7 +390,7 @@ function Income() {
 
       <>
         <Link
-          to={`/income/exportCSV/${filterStatus}`}
+          to={`/FinancialManagement/income/exportCSV/${filterStatus}`}
           style={{
             textDecoration: "none",
             color: "white",

@@ -4,6 +4,7 @@ go to the client folder and type "npm start" now click the link
 
 npm install react-csv
 npm install react-router-dom
+npm install boxicons
 npm install @react-pdf/renderer
 
 ## how to run BACKEND using nodemon
