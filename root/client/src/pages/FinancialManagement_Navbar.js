@@ -148,6 +148,15 @@ export default function NavBar() {
                   Income
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/FinancialManagement/outgoing"
+                >
+                  outgoing
+                </Link>
+              </li>
             </ul>
             <form className="d-flex" role="search">
               <input

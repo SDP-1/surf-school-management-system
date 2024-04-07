@@ -249,7 +249,7 @@ function Income() {
                   <div
                     className="d-flex"
                     role="search"
-                    style={{ marginLeft: "80px" }}
+                    style={{ marginLeft: "40px" }}
                   >
                     <input
                       className="form-control me-2"
