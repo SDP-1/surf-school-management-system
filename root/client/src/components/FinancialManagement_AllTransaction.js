@@ -127,14 +127,14 @@ function AllTransaction() {
                   </label>
                   <label
                     className={`btn btn-warning ${
-                      filterStatus === "coutgoing" && "income"
+                      filterStatus === "outgoing" && "income"
                     }`}
                   >
                     <input
                       type="radio"
                       name="status"
-                      value="coutgoing"
-                      checked={filterStatus === "coutgoing"}
+                      value="outgoing"
+                      checked={filterStatus === "outgoing"}
                       onChange={handleFilterChange}
                     />{" "}
                     Outgoing

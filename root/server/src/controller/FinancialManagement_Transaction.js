@@ -4,7 +4,7 @@ const Transaction = require("../models/FinancialManagement_Transaction");
 module.exports.setTransaction = async function (req, res) {
   let newTransaction = new Transaction(req.body);
 
-  // console.log(req.body);
+  console.log(req.body);
 
   newTransaction
     .save()
