@@ -29,6 +29,9 @@ app.use("/event", eventRouter);
 const postPayments = require("./routs/FinancialManagement_payment");
 app.use(postPayments);
 
+const postOutgoing = require("./routs/FinancialManagement_outgoing.js");
+app.use(postOutgoing);
+
 const postTransaction = require("./routs/FinancialManagement_Transaction");
 app.use(postTransaction);
 

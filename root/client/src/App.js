@@ -19,7 +19,9 @@ import NavBar from "./pages/FinancialManagement_Navbar";
 import AllTransaction from "./components/FinancialManagement_AllTransaction";
 import PaymentGateway from "./pages/FinancialManagement_PaymentGateway";
 import Income from "./pages/FinancialManagement_Income";
-import RepostGeanarateCSV from "./components/FinancialManagement_IncomeReportGenaratorCSVFile";
+import Outgoing from "./pages/FinancialManagement_Outgoing";
+import IncomeRepostGeanarateCSV from "./components/FinancialManagement_IncomeReportGenaratorCSVFile";
+import OutgoingRepostGeanarateCSV from "./components/FinancialManagement_OutgoingReportGenaratorCSVFile";
 import Sidebar from "./components/SideBar";
 
 function App() {
@@ -74,6 +76,9 @@ function App() {
         <Routes>
           <Route path="/Report" element={<Reports />} />
         </Routes>
+
+        {/* Finacial Management routers */}
+
         <Routes>
           <Route path="/FinancialManagement/*" exact Component={NavBar} />
         </Routes>
@@ -95,23 +100,50 @@ function App() {
           <Route
             path="/FinancialManagement/income/exportCSV/all"
             exact
-            element={<RepostGeanarateCSV data="all" />}
+            element={<IncomeRepostGeanarateCSV data="all" />}
           />
           <Route
             path="/FinancialManagement/income/exportCSV/pending"
             exact
-            element={<RepostGeanarateCSV data="pending" />}
+            element={<IncomeRepostGeanarateCSV data="pending" />}
           />
           <Route
             path="/FinancialManagement/income/exportCSV/confirm"
             exact
-            element={<RepostGeanarateCSV data="confirm" />}
+            element={<IncomeRepostGeanarateCSV data="confirm" />}
+          />
+        </Routes>
+
+        <Routes>
+          <Route
+            path="/FinancialManagement/outcome/exportCSV/all"
+            exact
+            element={<OutgoingRepostGeanarateCSV data="all" />}
+          />
+          <Route
+            path="/FinancialManagement/outcome/exportCSV/pending"
+            exact
+            element={<OutgoingRepostGeanarateCSV data="pending" />}
+          />
+          <Route
+            path="/FinancialManagement/outcome/exportCSV/confirm"
+            exact
+            element={<OutgoingRepostGeanarateCSV data="confirm" />}
           />
         </Routes>
 
         <Routes>
           <Route path="/FinancialManagement/income" exact Component={Income} />
         </Routes>
+        <Routes>
+          <Route
+            path="/FinancialManagement/outgoing"
+            exact
+            Component={Outgoing}
+          />
+        </Routes>
+
+        {/*END of the Finacial Management routers */}
 
         {/* <Footer /> */}
       </Router>
