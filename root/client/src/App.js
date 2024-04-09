@@ -23,6 +23,7 @@ import Outgoing from "./pages/FinancialManagement_Outgoing";
 import IncomeRepostGeanarateCSV from "./components/FinancialManagement_IncomeReportGenaratorCSVFile";
 import OutgoingRepostGeanarateCSV from "./components/FinancialManagement_OutgoingReportGenaratorCSVFile";
 import Sidebar from "./components/SideBar";
+import Dashboard from "./pages/FinancialManagement_Dashbord";
 
 function App() {
   return (
@@ -78,7 +79,9 @@ function App() {
         </Routes>
 
         {/* Finacial Management routers */}
-
+        <Routes>
+          <Route path="/dashbord/*" exact Component={Dashboard} />
+        </Routes>
         <Routes>
           <Route path="/FinancialManagement/*" exact Component={NavBar} />
         </Routes>

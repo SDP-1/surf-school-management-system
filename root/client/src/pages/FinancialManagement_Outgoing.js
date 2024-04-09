@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditPayment from "../components/FinancialManagement_EditPayment";
+import EditeOutgoing from "../components/FinancialManagement_EditOutgoing";
 import { Link } from "react-router-dom";
 
 function Outgoing() {
-  const [outgoing, setOutgoing] = useState([]);
+  const [outgoings, setOutgoing] = useState([]);
   const [editOutgoing, setEditOutgoing] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
@@ -32,18 +32,18 @@ function Outgoing() {
     };
 
     inputElement.addEventListener("input", handleChange);
-  }, []); // Update search results when search query or outgoing change
+  }, []); // Update search results when search query or outgoings change
 
   const handleSearch = () => {
     // console.log("hadel search Call");
 
     if (!searchQuery) {
-      // If search query is empty, reset to original outgoing
+      // If search query is empty, reset to original outgoings
       fetchOutgoing();
       return;
     }
 
-    const filteredOutgoing = outgoing.filter((outgoing) =>
+    const filteredOutgoing = outgoings.filter((outgoing) =>
       Object.values(outgoing).some((field) => {
         if (field != null) {
           // Check if field is not null or undefined
@@ -92,7 +92,7 @@ function Outgoing() {
             incomeOrOutgoing: "outgoing", //income or outgoing
           };
 
-        //   console.log(data);
+          //   console.log(data);
 
           axios
             .post("http://localhost:4000/transaction/save", data)
@@ -105,7 +105,7 @@ function Outgoing() {
                 })
                 .then((res) => {
                   console.log("Outgoing confirmed.");
-                  // Fetch updated outgoing after confirmation
+                  // Fetch updated outgoings after confirmation
                   fetchOutgoing();
                 })
                 .catch((err) => {
@@ -131,6 +131,7 @@ function Outgoing() {
   };
 
   const openModal = (outgoing) => {
+    // console.log(outgoing);
     setEditOutgoing(outgoing);
     setShowModal(true);
   };
@@ -157,7 +158,7 @@ function Outgoing() {
       axios
         .get(`http://localhost:4000/outgoing/status/${selectedStatus}`)
         .then((res) => {
-          setOutgoing(res.data); // Filter outgoing based on selected status
+          setOutgoing(res.data); // Filter outgoings based on selected status
         })
         .catch((err) => {
           console.log(err);
@@ -265,7 +266,7 @@ function Outgoing() {
               </tr>
             </thead>
             <tbody>
-              {outgoing.map((outgoing, index) => (
+              {outgoings.map((outgoing, index) => (
                 <tr key={outgoing._id} data-status={outgoing.status}>
                   <td>{index + 1}</td>
                   <td>{outgoing.refId}</td>
@@ -308,7 +309,7 @@ function Outgoing() {
             </tbody>
           </table>
 
-          {/* Modal for editing outgoing */}
+          {/* Modal for editing outgoings */}
           {editOutgoing && (
             <div
               className={`modal ${showModal ? "show" : ""}`}
@@ -329,7 +330,7 @@ function Outgoing() {
                     </button>
                   </div>
                   <div className="modal-body">
-                    <EditPayment
+                    <EditeOutgoing
                       outgoing={editOutgoing}
                       closeModal={closeModal}
                       onDelete={toggleRefreshTable}

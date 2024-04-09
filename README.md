@@ -2,6 +2,10 @@
 
 go to the client folder and type "npm start" now click the link
 
+npm install recharts
+npm install styled-components
+
+
 npm install react-csv
 npm install react-router-dom
 npm install boxicons
