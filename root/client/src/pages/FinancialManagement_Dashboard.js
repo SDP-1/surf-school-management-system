@@ -11,8 +11,8 @@ function Dashboard() {
             <div className="grid">        
                     {/* <Navbar /> */}
                     <Analytic />
-                    <Balance />
-                    <History />    
+                    {/* <Balance /> */}
+                    {/* <History />     */}
             </div>
         </Section>
     )
@@ -20,10 +20,10 @@ function Dashboard() {
 
 export default Dashboard
 const Section = styled.section `
-margin-left: 5vw;
-margin-right: 14px;
+// margin-left: 5vw;
+// margin-right: 14px;
 padding: 2rem;
-height: 60rem;
+// height: 60rem;
 background-color: #F5F5FD;
 .grid{ 
     margin-top: 0.5rem;

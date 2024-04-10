@@ -285,14 +285,14 @@ function SideBar({ children }) {
               <span className="tooltip">Search</span>
             </li>
             <li>
-              <a href="/dashbord">
+              <a href="/dashboard">
                 <i className="bx bx-grid-alt"></i>
                 <span className="links_name">Dashboard</span>
               </a>
               <span className="tooltip">Dashboard</span>
             </li>
             <li>
-              <a href="FinancialManagement/">
+              <a href="/FinancialManagement/dashboard">
                 <i className="bx bx-user"></i>
                 <span className="links_name">Financial Management</span>
               </a>

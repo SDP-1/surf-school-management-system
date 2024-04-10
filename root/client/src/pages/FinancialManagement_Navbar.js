@@ -78,9 +78,9 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/FinancialManagement/dashbord"
+                  to="/FinancialManagement/dashboard"
                 >
-                  Dashbord
+                  Dashboard
                 </Link>
               </li>
               <li className="nav-item">
