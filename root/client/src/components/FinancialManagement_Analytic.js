@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import styled from "styled-components";
+import axios from "axios";
 import { BsCreditCard } from "react-icons/bs";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiTransfer } from "react-icons/bi";
 import { BsBank } from "react-icons/bs";
 import { GiTakeMyMoney } from "react-icons/gi";
+import MonthlyTargetMeter from "../components/FinancialManagement_MonthlyTargetMeter";
 
 function Analytic({ year, month }) {
   const [income, setIncome] = useState(0);
@@ -13,6 +14,7 @@ function Analytic({ year, month }) {
   const [pendingIncome, setPendingIncome] = useState(0);
   const [unconfirmedIncome, setUnconfirmedIncome] = useState(0);
   const [unconfirmedOutgoing, setUnconfirmedOutgoing] = useState(0);
+  const [monthlyTargetIncome, setMonthlyTargetIncome] = useState(5000);
 
   useEffect(() => {
     fetchData();
@@ -20,9 +22,15 @@ function Analytic({ year, month }) {
 
   const fetchData = async () => {
     try {
-      const transactionsResponse = await axios.get("http://localhost:4000/transaction/");
-      const unconfirmedIncomesResponse = await axios.get("http://localhost:4000/payment/status/pending");
-      const unconfirmedOutgoingsResponse = await axios.get("http://localhost:4000/outgoing/status/pending");
+      const transactionsResponse = await axios.get(
+        "http://localhost:4000/transaction/"
+      );
+      const unconfirmedIncomesResponse = await axios.get(
+        "http://localhost:4000/payment/status/pending"
+      );
+      const unconfirmedOutgoingsResponse = await axios.get(
+        "http://localhost:4000/outgoing/status/pending"
+      );
 
       const transactions = transactionsResponse.data;
       const unconfirmedIncomes = unconfirmedIncomesResponse.data;
@@ -34,7 +42,11 @@ function Analytic({ year, month }) {
     }
   };
 
-  const calculateData = (transactions, unconfirmedIncomes, unconfirmedOutgoings) => {
+  const calculateData = (
+    transactions,
+    unconfirmedIncomes,
+    unconfirmedOutgoings
+  ) => {
     let incomeSum = 0;
     let outgoingSum = 0;
     let pendingIncomeSum = 0;
@@ -43,7 +55,10 @@ function Analytic({ year, month }) {
 
     transactions.forEach((transaction) => {
       const transactionDate = new Date(transaction.date);
-      if (transactionDate.getFullYear() === year && transactionDate.getMonth() === month - 1) {
+      if (
+        transactionDate.getFullYear() === year &&
+        transactionDate.getMonth() === month - 1
+      ) {
         if (transaction.incomeOrOutgoing === "income") {
           incomeSum += transaction.amountPaid;
         } else if (transaction.status === true) {
@@ -56,14 +71,22 @@ function Analytic({ year, month }) {
 
     unconfirmedIncomes.forEach((income) => {
       const incomeDate = new Date(income.date);
-      if (incomeDate.getFullYear() === year && incomeDate.getMonth() === month - 1 && income.status === "pending") {
+      if (
+        incomeDate.getFullYear() === year &&
+        incomeDate.getMonth() === month - 1 &&
+        income.status === "pending"
+      ) {
         unconfirmedIncomeSum += income.amountPaid;
       }
     });
 
     unconfirmedOutgoings.forEach((outgoing) => {
       const outgoingDate = new Date(outgoing.date);
-      if (outgoingDate.getFullYear() === year && outgoingDate.getMonth() === month - 1 && outgoing.status === "pending") {
+      if (
+        outgoingDate.getFullYear() === year &&
+        outgoingDate.getMonth() === month - 1 &&
+        outgoing.status === "pending"
+      ) {
         unconfirmedOutgoingSum += outgoing.amount;
       }
     });
@@ -76,19 +99,48 @@ function Analytic({ year, month }) {
   };
 
   return (
-    <Section>
-      <AnalyticCard icon={<BsCreditCard />} value={`Rs. ${income}`} label="Income" />
-      <AnalyticCard icon={<BiTransfer />} value={`Rs. ${outgoing}`} label="Outgoing" />
-      <AnalyticCard icon={<BsBank />} value={`Rs. ${pendingIncome}`} label="Pending Income" />
-      <AnalyticCard icon={<GiTakeMyMoney />} value={`Rs. ${unconfirmedIncome}`} label="Unconfirmed Income" />
-      <AnalyticCard icon={<GiTakeMyMoney />} value={`Rs. ${unconfirmedOutgoing}`} label="Unconfirmed Outgoing" />
-    </Section>
+    <Container>
+      <Section>
+        <AnalyticCard
+          icon={<BsCreditCard />}
+          value={`Rs. ${income}`}
+          label="Income"
+        />
+        <AnalyticCard
+          icon={<BiTransfer />}
+          value={`Rs. ${outgoing}`}
+          label="Outgoing"
+        />
+        <AnalyticCard
+          icon={<BsBank />}
+          value={`Rs. ${pendingIncome}`}
+          label="Pending Income"
+        />
+        <AnalyticCard
+          icon={<GiTakeMyMoney />}
+          value={`Rs. ${unconfirmedIncome}`}
+          label="Unconfirmed Income"
+        />
+        <AnalyticCard
+          icon={<GiTakeMyMoney />}
+          value={`Rs. ${unconfirmedOutgoing}`}
+          label="Unconfirmed Outgoing"
+        />
+      </Section>
+      {/* Wrap MonthlyTargetMeter in a styled container with top margin */}
+      <MonthlyTargetContainer>
+        <MonthlyTargetMeter incomeAchieved={income} />
+      </MonthlyTargetContainer>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  /* Add styling for the main container if needed */
+`;
+
 const Section = styled.section`
   display: flex;
-  width: 115%;
   justify-content: center;
   grid-template-columns: repeat(5, 1fr);
   justify-content: space-between;
@@ -138,6 +190,10 @@ const Section = styled.section`
       margin-top: 20px;
     }
   }
+`;
+
+const MonthlyTargetContainer = styled.div`
+  margin-top: 40px; /* Adjust the top margin as needed */
 `;
 
 function AnalyticCard({ icon, value, label }) {

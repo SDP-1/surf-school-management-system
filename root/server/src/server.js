@@ -35,6 +35,9 @@ app.use(postOutgoing);
 const postTransaction = require("./routs/FinancialManagement_Transaction");
 app.use(postTransaction);
 
+const postMonthlyTarget = require("./routs/FinancialManagement_MonthlyTargets.js");
+app.use(postMonthlyTarget);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

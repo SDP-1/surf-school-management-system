@@ -66,7 +66,8 @@ const BarChart = ({ year, month }) => {
 
   // Chart options
   const options = {
-    responsive: true,
+    responsive: true, // Make the chart responsive
+    maintainAspectRatio: false, // Allow chart to adjust its size
     plugins: {
       legend: {
         position: "top",
@@ -100,7 +101,7 @@ const BarChart = ({ year, month }) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%", minHeight: "300px" }}>
       <Bar options={options} data={data} />
     </div>
   );

@@ -67,6 +67,7 @@ const LineChart = ({ year, month }) => {
   // Chart options
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Allow chart to adjust its size
     plugins: {
       legend: {
         position: "top",
@@ -100,7 +101,7 @@ const LineChart = ({ year, month }) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%", minHeight: "300px" }}>
       <Line options={options} data={data} />
     </div>
   );
