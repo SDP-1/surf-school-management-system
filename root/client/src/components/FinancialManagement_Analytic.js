@@ -14,7 +14,6 @@ function Analytic({ year, month }) {
   const [pendingIncome, setPendingIncome] = useState(0);
   const [unconfirmedIncome, setUnconfirmedIncome] = useState(0);
   const [unconfirmedOutgoing, setUnconfirmedOutgoing] = useState(0);
-  const [monthlyTargetIncome, setMonthlyTargetIncome] = useState(5000);
 
   useEffect(() => {
     fetchData();
@@ -129,7 +128,13 @@ function Analytic({ year, month }) {
       </Section>
       {/* Wrap MonthlyTargetMeter in a styled container with top margin */}
       <MonthlyTargetContainer>
-        <MonthlyTargetMeter incomeAchieved={income} />
+        {/* <MonthlyTargetMeter incomeAchieved={income} /> */}
+        <MonthlyTargetMeter
+          name="income"
+          incomeAchieved={income}
+          year={year}
+          month={month}
+        />
       </MonthlyTargetContainer>
     </Container>
   );

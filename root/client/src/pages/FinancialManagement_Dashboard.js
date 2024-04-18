@@ -74,7 +74,7 @@ function Dashboard() {
         </StyledSelectContainer>
 
         <Analytic year={selectedYear} month={selectedMonth} />
-        
+
         {/* <MonthlyTargetMeter targetIncome={monthlyTargetIncome} /> */}
         <BarChart year={selectedYear} month={selectedMonth} />
         <LineChart year={selectedYear} month={selectedMonth} />
@@ -130,6 +130,7 @@ const StyledSelectContainer = styled.div`
 const StyledWelcomeMessage = styled.div`
   text-align: center;
   margin-bottom: 2rem;
+  margin-top: -2rem;
 
   h1 {
     margin-bottom: 1rem;
