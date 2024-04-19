@@ -8,6 +8,9 @@ npm install react-chartjs-2 chart.js
 npm install date-fns
 npm install react-datepicker
 npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+npm install mdb-react-ui-kit
+npm install react-icons
+
 
 npm install react-csv
 npm install react-router-dom

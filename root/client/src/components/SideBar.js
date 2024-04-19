@@ -286,7 +286,7 @@ function SideBar({ children }) {
               <span className="tooltip">Search</span>
             </li>
             <li>
-              <a href="/dashboard">
+              <a href="/LoginPage">
                 <i className="bx bx-grid-alt"></i>
                 <span className="links_name">Dashboard</span>
               </a>
@@ -353,7 +353,13 @@ function SideBar({ children }) {
             </li>
           </ul>
         </div>
-        <div style={{ marginLeft: isOpen ? "240px" : "70px", transition: "all 0.5s ease" }} className="bars">
+        <div
+          style={{
+            marginLeft: isOpen ? "240px" : "70px",
+            transition: "all 0.5s ease",
+          }}
+          className="bars"
+        >
           <main>{children}</main>
         </div>
       </div>
