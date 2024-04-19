@@ -23,7 +23,8 @@ function SideBar({ children }) {
     top: 0;
     height: 100%;
     width: 78px;
-    background: #11101D;
+    // background: #11101D;
+    background: #1c4c74;
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -122,7 +123,7 @@ function SideBar({ children }) {
     border: none;
     border-radius: 12px;
     transition: all 0.5s ease;
-    background: #1d1b31;
+    background: #0b3659;
   }
   .sidebar.open input{
     padding: 0 20px 0 50px;
@@ -134,11 +135,11 @@ function SideBar({ children }) {
     left: 0;
     transform: translateY(-50%);
     font-size: 22px;
-    background: #1d1b31;
+    background: #0b3659;
     color: #FFF;
   }
   .sidebar.open .bx-search:hover{
-    background: #1d1b31;
+    background: #0b3659;
     color: #FFF;
   }
   .sidebar .bx-search:hover{
@@ -153,7 +154,7 @@ function SideBar({ children }) {
     align-items: center;
     text-decoration: none;
     transition: all 0.4s ease;
-    background: #11101D;
+    background: #0b3659;
   }
   .sidebar li a:hover{
     background: #FFF;
@@ -189,7 +190,7 @@ function SideBar({ children }) {
     left: 0;
     bottom: -8px;
     padding: 10px 14px;
-    background: #1d1b31;
+    background: #0b3659;
     transition: all 0.5s ease;
     overflow: hidden;
   }
@@ -223,7 +224,7 @@ function SideBar({ children }) {
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    background: #1d1b31;
+    background: #0b3659;
     width: 100%;
     height: 60px;
     line-height: 60px;
@@ -285,16 +286,16 @@ function SideBar({ children }) {
               <span className="tooltip">Search</span>
             </li>
             <li>
-              <a href="/dashbord">
+              <a href="/dashboard">
                 <i className="bx bx-grid-alt"></i>
                 <span className="links_name">Dashboard</span>
               </a>
               <span className="tooltip">Dashboard</span>
             </li>
             <li>
-              <a href="FinancialManagement/">
-                <i className="bx bx-user"></i>
-                <span className="links_name">Financial Management</span>
+              <a href="/FinancialManagement/dashboard">
+                <i className="bx bx-money"></i>
+                <span className="links_name">Financial</span>
               </a>
               <span className="tooltip">Financial Management</span>
             </li>
@@ -352,7 +353,7 @@ function SideBar({ children }) {
             </li>
           </ul>
         </div>
-        <div style={{ marginLeft: isOpen ? "240px" : "70px" }} className="bars">
+        <div style={{ marginLeft: isOpen ? "240px" : "70px", transition: "all 0.5s ease" }} className="bars">
           <main>{children}</main>
         </div>
       </div>

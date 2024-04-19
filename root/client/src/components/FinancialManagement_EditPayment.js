@@ -85,20 +85,38 @@ const EditePayment = ({ payment, closeModal, onDelete }) => {
       });
   };
 
-  const handleDelete = () => {
-    // Logic to delete the payment
-    axios
-      .delete(`http://localhost:4000/payment/delete/${editPayment._id}`)
-      .then((res) => {
-        console.log("Transaction deleted successfully");
-        onDelete(); // Call the onDelete function passed from the parent component
-        closeModal(); // Close the modal after deleting
-      })
-      .catch((err) => {
-        console.error("Error deleting payment:", err);
-      });
-  };
+  // const handleDelete = () => {
+  //   // Logic to delete the payment
+  //   axios
+  //     .delete(`http://localhost:4000/payment/delete/${editPayment._id}`)
+  //     .then((res) => {
+  //       console.log("Transaction deleted successfully");
+  //       onDelete(); // Call the onDelete function passed from the parent component
+  //       closeModal(); // Close the modal after deleting
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error deleting payment:", err);
+  //     });
+  // };
   
+  const handleDelete = () => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this payment?");
+
+    if (isConfirmed) {
+      axios
+        .delete(`http://localhost:4000/payment/delete/${editPayment._id}`)
+        .then((res) => {
+          console.log("Transaction deleted successfully");
+          onDelete(); // Call the onDelete function passed from the parent component
+          closeModal(); // Close the modal after deleting
+          // alert("Payment deleted successfully"); // Show success message alert
+        })
+        .catch((err) => {
+          console.error("Error deleting payment:", err);
+          alert("Error deleting payment. Please try again later."); // Show error message alert
+        });
+    }
+  };
   
 
   return (
