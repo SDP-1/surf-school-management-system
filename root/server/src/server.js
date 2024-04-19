@@ -26,9 +26,11 @@ connection.once("open",()=> {
 });
 
 
-const studentRouter = require("./routs/students.js");
-//htttp://localhost:5000/student
-app.use("/student",studentRouter);
+
+const equipmentRouter=require("./routs/equipment/equipmentRt.js");
+  app.use("/equipment",equipmentRouter);
+  const damageEquipmentRouter=require("./routes/equipment/damageEquipmentRt.js");
+  app.use("/damageEquipment",damageEquipmentRouter);
 
 
 app.listen(PORT , () => {
