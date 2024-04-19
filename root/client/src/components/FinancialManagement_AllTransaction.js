@@ -7,26 +7,70 @@ function AllTransaction() {
   const [editingTransaction, setEditingTransaction] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    function getTransactions() {
-      axios
-        .get("http://localhost:4000/transaction/")
-        .then((res) => {
-          setTransactions(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
     getTransactions();
   }, []);
+
+  useEffect(() => {
+    handleSearch();
+
+    const inputElement = document.getElementById("search-bar");
+    const handleChange = (event) => {
+      let value = event.target.value;
+
+      if (value == "") {
+        // handleSearch();
+        let e = { target: { value: filterStatus } };
+        handleFilterChange(e);
+      }
+    };
+
+    inputElement.addEventListener("input", handleChange);
+  }, []); // Update search results when search query or trasaction change
+
+  const handleSearch = () => {
+    // console.log("hadel search Call");
+
+    if (!searchQuery) {
+      // If search query is empty, reset to original transactions
+      getTransactions();
+      return;
+    }
+
+    const filteredPayments = transactions.filter((transaction) =>
+      Object.values(transaction).some((field) => {
+        if (field != null) {
+          // Check if field is not null or undefined
+          const fieldValueAsString = field.toString();
+          return fieldValueAsString
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase());
+        }
+        return false; // Skip this field if it's null or undefined
+      })
+    );
+
+    setTransactions(filteredPayments);
+  };
+
+  function getTransactions() {
+    axios
+      .get("http://localhost:4000/transaction/")
+      .then((res) => {
+        setTransactions(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   // const [slipUrl, setSlipUrl] = useState("");
   const handleGetSlip = (transactionId) => {
     // console.log(transactionId);
     axios
-      .get(`http://localhost:4000/transaction/slip/${transactionId}`) // Send request with payment ID
+      .get(`http://localhost:4000/transaction/slip/${transactionId}`) // Send request with transaction ID
       .then((res) => {
         // Assuming the response contains the URL of the slip image
         // setSlipUrl(res.data.slipUrl);
@@ -127,19 +171,42 @@ function AllTransaction() {
                   </label>
                   <label
                     className={`btn btn-warning ${
-                      filterStatus === "coutgoing" && "income"
+                      filterStatus === "outgoing" && "income"
                     }`}
                   >
                     <input
                       type="radio"
                       name="status"
-                      value="coutgoing"
-                      checked={filterStatus === "coutgoing"}
+                      value="outgoing"
+                      checked={filterStatus === "outgoing"}
                       onChange={handleFilterChange}
                     />{" "}
                     Outgoing
                   </label>
+                  <div
+                    className="d-flex"
+                    role="search"
+                    style={{ marginLeft: "35px" }}
+                  >
+                    <input
+                      className="form-control me-2"
+                      id="search-bar"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      value={searchQuery}
+                      name="search"
+                    />
+                    <button
+                      className="btn btn-outline-success"
+                      onClick={handleSearch}
+                    >
+                      Search
+                    </button>
+                  </div>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -176,7 +243,9 @@ function AllTransaction() {
                   </td>
                   <td>{transaction.details}</td>
                   <td>{transaction.comment}</td>
-                  <td>{transaction.status ? "haveto pay" :"payment complete"}</td>
+                  <td>
+                    {transaction.status ? "incomplete" : "payment complete"}
+                  </td>
                   <td>{transaction.incomeOrOutgoing}</td>
                   <td>{transaction.acceptBy}</td>
                   <td>{transaction.cashType}</td>

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditPayment from "../components/FinancialManagement_EditPayment";
+import EditeOutgoing from "../components/FinancialManagement_EditOutgoing";
 import { Link } from "react-router-dom";
 
-function Income() {
-  const [payments, setPayments] = useState([]);
-  const [editPayment, setEditPayment] = useState(null);
+function Outgoing() {
+  const [outgoings, setOutgoing] = useState([]);
+  const [editOutgoing, setEditOutgoing] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
   const [refreshTable, setRefreshTable] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const loginUser = "Sehan Devidna";
+  const loginUser = "Sehan Devidna"; //add loging user for this
 
   useEffect(() => {
     handleFilterChange({ target: { value: filterStatus } });
@@ -32,19 +32,19 @@ function Income() {
     };
 
     inputElement.addEventListener("input", handleChange);
-  }, []); // Update search results when search query or payments change
+  }, []); // Update search results when search query or outgoings change
 
   const handleSearch = () => {
     // console.log("hadel search Call");
 
     if (!searchQuery) {
-      // If search query is empty, reset to original payments
-      fetchPayments();
+      // If search query is empty, reset to original outgoings
+      fetchOutgoing();
       return;
     }
 
-    const filteredPayments = payments.filter((payment) =>
-      Object.values(payment).some((field) => {
+    const filteredOutgoing = outgoings.filter((outgoing) =>
+      Object.values(outgoing).some((field) => {
         if (field != null) {
           // Check if field is not null or undefined
           const fieldValueAsString = field.toString();
@@ -56,47 +56,43 @@ function Income() {
       })
     );
 
-    setPayments(filteredPayments);
+    setOutgoing(filteredOutgoing);
   };
 
-  const fetchPayments = () => {
+  const fetchOutgoing = () => {
     axios
-      .get("http://localhost:4000/payment/")
+      .get("http://localhost:4000/outgoing/")
       .then((res) => {
-        setPayments(res.data);
+        setOutgoing(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleConfirm = (paymentId) => {
-    if (window.confirm("Are you sure you want to confirm this payment?")) {
-      // If user confirms, update payment status and acceptBy
+  const handleConfirm = (outgoingId) => {
+    if (window.confirm("Are you sure you want to confirm this outgoing?")) {
+      // If user confirms, update outgoing status and acceptBy
 
       axios
-        .get(`http://localhost:4000/payment/${paymentId}`)
+        .get(`http://localhost:4000/outgoing/${outgoingId}`)
         .then((res) => {
-          console.log("payment feach successfully");
+          console.log("Outgoing fetched successfully");
 
           let data = {
             refId: res.data.refId,
             date: res.data.date,
             time: res.data.time,
-            cashType: res.data.cashType,
-            Advance: res.data.Advance,
             details: res.data.details,
             comment: res.data.comment,
-            status: res.data.amountDue > 0 ? true : false,
+            status: false,
             acceptBy: loginUser,
-            incomeOrOutgoing: "income", //income or outgoing
-            totalAmount: res.data.totalAmount,
-            amountPaid: res.data.amountPaid,
-            amountDue: res.data.amountDue,
-            slip: res.data.slip,
+            totalAmount: res.data.amount,
+            amountPaid: res.data.amount,
+            incomeOrOutgoing: "outgoing", //income or outgoing
           };
 
-          // console.log(data);
+          //   console.log(data);
 
           axios
             .post("http://localhost:4000/transaction/save", data)
@@ -104,16 +100,16 @@ function Income() {
               console.log("Transaction saved successfully:", response.data);
 
               axios
-                .put(`http://localhost:4000/payment/confirm/${paymentId}`, {
-                  acceptBy: `${loginUser}`, // Replace 'username' with actual username
+                .put(`http://localhost:4000/outgoing/confirm/${outgoingId}`, {
+                  acceptBy: loginUser,
                 })
                 .then((res) => {
-                  console.log("Payment confirmed.");
-                  // Fetch updated payments after confirmation
-                  fetchPayments();
+                  console.log("Outgoing confirmed.");
+                  // Fetch updated outgoings after confirmation
+                  fetchOutgoing();
                 })
                 .catch((err) => {
-                  console.log(err);
+                  console.log("Error confirming outgoing:", err);
                 });
             })
             .catch((error) => {
@@ -122,31 +118,11 @@ function Income() {
             });
         })
         .catch((err) => {
-          console.error("Error feching payment:", err);
+          console.error("Error fetching outgoing:", err);
         });
     } else {
-      console.log("Payment confirmation cancelled.");
+      console.log("Outgoing confirmation cancelled.");
     }
-  };
-
-  // const [slipUrl, setSlipUrl] = useState("");
-  const handleGetSlip = (paymentId) => {
-    // console.log(paymentId);
-    axios
-      .get(`http://localhost:4000/payment/slip/${paymentId}`) // Send request with payment ID
-      .then((res) => {
-        // Assuming the response contains the URL of the slip image
-        // setSlipUrl(res.data.slipUrl);
-        // setSlipUrl( { url: res.data.slipUrl , id : paymentId});
-        // console.log(slipUrl);
-        window.open(
-          require(`../../../server/src/data/slips/${res.data.slipUrl}`),
-          "_blank"
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   // Function to toggle the refresh state
@@ -154,13 +130,14 @@ function Income() {
     setRefreshTable((prevState) => !prevState);
   };
 
-  const openModal = (payment) => {
-    setEditPayment(payment);
+  const openModal = (outgoing) => {
+    // console.log(outgoing);
+    setEditOutgoing(outgoing);
     setShowModal(true);
   };
 
   const closeModal = () => {
-    setEditPayment(null);
+    setEditOutgoing(null);
     setShowModal(false);
   };
 
@@ -169,9 +146,9 @@ function Income() {
 
     if (selectedStatus === "all") {
       axios
-        .get("http://localhost:4000/payment/")
+        .get("http://localhost:4000/outgoing/")
         .then((res) => {
-          setPayments(res.data);
+          setOutgoing(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -179,9 +156,9 @@ function Income() {
     } else {
       console.log(selectedStatus);
       axios
-        .get(`http://localhost:4000/payment/status/${selectedStatus}`)
+        .get(`http://localhost:4000/outgoing/status/${selectedStatus}`)
         .then((res) => {
-          setPayments(res.data); // Filter payments based on selected status
+          setOutgoing(res.data); // Filter outgoings based on selected status
         })
         .catch((err) => {
           console.log(err);
@@ -199,7 +176,7 @@ function Income() {
             <div className="row">
               <div className="col-sm-6">
                 <h2>
-                  Manage <b>Income</b>
+                  Manage <b>Outgoing</b>
                 </h2>
               </div>
               <div className="col-sm-6">
@@ -283,52 +260,30 @@ function Income() {
                 <th scope="col">Comment</th>
                 <th scope="col">Status</th>
                 <th scope="col">AcceptBy</th>
-                <th scope="col">Cashtype</th>
-                <th scope="col">Is advance</th>
                 <th scope="col">Total</th>
-                <th scope="col">Paid</th>
-                <th scope="col">Due</th>
-                <th scope="col">Show sliip</th>
                 <th scope="col">Confirm</th>
                 <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody>
-              {payments.map((payment, index) => (
-                <tr key={payment._id} data-status={payment.status}>
+              {outgoings.map((outgoing, index) => (
+                <tr key={outgoing._id} data-status={outgoing.status}>
                   <td>{index + 1}</td>
-                  <td>{payment.refId}</td>
+                  <td>{outgoing.refId}</td>
                   <td>
-                    {payment.date} / {payment.time}
+                    {outgoing.date} / {outgoing.time}
                   </td>
-                  <td>{payment.details}</td>
-                  <td>{payment.comment}</td>
-                  <td>{payment.status}</td>
-                  <td>{payment.acceptBy}</td>
-                  <td>{payment.cashType}</td>
-                  <td>{payment.Advance ? "Yes" : "No"}</td>
-                  <td>{payment.totalAmount}</td>
-                  <td>{payment.amountPaid}</td>
-                  <td>{payment.amountDue}</td>
-                  {payment.cashType === "Bank Transfer" ? (
+                  <td>{outgoing.details}</td>
+                  <td>{outgoing.comment}</td>
+                  <td>{outgoing.status}</td>
+                  <td>{outgoing.acceptBy}</td>
+                  <td>{outgoing.amount}</td>
+                  {outgoing.status === "pending" ? (
                     <td>
                       <button
                         type="button"
                         className="btn btn-dark"
-                        onClick={() => handleGetSlip(payment._id)}
-                      >
-                        Slip
-                      </button>
-                    </td>
-                  ) : (
-                    <td></td>
-                  )}
-                  {payment.status === "pending" ? (
-                    <td>
-                      <button
-                        type="button"
-                        className="btn btn-dark"
-                        onClick={() => handleConfirm(payment._id)}
+                        onClick={() => handleConfirm(outgoing._id)}
                       >
                         Confirm
                       </button>
@@ -336,12 +291,12 @@ function Income() {
                   ) : (
                     <td></td>
                   )}
-                  {payment.status === "pending" ? (
+                  {outgoing.status === "pending" ? (
                     <td>
                       <button
                         type="button"
                         className="btn btn-dark"
-                        onClick={() => openModal(payment)}
+                        onClick={() => openModal(outgoing)}
                       >
                         Edit
                       </button>
@@ -354,8 +309,8 @@ function Income() {
             </tbody>
           </table>
 
-          {/* Modal for editing payments */}
-          {editPayment && (
+          {/* Modal for editing outgoings */}
+          {editOutgoing && (
             <div
               className={`modal ${showModal ? "show" : ""}`}
               tabIndex="-1"
@@ -365,7 +320,7 @@ function Income() {
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h5 className="modal-title">Edit Payment</h5>
+                    <h5 className="modal-title">Edit Outgoing</h5>
                     <button
                       type="button"
                       className="close"
@@ -375,8 +330,8 @@ function Income() {
                     </button>
                   </div>
                   <div className="modal-body">
-                    <EditPayment
-                      payment={editPayment}
+                    <EditeOutgoing
+                      outgoing={editOutgoing}
                       closeModal={closeModal}
                       onDelete={toggleRefreshTable}
                     />
@@ -390,7 +345,7 @@ function Income() {
 
       <>
         <Link
-          to={`/FinancialManagement/income/exportCSV/${filterStatus}`}
+          to={`/FinancialManagement/outcome/exportCSV/${filterStatus}`}
           style={{
             textDecoration: "none",
             color: "white",
@@ -408,4 +363,4 @@ function Income() {
   );
 }
 
-export default Income;
+export default Outgoing;
