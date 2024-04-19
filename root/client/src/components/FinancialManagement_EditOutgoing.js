@@ -42,17 +42,22 @@ const EditeOutgoing = ({ outgoing, closeModal, onDelete }) => {
   };
 
   const handleDelete = () => {
-    // Logic to delete the outgoing
+    const isConfirmed = window.confirm("Are you sure you want to delete this outgoing?");
+
+    if (isConfirmed) {
     axios
       .delete(`http://localhost:4000/outgoing/delete/${editOutgoing._id}`)
       .then((res) => {
         console.log("Transaction deleted successfully");
         onDelete(); // Call the onDelete function passed from the parent component
         closeModal(); // Close the modal after deleting
+        // alert("Outgoing deleted successfully");
       })
       .catch((err) => {
         console.error("Error deleting outgoing:", err);
+        alert("Error deleting outgoing. Please try again later."); // Show error message alert
       });
+    }
   };
 
   return (

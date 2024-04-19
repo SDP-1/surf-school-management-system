@@ -353,7 +353,7 @@ function SideBar({ children }) {
             </li>
           </ul>
         </div>
-        <div style={{ marginLeft: isOpen ? "240px" : "70px" }} className="bars">
+        <div style={{ marginLeft: isOpen ? "240px" : "70px", transition: "all 0.5s ease" }} className="bars">
           <main>{children}</main>
         </div>
       </div>

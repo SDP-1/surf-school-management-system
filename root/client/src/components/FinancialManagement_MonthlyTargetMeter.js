@@ -81,8 +81,8 @@ const MonthlyTargetMeter = ({ name, year, month, incomeAchieved }) => {
     <MeterContainer>
       <CircularMeterContainer>
       <LabelContainer>
-          <Label>Monthly Target: ${targetIncome}</Label>
-          <Label>Income Achieved: ${incomeAchieved}</Label>
+          <Label>Monthly Income : Rs. {targetIncome}</Label>
+          <Label>Income Achieved : Rs. {incomeAchieved}</Label>
         </LabelContainer>
         <CircularMeter viewBox="0 0 100 100">
           <Circle cx="50" cy="50" r="40" />
@@ -177,7 +177,7 @@ const ButtonContainer = styled.div`
 const Input = styled.input`
   margin-top: 10px;
   padding: 5px;
-  width: 150px;
+  width: 160px;
 `;
 
 const Button = styled.button`

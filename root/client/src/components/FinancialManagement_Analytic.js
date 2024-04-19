@@ -7,6 +7,7 @@ import { BiTransfer } from "react-icons/bi";
 import { BsBank } from "react-icons/bs";
 import { GiTakeMyMoney } from "react-icons/gi";
 import MonthlyTargetMeter from "../components/FinancialManagement_MonthlyTargetMeter";
+import PercentageMeter from "../components/FinancialManagement_IncomeVsOutgoingMeter";
 
 function Analytic({ year, month }) {
   const [income, setIncome] = useState(0);
@@ -97,6 +98,12 @@ function Analytic({ year, month }) {
     setUnconfirmedOutgoing(unconfirmedOutgoingSum);
   };
 
+  // Calculate total income + outgoing
+  const total = income + outgoing;
+
+  // Calculate percentages
+  const incomePercentage = (income / total) * 100;
+
   return (
     <Container>
       <Section>
@@ -126,16 +133,18 @@ function Analytic({ year, month }) {
           label="Unconfirmed Outgoing"
         />
       </Section>
-      {/* Wrap MonthlyTargetMeter in a styled container with top margin */}
-      <MonthlyTargetContainer>
-        {/* <MonthlyTargetMeter incomeAchieved={income} /> */}
-        <MonthlyTargetMeter
-          name="income"
-          incomeAchieved={income}
-          year={year}
-          month={month}
-        />
-      </MonthlyTargetContainer>
+      {/* Wrap MonthlyTargetMeter and PercentageMeter in a flex container */}
+      <FlexContainer>
+        <MonthlyTargetContainer>
+          <MonthlyTargetMeter
+            name="income"
+            incomeAchieved={income}
+            year={year}
+            month={month}
+          />
+        </MonthlyTargetContainer>
+        <PercentageMeter incomePercentage={incomePercentage} />
+      </FlexContainer>
     </Container>
   );
 }
@@ -197,8 +206,17 @@ const Section = styled.section`
   }
 `;
 
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  // align-items: center; /* Center items vertically */
+  align-items: flex-start;
+  margin-top: 40px; /* Adjust margin-top as needed */
+`;
+
 const MonthlyTargetContainer = styled.div`
-  margin-top: 40px; /* Adjust the top margin as needed */
+  /* Width and other styles as needed */
+  width: 40%;
 `;
 
 function AnalyticCard({ icon, value, label }) {

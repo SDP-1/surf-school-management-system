@@ -7,6 +7,7 @@ npm install styled-components
 npm install react-chartjs-2 chart.js
 npm install date-fns
 npm install react-datepicker
+npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 npm install react-csv
 npm install react-router-dom
