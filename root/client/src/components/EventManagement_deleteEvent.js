@@ -9,11 +9,11 @@ function DeleteEvents() {
     useEffect(() => {
         async function deleteEvent() {
             try {
-                const response = await axios.delete(`http://localhost:8070/event/delete/${Title}`);
+                const response = await axios.delete(`http://localhost:4000/event/delete/${Title}`);
                 setDeletedEvent(response.data);
                 alert("Deleted event");
                 // Redirect to the home page using window.location
-                window.location.href = "/"; // Redirect to the home page
+                window.location.href = "/Event/"; // Redirect to the home page
             } catch (error) {
                 console.error(error);
                 

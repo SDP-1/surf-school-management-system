@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function SearchView() {
-    const [event, setEvent] = useState(null);
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const query = searchParams.get('q');
+function ReadSingleEvents() {
+    const [event, setEvent] = useState(null); // Change 'events' to 'event'
+    const { Title } = useParams(); // Use useParams to get route parameters
 
     useEffect(() => {
         async function getEvent() {
             try {
-                const response = await axios.get(`http://localhost:8070/event/get/${encodeURIComponent(query)}`);
-                setEvent(response.data.event);
+                const response = await axios.get(`http://localhost:4000/event/get/${Title}`);
+                setEvent(response.data.event); // Change 'events' to 'event'
                 console.log("fetched")
             } catch (error) {
-                alert("No data found")
-                window.location.href = "/";
+                console.error("Error fetching event:", error);
                 // You might want to provide better user feedback here, such as displaying an error message
             }
         }
-        if (query) {
-            getEvent();
-        }
-    }, [query]);
+        getEvent();
+    }, [Title]);
 
     if (!event) {
         return <div>Loading...</div>;
@@ -38,7 +34,7 @@ function SearchView() {
                 <p>Capacity: {event.Capacity}</p>
                 <p>Description: {event.Description}</p>
                 <Link
-                to={`/deleteEvent/${encodeURIComponent(event.Title)}`}
+                to={`/Event/deleteEvent/${encodeURIComponent(event.Title)}`}
                 style={{
                   color:'red',
                   textDecoration: 'none'
@@ -49,7 +45,7 @@ function SearchView() {
                 
 
                 <Link
-                to={`/updateEvent/${encodeURIComponent(event.Title)}`}
+                to={`/Event/updateEvent/${encodeURIComponent(event.Title)}`}
                 style={{
                   color:'green',
                   textDecoration: 'none',
@@ -58,6 +54,7 @@ function SearchView() {
                 >
                 Update
                 </Link>
+                <Link to={`/Event/Purchaseform/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>purchase</Link>
 
 
             </div>
@@ -65,4 +62,4 @@ function SearchView() {
     );
 }
 
-export default SearchView;
+export default ReadSingleEvents;

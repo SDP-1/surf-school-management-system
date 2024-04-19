@@ -8,7 +8,7 @@ function Reports() {
 
     useEffect(() => {
         function getEvents() {
-            axios.get("http://localhost:8070/event/")
+            axios.get("http://localhost:4000/event/")
                 .then((res) => {
                     // Find the event with the highest TicketCount
                     const eventWithHighestCount = res.data.reduce((prev, current) => {

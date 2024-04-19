@@ -18,10 +18,10 @@ function UpdateEvent() {
             Description,
             Image,
         };
-        axios.put(`http://localhost:8070/event/update/${encodeURIComponent(Title)}`, updatedEvent)
+        axios.put(`http://localhost:4000/event/update/${encodeURIComponent(Title)}`, updatedEvent)
             .then(() => {
                 alert("Event updated");
-                window.location.href = "/";
+                window.location.href = "/Event/";
             })
             .catch((err) => {
                 alert(err);

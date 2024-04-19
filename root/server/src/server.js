@@ -7,7 +7,7 @@ require("dotenv").config();
 const app = express();
 
 
-const PORT = process.env.PORT || 8070
+const PORT = process.env.PORT || 4000
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '20MB' }));
@@ -26,7 +26,7 @@ connection.once("open",()=> {
 });
 
 
-const eventRouter = require("./routs/events.js");
+const eventRouter = require("./routs/EventManagement_events.js");
 
 app.use("/event",eventRouter);
 

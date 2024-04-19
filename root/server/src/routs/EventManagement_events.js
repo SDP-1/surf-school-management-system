@@ -1,6 +1,6 @@
 const { IgApiClient, IgResponseError } = require('instagram-private-api');
 const router = require("express").Router();
-const event = require("../models/event");
+const event = require("../models/EventManagement_event");
 
 // Function to post to Instagram
 const postToInsta = async (imageData, title) => {

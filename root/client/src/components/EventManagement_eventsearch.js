@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
-function ReadSingleEvents() {
-    const [event, setEvent] = useState(null); // Change 'events' to 'event'
-    const { Title } = useParams(); // Use useParams to get route parameters
+function SearchView() {
+    const [event, setEvent] = useState(null);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get('q');
 
     useEffect(() => {
         async function getEvent() {
             try {
-                const response = await axios.get(`http://localhost:8070/event/get/${Title}`);
-                setEvent(response.data.event); // Change 'events' to 'event'
+                const response = await axios.get(`http://localhost:4000/event/get/${encodeURIComponent(query)}`);
+                setEvent(response.data.event);
                 console.log("fetched")
             } catch (error) {
-                console.error("Error fetching event:", error);
+                alert("No data found")
+                window.location.href = "/Event/";
                 // You might want to provide better user feedback here, such as displaying an error message
             }
         }
-        getEvent();
-    }, [Title]);
+        if (query) {
+            getEvent();
+        }
+    }, [query]);
 
     if (!event) {
         return <div>Loading...</div>;
@@ -54,7 +58,6 @@ function ReadSingleEvents() {
                 >
                 Update
                 </Link>
-                <Link to={`/Purchaseform/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>purchase</Link>
 
 
             </div>
@@ -62,4 +65,4 @@ function ReadSingleEvents() {
     );
 }
 
-export default ReadSingleEvents;
+export default SearchView;
