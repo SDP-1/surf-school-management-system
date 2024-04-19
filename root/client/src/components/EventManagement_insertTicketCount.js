@@ -17,9 +17,9 @@ function InsertTicket() {
                     Title,
                     Count,
                 };
-                await axios.put(`http://localhost:8070/event/update/${encodeURIComponent(Title)}/${encodeURIComponent(Count)}`, updatedEvent);
+                await axios.put(`http://localhost:4000/event/update/${encodeURIComponent(Title)}/${encodeURIComponent(Count)}`, updatedEvent);
                 alert("Purchased");
-                window.location.href = "/";
+                window.location.href = "/Event/";
             } catch (error) {
                 alert(error.message);
             }

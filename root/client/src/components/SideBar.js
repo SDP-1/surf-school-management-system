@@ -300,11 +300,11 @@ function SideBar({ children }) {
               <span className="tooltip">Financial Management</span>
             </li>
             <li>
-              <a href="#">
+              <a href="/Event/">
                 <i className="bx bx-chat"></i>
-                <span className="links_name">Messages</span>
+                <span className="links_name">Event</span>
               </a>
-              <span className="tooltip">Messages</span>
+              <span className="tooltip">Event management</span>
             </li>
             <li>
               <a href="#">

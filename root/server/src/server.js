@@ -23,7 +23,8 @@ connection.once("open", () => {
   console.log("MongoDB database connected successfully!");
 });
 
-const eventRouter = require("./routs/events.js");
+
+const eventRouter = require("./routs/EventManagement_events.js");
 app.use("/event", eventRouter);
 
 const postPayments = require("./routs/FinancialManagement_payment");
