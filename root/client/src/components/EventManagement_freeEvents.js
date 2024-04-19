@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function CurrentEvents() {
+function FreeEvents() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
         function getEvents() {
-            axios.get("http://localhost:8070/event/")
+            axios.get("http://localhost:4000/event/")
                 .then((res) => {
                     setEvents(res.data);
                 })
@@ -18,32 +18,24 @@ function CurrentEvents() {
         getEvents();
     }, []);
 
-    // Format today's date to 'YYYY-MM-DD' format
-    const currentDate = new Date().toISOString().slice(0, 10);
+    const itemsPerRow = 4; // Number of items per row
 
-    // Filter only current events
-    const currentEvents = events.filter(event => {
-        // Check if event.Date is defined before accessing its properties
-        if (event.Date) {
-            // Extract date part from the database date
-            const eventDate = event.Date.slice(0, 10);
-            return eventDate === currentDate;
-        }
-        return false; // Return false if event.Date is undefined
-    });
+    // Filter only free events
+    const freeEvents = events.filter(event => event.Type.toLowerCase() === "free" || event.Type === "Free");
+
 
     return (
         <div>
           
           <div className="link-container">
-                <Link to="/">All Events</Link>
-                <Link to="/freeevents">Free Events</Link>
-                <Link to="/currentevents">Current Events</Link>
+                <Link to="/Event/">All Events</Link>
+                <Link to="/Event/freeevents">Free Events</Link>
+                <Link to="/Event/currentevents">Current Events</Link>
             </div>
 
             {/* Event Items */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center', paddingTop: '20px', paddingRight: '20px' }}>
-                {currentEvents.map((event, index) => (
+                {freeEvents.map((event, index) => (
                     <div key={event.id} style={{ flex: `0 0 calc(25% - 20px)`, marginBottom: '20px' }}>
                         <div className="event-item" style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '10px', backgroundColor: '#f8f8f8', maxWidth: '100%', boxSizing: 'border-box', paddingRight: '40px' }}>
                             <div className="event-details" style={{ fontSize: '14px', padding: '5px 0' }}>
@@ -61,4 +53,4 @@ function CurrentEvents() {
     );
 }
 
-export default CurrentEvents;
+export default FreeEvents;

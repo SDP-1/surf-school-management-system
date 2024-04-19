@@ -1,4 +1,4 @@
-## how to run FONTEND
+##**how to run FONTEND**
 
 go to the client folder and type "npm start" now click the link
 
@@ -12,14 +12,16 @@ npm install mdb-react-ui-kit
 npm install react-icons
 
 
+npm install react-calendar
+
 npm install react-csv
 npm install react-router-dom
 npm install boxicons
 npm install @react-pdf/renderer
 
-## how to run BACKEND using nodemon
+##**how to run BACKEND using nodemon**
 
-go to the inside cerver dir and type "npm run dev" and press enter
+go to the inside server dir and type "npm run dev" and press enter
 
 npm install --save multer
 npm install instagram-private-api
@@ -38,8 +40,6 @@ npm init
 npm install express mongoose dotenv cors nodemon
 
 for fontend ->
-
 npx create-react-app client
-
 npm install react-router-dom
 npm install axios

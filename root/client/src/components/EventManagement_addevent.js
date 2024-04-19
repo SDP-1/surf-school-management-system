@@ -28,7 +28,7 @@ function Addevent() {
       End:endString
     };
     axios
-      .post("http://localhost:8070/event/add", newevent)
+      .post("http://localhost:4000/event/add", newevent)
       .then(() => {
         alert("Event added");
       })

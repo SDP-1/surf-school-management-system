@@ -7,7 +7,7 @@ function ReadEvents() {
 
     useEffect(() => {
         function getEvents() {
-            axios.get("http://localhost:8070/event/")
+            axios.get("http://localhost:4000/event/")
                 .then((res) => {
                     setEvents(res.data);
                 })
@@ -24,9 +24,9 @@ function ReadEvents() {
         <div>
           
           <div className="link-container">
-                <Link to="/">All Events</Link>
-                <Link to="/freeevents">Free Events</Link>
-                <Link to="/currentevents">Current Events</Link>
+                <Link to="/Event/">All Events</Link>
+                <Link to="/Event/freeevents">Free Events</Link>
+                <Link to="/Event/currentevents">Current Events</Link>
             </div>
 
             {/* Event Items */}
@@ -39,7 +39,7 @@ function ReadEvents() {
                                 <p style={{ margin: 0 }}>Title: {event.Title}</p>
                                 <p style={{ margin: 0 }}>Location: {event.Location}</p>
                                 <p style={{ margin: 0 }}>Capacity: {event.Capacity}</p>
-                                <Link to={`/getsingleEvent/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>View</Link>
+                                <Link to={`/Event/getsingleEvent/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>View</Link>
                             </div>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ function TicketPurchaseForm() {
           </div>
           {/* Purchase button */}
         <Link 
-        to={`/insertCount/${encodeURIComponent(Title)}/${encodeURIComponent(ticketCount)}`} 
+        to={`/Event/insertCount/${encodeURIComponent(Title)}/${encodeURIComponent(ticketCount)}`} 
         className="purchase-button"
       >
         Purchase
