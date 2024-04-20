@@ -9,6 +9,7 @@ function AddReservation() {
   const history = useNavigate();
   const location = useLocation();
   const [inputs, setInputs] = useState({
+    refID: "",
     stdname: "",
     sessionID: "",
     date: "",
@@ -16,7 +17,6 @@ function AddReservation() {
     numOfParticipents: "",
     contactNum: "",
     email: "",
-    paymentMethod: "",
     amount: "",
   });
 
@@ -156,34 +156,6 @@ function AddReservation() {
             value={inputs.email}
             required
           />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="paymentMethod" className="form-label">
-            Payment Method
-          </label>
-          <div>
-            <input
-              type="radio"
-              id="cash"
-              name="paymentMethod"
-              value="Cash"
-              onChange={handleChange}
-              checked={inputs.paymentMethod === "Cash"}
-            />
-            <label htmlFor="cash">Cash</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="card"
-              name="paymentMethod"
-              value="Card"
-              onChange={handleChange}
-              checked={inputs.paymentMethod === "Card"}
-            />
-            <label htmlFor="card">Card</label>
-          </div>
         </div>
 
         <div className="mb-3">

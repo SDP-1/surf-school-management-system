@@ -101,6 +101,20 @@ function UpdateReservation() {
         </div>
 
         <div className="mb-3">
+          <label htmlFor="refID" className="form-label">
+            Reference ID
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            name="sessionID"
+            onChange={handleChange}
+            value={inputs.refID || ""}
+            disabled
+          />
+        </div>
+
+        <div className="mb-3">
           <label className="form-label">Date</label>
           <br />
           <DatePicker
@@ -162,33 +176,7 @@ function UpdateReservation() {
           />
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="paymentMethod" className="form-label">
-            Payment Method
-          </label>
-          <div>
-            <input
-              type="radio"
-              id="cash"
-              name="paymentMethod"
-              value="Cash"
-              onChange={handleChange}
-              checked={inputs.paymentMethod === "Cash"}
-            />
-            <label htmlFor="cash">Cash</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="card"
-              name="paymentMethod"
-              value="Card"
-              onChange={handleChange}
-              checked={inputs.paymentMethod === "Card"}
-            />
-            <label htmlFor="card">Card</label>
-          </div>
-        </div>
+
 
         <div className="mb-3">
           <label htmlFor="amount" className="form-label">
@@ -203,7 +191,7 @@ function UpdateReservation() {
             readOnly
           />
         </div>
-
+        
         <button type="submit" className="btn btn-primary">
           Submit
         </button>

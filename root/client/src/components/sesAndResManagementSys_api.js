@@ -46,4 +46,9 @@ const fetchTotalParticipants = async () => {
   }
 };
 
+
+
+
+
+
 export { fetchTotalSessions, fetchTotalReservations, fetchTotalRevenue,fetchTotalParticipants };

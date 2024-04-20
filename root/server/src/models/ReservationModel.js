@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reservationSchema = new Schema({
+    refID:{
+        type:String,    //data type
+        required:true,  //validate
+    },
     stdname:{
         type:String,    //data type
         required:true,  //validate
@@ -30,10 +34,10 @@ const reservationSchema = new Schema({
         type:String,    //data type
         required:true,  //validate
     },
-    paymentMethod:{
-        type:String,    //data type
-        required:true,  //validate
-    },
+    // paymentMethod:{
+    //     type:String,    //data type
+    //     required:true,  //validate
+    // },
     amount:{
         type:Number,    //data type
         required:true,  //validate

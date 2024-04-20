@@ -5,6 +5,7 @@ import axios from "axios";
 const Reservation = ({ reservation }) => {
   const {
     _id,
+    refID,
     stdname,
     sessionID,
     date,
@@ -12,7 +13,6 @@ const Reservation = ({ reservation }) => {
     numOfParticipents,
     contactNum,
     email,
-    paymentMethod,
     amount,
   } = reservation;
 
@@ -34,17 +34,16 @@ const Reservation = ({ reservation }) => {
   return (
     <div className="card mb-3">
       <div className="card-body">
-        <h5 className="card-title">Reservation ID: {_id}</h5>
-        <p className="card-text">Session ID: {sessionID}</p>
+        {/* <h6 className="card-title">Reservation ID: {_id}</h6> */}
+        <h5 className="card-text">Session ID: {sessionID}</h5>
+        <p className="card-text">Reference ID: {refID}</p>
         <p className="card-text">Student Name: {stdname}</p>
         <p className="card-text">Date: {date}</p>
         <p className="card-text">Time: {time}</p>
         <p className="card-text">Number of Participants: {numOfParticipents}</p>
         <p className="card-text">Contact Number: {contactNum}</p>
         <p className="card-text">E-mail: {email}</p>
-        <p className="card-text">Payment Method: {paymentMethod}</p>
         <p className="card-text">Total Amount: {amount}</p>
-        {/* <Link to={`/reservationdetails/${_id}`} className="btn btn-primary mr-2">Update</Link> */}
         <Link
           to={`/reservationdetails/${_id}`}
           className="btn btn-warning text-dark mr-2" // Applying Bootstrap classes for light yellow color
