@@ -13,7 +13,7 @@ export default function EquipmentHome() {
   useEffect(() => {
     const fetchTotalQuantityInStock = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/equipment/total');
+        const response = await axios.get('http://localhost:4000/equipment/total');
         setTotalInStockItems(response.data.totalQuantityInStock);
       } catch (error) {
         console.error("Error fetching total quantity in stock:", error);
@@ -22,7 +22,7 @@ export default function EquipmentHome() {
 
     const fetchDamageEquipmentCount = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/damageEquipment/count');
+        const response = await axios.get('http://localhost:4000/damageEquipment/count');
         setDamageEquipmentCount(response.data.count);
       } catch (error) {
         console.error("Error fetching damage equipment count:", error);
@@ -30,7 +30,7 @@ export default function EquipmentHome() {
     };
     const fetchEquipmentReservationCount = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/equipmentReservation/countR');
+        const response = await axios.get('http://localhost:4000/equipmentReservation/countR');
         setEquipmentReservationCount(response.data.count);
       } catch (error) {
         console.error("Error fetching equipment reservation count:", error);
