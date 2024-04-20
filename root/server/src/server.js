@@ -1,42 +1,50 @@
-const express  = require("express");
-const mongoose = require("mongoose");
-const bodyParser=require("body-parser");
-const cors = require("cors");
-const dotenv = require("dotenv");
-require("dotenv").config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const WebSocket = require('ws'); // Import WebSocket module
+
 const app = express();
+dotenv.config();
 
-
-const PORT = process.env.PORT || 8070
+const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
 
+const URI = process.env.MONGODB_URL;
 
-const URL = process.env.MONGODB_URL;
-
-mongoose.connect(URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+mongoose.connect(URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const connection = mongoose.connection;
-connection.once("open",()=> {
-    console.log("MongoDB database connected successfully!");
+
+connection.once('open', () => {
+  console.log('MongoDB Connection Success!!!');
+});
+
+// Import routes
+const equipmentRouter = require('./routs/equipmentRt.js');
+const damageEquipmentRouter = require('./routs/damageEquipmentRt.js');
+const technicianEmailRouter = require('./routs/technicianEmailRt.js');
+const equipmentReservationRouter = require('./routs/equipmentReservationRt.js');
+console.log('equipmentRt.js is being imported');
+// Use routes
+app.use('/equipment', equipmentRouter);
+app.use('/damageEquipment', damageEquipmentRouter);
+app.use('/technicianEmail', technicianEmailRouter);
+app.use('/equipmentReservation', equipmentReservationRouter);
+
+
+
+// Create HTTP server
+const server = app.listen(PORT, () => {
+  console.log(`Server is up and running on port number: ${PORT}`);
 });
 
 
 
-const equipmentRouter=require("./routs/equipment/equipmentRt.js");
-  app.use("/equipment",equipmentRouter);
-  const damageEquipmentRouter=require("./routes/equipment/damageEquipmentRt.js");
-  app.use("/damageEquipment",damageEquipmentRouter);
-
-
-app.listen(PORT , () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-
-
-
+module.exports = app;

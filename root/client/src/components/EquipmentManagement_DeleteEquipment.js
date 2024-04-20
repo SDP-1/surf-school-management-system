@@ -3,14 +3,14 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 export default function DeleteEquipment(){
 
-    const{itemno} = useParams();
+    const{equipmentno} = useParams();
 
     const[deletedequipment, setDeletedEquipment]= useState(null);
 
     useEffect(() => {
         async function DeleteEquipment() {
             try {
-                const dequipment = await axios.delete(`http://localhost:8070/equipment/delete/${itemno}`);
+                const dequipment = await axios.delete(`http://localhost:4000/equipment/delete/${equipmentno}`);
                 setDeletedEquipment(dequipment.data);
                 alert("Deleted equipment");
                 // Redirect to the home page using window.location
@@ -22,7 +22,7 @@ export default function DeleteEquipment(){
         }
 
         DeleteEquipment();
-    }, [itemno]);
+    }, [equipmentno]);
 
     // Since we're using window.location for redirection, no return is necessary
     return null;

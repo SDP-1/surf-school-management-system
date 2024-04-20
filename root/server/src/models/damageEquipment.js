@@ -7,16 +7,19 @@ const ObjectId = Schema.Types.ObjectId;
 //variables
 const damageEquipmentSchema=new Schema(
     {
-       
-        itemcode:{
+       damageId:{
+        type:String,
+        required:true
+       },
+        equipmentno:{
             type:String,
             required:true
         },
-        itemname:{
+        equipmentname:{
             type:String,
             required:true
         },
-        damagediscription:{
+        damagedescription:{
             type:String,
             required:true
         },
@@ -27,7 +30,14 @@ const damageEquipmentSchema=new Schema(
         },
         technicianemail:{
             type:String,
-            required:true
+            required:true,
+            validate: {
+                validator: (value) => {
+                    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(String(value).toLowerCase());
+                },
+                message: 'Please enter a valid email address.'
+            }
         },
 
         assigneddate:{
@@ -39,7 +49,7 @@ const damageEquipmentSchema=new Schema(
             required:true
         },
         repaircost:{
-            type:String,
+            type:Number,
             required:true
         }
        

@@ -8,42 +8,42 @@ const ObjectId = Schema.Types.ObjectId;
 const equipmentSchema=new Schema(
     {
        
-        itemno:{
+        equipmentno:{
             type:String,
             required:true
         },
-        itemname:{
+        equipmentname:{
             type:String,
             required:true
         },
-        itemdiscription:{
+        equipmentdescription:{
             type:String,
             required:true
         },
 
         quantityinstock:{
-            type:String,
+            type:Number,
             required:true
         },
 
         quantityrequired:{
-            type:String,
+            type:Number,
             required:true
         },
         purchasetobemade:{
-            type:String,
+            type:Number,
             required:true
         },
-        availableitems:{
-            type:String,
+        availableequipment:{
+            type:Number,
             required:true
         },
-        rentalitems:{
-            type:String,
+        rentalequipment:{
+            type:Number,
             required:true
         },
-        damageitems:{
-            type:String,
+        damageequipment:{
+            type:Number,
             required:true
         },
        
