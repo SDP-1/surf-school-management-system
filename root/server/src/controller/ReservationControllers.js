@@ -200,6 +200,38 @@ const getTotalParticipants = async (req, res, next) => {
   }
 };
 
+
+
+const getTotalMonthlyRevenue = async (req, res, next) => {
+  try {
+    const monthlyRevenue = await Reservation.aggregate([
+      {
+        $addFields: {
+          parsedDate: { $toDate: "$date" }
+        }
+      },
+      {
+        $group: {
+          _id: { $month: "$parsedDate" },
+          totalRevenue: { $sum: "$amount" }
+        }
+      },
+      {
+        $sort: { "_id": 1 }
+      }
+    ]);
+    return res.status(200).json(monthlyRevenue);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+
+
+
+exports.getTotalMonthlyRevenue = getTotalMonthlyRevenue;
 exports.getById = getById;
 exports.addReservations = addReservations;
 exports.getAllReservations = getAllReservations;
