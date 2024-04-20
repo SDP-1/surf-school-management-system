@@ -19,31 +19,31 @@ const getAllReservations = async (req, res, next) => {
 };
 
 
-//add reservation
 const addReservations = async (req, res, next) => {
-  const {
-    stdname,
-    sessionID,
-    date,
-    time,
-    numOfParticipents,
-    contactNum,
-    email,
-    amount,
-  } = req.body;
-
-  let reservationCount;
-  let newReservation;
-
   try {
-    // Get the count of existing reservations
-    reservationCount = await Reservation.countDocuments();
+    // Generate a random number between 0 and 1000
+    const randomNumber = Math.floor(Math.random() * 1000);
 
-    // Format the Reference ID with leading zeros
-    const refID = `RES${String(reservationCount + 1).padStart(4, "0")}`;
+    // Format the random number with leading zeros
+    const randomPart = String(randomNumber).padStart(4, "0");
+
+    // Construct the reference ID
+    const refID = `RES${randomPart}`;
+
+    // Extract other fields from the request body
+    const {
+      stdname,
+      sessionID,
+      date,
+      time,
+      numOfParticipents,
+      contactNum,
+      email,
+      amount,
+    } = req.body;
 
     // Create the new reservation
-    newReservation = new Reservation({
+    const newReservation = new Reservation({
       refID,
       stdname,
       sessionID,
@@ -54,19 +54,18 @@ const addReservations = async (req, res, next) => {
       email,
       amount,
     });
+
+    // Save the new reservation to the database
     await newReservation.save();
+
+    // If reservation creation is successful, return the new reservation
+    return res.status(200).json({ newReservation });
   } catch (err) {
     console.log(err);
     return res.status(500).send({ message: "Internal Server Error" });
   }
-
-  // If reservation creation is successful
-  if (newReservation) {
-    return res.status(200).json({ newReservation });
-  } else {
-    return res.status(404).send({ message: "Unable to add reservation" });
-  }
 };
+
 
 //get reservation by id
 const getById = async (req, res, next) => {
