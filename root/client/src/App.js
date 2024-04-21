@@ -15,6 +15,7 @@ import CurrentEvents from './components/EventManagement_currentEvents';
 import Reports from './components/EventManagement_eventReport';
 import Analytics from './components/EventManagement_EventAnalytics';
 import CalendarComponent from './components/EventManagement_Eventcalander';
+import EventLineChart from './components/EventManagement_Linechart';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
@@ -33,7 +34,8 @@ function App() {
 
     <Sidebar>
     <Router>
-
+    
+   
     <Routes>  
     <Route path="/Event/*" element={<Header/>} />      
     </Routes>
@@ -93,6 +95,17 @@ function App() {
     <Route path="/Event/calander" element={<CalendarComponent/>} /> 
     </Routes>
 
+    <Routes>  
+    <Route path="/Event/Line" element={<EventLineChart/>} /> 
+    </Routes>
+    
+    
+   
+
+    <Routes>  
+    <Route path="/Event/*" element={<Footer/>} />      
+    </Routes>
+    
 
 
         {/* Finacial Management routers */}

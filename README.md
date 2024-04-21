@@ -14,6 +14,8 @@ npm install react-router-dom
 npm install boxicons
 npm install @react-pdf/renderer
 
+
+
 ## how to run BACKEND using nodemon
 
 go to the inside cerver dir and type "npm run dev" and press enter

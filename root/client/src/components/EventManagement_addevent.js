@@ -164,7 +164,8 @@ function Addevent() {
             )}
         </div>
 
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary" style={{ backgroundColor: "#1e5c8f" }}>Submit</button>
+
     </form>
 </div>
 
