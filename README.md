@@ -10,7 +10,9 @@ npm install react-datepicker
 npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 npm install mdb-react-ui-kit
 npm install react-icons
-
+npm install jspdf
+npm install jspdf-autotable
+npm install react-time-picker @coreui/react react-to-print @fullcalendar/react @fullcalendar/daygrid
 
 npm install react-calendar
 

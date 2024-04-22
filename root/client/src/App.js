@@ -19,7 +19,7 @@ import CalendarComponent from './components/EventManagement_Eventcalander';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import NavBar from "./pages/FinancialManagement_Navbar";
-import LoginPage from "./components/FinancialManagement_Login";
+import LoginPage from "./components/Login";
 import AllTransaction from "./components/FinancialManagement_AllTransaction";
 import PaymentGateway from "./pages/FinancialManagement_PaymentGateway";
 import Income from "./pages/FinancialManagement_Income";

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditeOutgoing from "../components/FinancialManagement_EditOutgoing";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import { GrDocumentPdf } from "react-icons/gr";
+import "jspdf-autotable";
 
 function Outgoing() {
   const [outgoings, setOutgoing] = useState([]);
@@ -167,6 +170,92 @@ function Outgoing() {
 
     setFilterStatus(selectedStatus);
   };
+
+  const generateOutgoingReport = () => {
+    const doc = new jsPDF("p", "mm", "a4");
+  
+    const companyName = "Paradise Surf School";
+    const companyAddress = "Midigama";
+  
+    doc.setFont("bold");
+    doc.setFontSize(20);
+    doc.text("Surf School Management", doc.internal.pageSize.width / 2, 20, {
+      align: "center",
+    });
+  
+    doc.setFont("bold");
+    doc.setFontSize(15);
+    doc.text(
+      `Outgoing Report (${filterStatus})`,
+      doc.internal.pageSize.width / 2,
+      30,
+      {
+        align: "center",
+      }
+    );
+  
+    const logo = new Image();
+    logo.src =
+      "https://static.vecteezy.com/system/resources/previews/000/660/538/original/vector-surfing-paradise-logo.jpg";
+    doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
+  
+    doc.text(companyName, 10, 50);
+    doc.text(companyAddress, 10, 55);
+  
+    const tableWidth = 200;
+    const tableHeight = 20 * outgoings.length;
+    const leftMargin = (doc.internal.pageSize.width - tableWidth) / 2;
+  
+    doc.autoTable({
+      head: [
+        [
+          "#",
+          "RefId",
+          "Date/Time",
+          "Details",
+          "Comment",
+          "Status",
+          "AcceptBy",
+          "Total",
+        ],
+      ],
+      body: outgoings.map((outgoing, index) => [
+        index + 1,
+        outgoing.refId,
+        `${outgoing.date} / ${outgoing.time}`,
+        outgoing.details,
+        outgoing.comment,
+        outgoing.status,
+        outgoing.acceptBy,
+        outgoing.amount,
+      ]),
+      margin: { left: leftMargin, top: 70 },
+      didDrawPage: (data) => {
+        const currentPage = data.pageCount;
+        const pageText = "Page " + currentPage;
+        doc.text(
+          pageText,
+          doc.internal.pageSize.width / 2,
+          doc.internal.pageSize.height - 10,
+          { align: "center" }
+        );
+      },
+    });
+  
+    doc.text(
+      "Prepared by: Sehan Devinda",
+      10,
+      doc.internal.pageSize.height - 25
+    );
+    doc.text(
+      "Date: " + new Date().toLocaleDateString(),
+      10,
+      doc.internal.pageSize.height - 20
+    );
+  
+    doc.save("outgoing_report.pdf");
+  };
+  
 
   return (
     <div className="container-xl">
@@ -343,7 +432,11 @@ function Outgoing() {
         </div>
       </div>
 
-      <>
+      <div  style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyItems: "center",
+        }}>
         <Link
           to={`/FinancialManagement/outcome/exportCSV/${filterStatus}`}
           style={{
@@ -358,7 +451,21 @@ function Outgoing() {
         >
           Export CSV
         </Link>
-      </>
+        <div className="mt-3">
+          <button
+            className="btn btn-primary"
+            onClick={generateOutgoingReport}
+            style={{
+              backgroundColor: "blue",
+              marginLeft: "20px",
+              borderRadius: "5px",
+              marginTop: "6px",
+            }}
+          >
+            <GrDocumentPdf /> Generate Income Report    
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
