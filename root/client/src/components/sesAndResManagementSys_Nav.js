@@ -15,10 +15,15 @@ function Nav() {
     color: "white", // Setting text color to white
   };
 
+  const brandStyle = {
+    color: "white", // Setting text color to white
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg" style={navStyle}>
         <div className="container-fluid">
+          <a className="navbar-brand" style={brandStyle}>Session And Reservation</a>
           <button
             className="navbar-toggler"
             type="button"
