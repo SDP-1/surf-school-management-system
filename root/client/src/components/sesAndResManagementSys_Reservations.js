@@ -107,8 +107,10 @@ const Reservations = () => {
   };
 
   return (
-    <div className="container">
+    <div>
       <Nav />
+    <div className="container">
+      
       <h1 className="mt-4 mb-3">Reservations Calendar</h1>
       <div className="row mb-3">
         <div className="col-md-4">
@@ -203,6 +205,7 @@ const Reservations = () => {
       <br />
       <br />      <br />
       <br />
+    </div>
     </div>
   );
 };

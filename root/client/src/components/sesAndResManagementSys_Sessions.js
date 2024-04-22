@@ -73,8 +73,11 @@ const Sessions = () => {
   };
 
   return (
-    <div className="container">
+
+    <div>
       <Nav />
+    <div className="container">
+    
       <h1 className="mt-4 mb-3">Sessions Calendar</h1>
       <div>
         <div className="row mb-3">
@@ -139,6 +142,7 @@ const Sessions = () => {
         <br />
         <br />
       </div>
+    </div>
     </div>
   );
 };
