@@ -36,7 +36,7 @@ const Dashboard = () => {
       try {
         // Fetch monthly revenue data
         const monthlyResponse = await axios.get(
-          "http://localhost:8070/reservations/monthly-revenue"
+          "http://localhost:4000/reservations/monthly-revenue"
         );
         if (monthlyResponse.data && Array.isArray(monthlyResponse.data)) {
           const mergedData = mergeWithEmptyMonths(monthlyResponse.data);

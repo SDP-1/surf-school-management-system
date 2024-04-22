@@ -10,8 +10,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import jsPDF from "jspdf"; // Import jsPDF library
 
-const sessionURL = "http://localhost:8070/sessions";
-const reservationURL = "http://localhost:8070/reservations";
+const sessionURL = "http://localhost:4000/sessions";
+const reservationURL = "http://localhost:4000/reservations";
 
 const fetchSessions = async () => {
   return await axios.get(sessionURL).then((res) => res.data);
@@ -166,7 +166,7 @@ const Reservations = () => {
                   <p>Date: {session.date}</p>
                   <p>Time: {session.time}</p>
                   <Link
-                    to={`/addreservation?sessionID=${session._id}&date=${session.date}&time=${session.time}`}
+                    to={`/sesAndResManagement/addreservation?sessionID=${session._id}&date=${session.date}&time=${session.time}`}
                     className="btn btn-primary"
                   >
                     Make Reservation

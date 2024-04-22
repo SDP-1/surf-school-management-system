@@ -15,7 +15,7 @@ function UpdateSession() {
   useEffect(() => {
     const fetchHandler = async () => {
       await axios
-        .get(`http://localhost:8070/sessions/${id}`)
+        .get(`http://localhost:4000/sessions/${id}`)
         .then((res) => res.data)
         .then((data) => setInputs(data.session));
     };
@@ -24,7 +24,7 @@ function UpdateSession() {
 
   const sendRequest = async () => {
     await axios
-      .put(`http://localhost:8070/sessions/${id}`, {
+      .put(`http://localhost:4000/sessions/${id}`, {
         name: String(inputs.name),
         type: String(inputs.type),
         instructor: String(inputs.instructor),
@@ -65,7 +65,7 @@ function UpdateSession() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs);
-    sendRequest().then(() => history("/sessiondetails"));
+    sendRequest().then(() => history("/sesAndResManagement/sessiondetails"));
   };
 
   return (

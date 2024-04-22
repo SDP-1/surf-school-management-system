@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8070'; // Update the base URL to match your backend server
+const baseURL = 'http://localhost:4000'; // Update the base URL to match your backend server
 
 const fetchTotalSessions = async () => {
   // Function to fetch total sessions

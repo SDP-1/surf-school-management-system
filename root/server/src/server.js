@@ -6,14 +6,10 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 const app = express();
 
-const sessionRouter = require("./routs/SessionRoutes.js");
-const reservationRouter = require("./routs/ReservationRoutes.js");
-
 const PORT = process.env.PORT || 8070;
-//middleware
 app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "20MB" }));
 
 const URL = process.env.MONGODB_URL;
 
@@ -28,10 +24,28 @@ connection.once("open", () => {
 });
 
 //routes
+
+const sessionRouter = require("./routs/SessionRoutes.js");
+const reservationRouter = require("./routs/ReservationRoutes.js");
+
 app.use("/sessions", sessionRouter);
 app.use("/reservations", reservationRouter);
 
-//mongoDB connection
+const eventRouter = require("./routs/EventManagement_events.js");
+app.use("/event", eventRouter);
+
+const postPayments = require("./routs/FinancialManagement_payment");
+app.use(postPayments);
+
+const postOutgoing = require("./routs/FinancialManagement_outgoing.js");
+app.use(postOutgoing);
+
+const postTransaction = require("./routs/FinancialManagement_Transaction");
+app.use(postTransaction);
+
+const postMonthlyTarget = require("./routs/FinancialManagement_MonthlyTargets.js");
+app.use(postMonthlyTarget);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

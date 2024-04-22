@@ -19,27 +19,17 @@ function Nav() {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <Link to="/mainhome" class="nav-link">
+                <Link to="/sesAndResManagement/mainhome" class="nav-link">
                   Home
                 </Link>
               </li>
-              {/* <li class="nav-item">
-                <Link to="/addsession" class="nav-link">
-                  Add Session
-                </Link>
-              </li> */}
-              {/* <li class="nav-item">
-                <Link to="/addreservation" class="nav-link">
-                  Add Reservation
-                </Link>
-              </li> */}
               <li class="nav-item">
-                <Link to="/sessiondetails" class="nav-link">
+                <Link to="/sesAndResManagement/sessiondetails" class="nav-link">
                   Sessions
                 </Link>
               </li>
               <li class="nav-item">
-                <Link to="/reservationdetails" class="nav-link">
+                <Link to="/sesAndResManagement/reservationdetails" class="nav-link">
                   Reservations
                 </Link>
               </li>

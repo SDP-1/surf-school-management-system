@@ -53,11 +53,11 @@ function AddReservation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs);
-    sendRequest().then(() => history("/reservationdetails"));
+    sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
   };
 
   const sendRequest = async () => {
-    await axios.post("http://localhost:8070/reservations", inputs);
+    await axios.post("http://localhost:4000/reservations", inputs);
   };
 
   return (

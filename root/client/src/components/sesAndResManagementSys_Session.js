@@ -11,7 +11,7 @@ const Session = ({ session }) => {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8070/sessions/${_id}`);
+        await axios.delete(`http://localhost:4000/sessions/${_id}`);
         window.alert("Session deleted successfully!");
         window.location.reload();
       } catch (error) {
@@ -31,7 +31,7 @@ const Session = ({ session }) => {
         <p className="card-text">Time: {time}</p>
         {/* <Link to={`/sessiondetails/${_id}`} className="btn btn-primary mr-2">Update</Link> */}
         <Link
-          to={`/sessiondetails/${_id}`}
+          to={`/sesAndResManagement/sessiondetails/${_id}`}
           className="btn btn-warning mr-2" // Applying Bootstrap classes for light yellow color
         >
           Update

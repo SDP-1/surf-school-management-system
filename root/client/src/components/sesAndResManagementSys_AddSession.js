@@ -44,11 +44,11 @@ function AddSession() {
     e.preventDefault();
     console.log(inputs);
     await sendRequest();
-    history("/sessiondetails");
+    history("/sesAndResManagement/sessiondetails");
   };
 
   const sendRequest = async () => {
-    await axios.post("http://localhost:8070/sessions", {
+    await axios.post("http://localhost:4000/sessions", {
       ...inputs,
       date: inputs.date.toISOString().split("T")[0], // Convert date to YYYY-MM-DD format
     });

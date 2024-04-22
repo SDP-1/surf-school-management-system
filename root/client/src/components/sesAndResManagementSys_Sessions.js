@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-const URL = "http://localhost:8070/sessions";
+const URL = "http://localhost:4000/sessions";
 
 const fetchHandler = async () => {
   try {
@@ -60,7 +60,7 @@ const Sessions = () => {
   };
 
   const handleAddSession = () => {
-    navigate("/addsession");
+    navigate("/sesAndResManagement/addsession");
   };
 
   const handleDateChange = (date) => {

@@ -22,7 +22,7 @@ const Reservation = ({ reservation }) => {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8070/reservations/${_id}`);
+        await axios.delete(`http://localhost:4000/reservations/${_id}`);
         window.alert("Reservation deleted successfully!");
         window.location.reload();
       } catch (error) {
@@ -45,7 +45,7 @@ const Reservation = ({ reservation }) => {
         <p className="card-text">E-mail: {email}</p>
         <p className="card-text">Total Amount: {amount}</p>
         <Link
-          to={`/reservationdetails/${_id}`}
+          to={`/sesAndResManagement/reservationdetails/${_id}`}
           className="btn btn-warning text-dark mr-2" // Applying Bootstrap classes for light yellow color
         >
           Update

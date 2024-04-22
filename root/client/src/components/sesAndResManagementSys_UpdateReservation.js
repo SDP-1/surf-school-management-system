@@ -13,7 +13,7 @@ function UpdateReservation() {
   useEffect(() => {
     const fetchHandler = async () => {
       await axios
-        .get(`http://localhost:8070/reservations/${id}`)
+        .get(`http://localhost:4000/reservations/${id}`)
         .then((res) => res.data)
         .then((data) => setInputs(data.reservation));
     };
@@ -22,7 +22,7 @@ function UpdateReservation() {
 
   const sendRequest = async () => {
     await axios
-      .put(`http://localhost:8070/reservations/${id}`, inputs)
+      .put(`http://localhost:4000/reservations/${id}`, inputs)
       .then((res) => res.data);
   };
 
@@ -44,7 +44,7 @@ function UpdateReservation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs);
-    sendRequest().then(() => history("/reservationdetails"));
+    sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
   };
 
   const handleDateChange = (date) => {
