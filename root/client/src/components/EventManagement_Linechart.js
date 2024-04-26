@@ -102,7 +102,7 @@ function EventLineChart() {
 
     return (
         <div>
-            <h2>Event Chart</h2>
+           <h2 style={{ fontFamily: 'Roboto, sans-serif', color: '#333', fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Event Chart</h2>
             <canvas id="eventChart" width="200" height="60"></canvas>
         </div>
     );
