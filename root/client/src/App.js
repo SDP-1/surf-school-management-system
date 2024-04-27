@@ -13,8 +13,8 @@ import SearchView from './components/EventManagement_eventsearch';
 import FreeEvents from './components/EventManagement_freeEvents';
 import CurrentEvents from './components/EventManagement_currentEvents';
 import Reports from './components/EventManagement_eventReport';
-import Analytics from './components/EventManagement_EventAnalytics';
 import CalendarComponent from './components/EventManagement_Eventcalander';
+import CombinedChartsPage from './components/EventManagement_combinedAnalytics';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
@@ -49,12 +49,30 @@ import AddAttendance from './components/StaffManagement_AddAttendance';
 import Staff_Admin from './components/StaffManagement_Dashboard';
 import Staff_AllNotices from './components/StaffManagement_ManageNotices';
 import HomePage from './components/StaffManagement_Dashboard';
+import Home from "./components/sesAndResManagementSys_Home";
+import AddSession from "./components/sesAndResManagementSys_AddSession";
+import Sessions from "./components/sesAndResManagementSys_Sessions";
+import UpdateSession from "./components/sesAndResManagementSys_UpdateSession";
+import AddReservation from "./components/sesAndResManagementSys_AddReservation";
+import Reservations from "./components/sesAndResManagementSys_Reservations";
+import UpdateReservation from "./components/sesAndResManagementSys_UpdateReservation";
 
 function App() {
   return (
 
     <Sidebar>
     <Router>
+
+<Routes>
+<Route path="/sesAndResManagement" element={<Home />} />
+<Route path="/sesAndResManagement/mainhome" element={<Home />} />
+<Route path="/sesAndResManagement/addsession" element={<AddSession />} />
+<Route path="/sesAndResManagement/sessiondetails" element={<Sessions />} />
+<Route path="/sesAndResManagement/sessiondetails/:id" element={<UpdateSession />} />
+<Route path="/sesAndResManagement/addreservation" element={<AddReservation />} />
+<Route path="/sesAndResManagement/reservationdetails" element={<Reservations />} />
+<Route path="/sesAndResManagement/reservationdetails/:id" element={<UpdateReservation />} />
+</Routes>
 
     <Routes>  
     <Route path="/Event/*" element={<Header/>} />      
@@ -108,13 +126,22 @@ function App() {
     </Routes>
 
     <Routes>  
-    <Route path="/Event/Analytics" element={<Analytics />} /> 
+    <Route path="/Event/Analytics" element={<CombinedChartsPage />} /> 
     </Routes>
 
     <Routes>  
     <Route path="/Event/calander" element={<CalendarComponent/>} /> 
     </Routes>
 
+    
+    
+    
+   
+
+    <Routes>  
+    <Route path="/Event/*" element={<Footer/>} />      
+    </Routes>
+    
 
 
         {/* Finacial Management routers */}
