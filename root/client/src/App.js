@@ -28,6 +28,19 @@ import OutgoingRepostGeanarateCSV from "./components/FinancialManagement_Outgoin
 import Sidebar from "./components/SideBar";
 import Dashboard from "./pages/FinancialManagement_Dashboard";
 
+
+
+import HHeader from './components/SalesManagement_Header';
+import ItemsAdd from './components/SalesManagement_ItemsAdd';
+import Pos from './components/SalesManagement_Pos';
+import RentalForm from './components/SalesManagement_RentalForm';
+import RentalDetailsTable from './components/SalesManagement_RentalDetailsTable';
+import RentalCalendar from './components/SalesManagement_RentalCalendar';
+import Receipts from './components/SalesManagement_Receipt';
+import HDashboard from './components/SalesManagement_Salesdashboard';
+import Sales_Items from './components/SalesManagement_SalesItems';
+
+
 function App() {
   return (
 
@@ -169,6 +182,43 @@ function App() {
         {/*END of the Finacial Management routers */}
 
         {/* <Footer /> */}
+
+        <Routes>  
+     <Route path="/Sales/*" element={<HHeader/>} />      
+     </Routes>
+    
+        <Routes>
+        <Route path="/Sales/category/:category" element={<Pos/>} />
+        </Routes>
+      
+        <Routes>
+          <Route path="/Sales/add" element={<ItemsAdd />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/rental/add" element={<RentalForm />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/rental/all" element={<RentalDetailsTable/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/rental/date/:date" element={<RentalCalendar/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/receipts" element={<Receipts/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/Hdashboard" element={<HDashboard/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/item" element={<Sales_Items/>} />
+        </Routes>
+
       </Router>
     </Sidebar>
   );

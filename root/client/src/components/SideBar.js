@@ -306,6 +306,14 @@ function SideBar({ children }) {
               </a>
               <span className="tooltip">Event management</span>
             </li>
+
+            <li>
+              <a href="/Sales/Hdashboard">
+                <i className="bx bx-pie-chart-alt-2"></i>
+                <span className="links_name">Sales Dashboard</span>
+              </a>
+              <span className="tooltip">Sales Dashboard</span>
+            </li>
             <li>
               <a href="#">
                 <i className="bx bx-pie-chart-alt-2"></i>
