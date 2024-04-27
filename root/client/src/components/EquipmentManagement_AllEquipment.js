@@ -69,57 +69,55 @@ export default function AllEquipment() {
     const companyName = "Paradise Surf School";
 const companyAddress = "Midigama";
   
-    // Add Equipment Inventory Report as the center top of the page
-   // Set the font style for Surf Scool Management
   doc.setFont("bold");
   doc.setFontSize(20);
   doc.text("Surf Scool Management", doc.internal.pageSize.width / 2, 20, { align: "center" });
 
-  // Set the font style for Equipment Inventory Report
+  
   doc.setFont("bold");
   doc.setFontSize(15);
   doc.text("Equipment Inventory Report", doc.internal.pageSize.width / 2, 30, { align: "center" });
 
-  // Load the logo from an external source
+ 
 const logo = new Image();
 logo.src = "https://static.vecteezy.com/system/resources/previews/000/660/538/original/vector-surfing-paradise-logo.jpg";
 
-// Add the logo to the top right of the page
+
 doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
-    // Set the company name and address on the right-hand side of the page after the middle
+    
     doc.text(companyName, 10, 50);
     doc.text(companyAddress, 10, 55);
   
-    // Set the table's position and width
+    
     const tableWidth = 200;
     const tableHeight = 20 * filteredEquipment.length;
     const leftMargin = (doc.internal.pageSize.width - tableWidth) / 2;
   
-    // Add the table to the PDF
+    
     doc.autoTable({
       head: [['Equipment No', 'Equipment Name', 'Item Description', 'Quantity In Stock', 'Quantity Required', 'Purchase to be made', 'Available Equipment', 'Rental Equipment', 'Damage Equipment']],
       body: filteredEquipment.map((equipment, index) => [equipment.equipmentno, equipment.equipmentname, equipment.equipmentdescription, equipment.quantityinstock, equipment.quantityrequired, equipment.purchasetobemade, equipment.availableequipment, equipment.rentalequipment, equipment.damageequipment]),
       margin: { left: leftMargin, top: 70 },
       width: tableWidth,
       didDrawPage: (data) => {
-        // Calculate the height of the table
+        
   const tableHeight = filteredEquipment.length * 20;
 
   doc.text("Total Available Items: " + totalAvailableItems, 10, doc.internal.pageSize.height - 80);
   doc.text("Total In-Stock Items: " + totalInStockItems, 10, doc.internal.pageSize.height - 70, { align: "left" });
 
-  // Draw a line below the table
+  
   const yStart = data.settings.margin.top + tableHeight+10;
   const yEnd = data.settings.margin.top + doc.internal.pageSize.height-40;
   doc.line(data.settings.margin.left, yStart,doc.internal.pageSize.width - data.settings.margin.right, yStart);
-        // Add page numbers and footer
+        
         const currentPage = data.pageCount;
         const pageText = "Page " + currentPage;
         doc.text(pageText, doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: "center" });
       },
     });
   
-    // Add footer details
+    
     doc.text("Prepared by:Nirmani K M I", 10, doc.internal.pageSize.height - 25);
     doc.text("Date: " + new Date().toLocaleDateString(), 10, doc.internal.pageSize.height - 20);
     
@@ -134,7 +132,7 @@ return (
     <div className="container mt-5">
       
      <div className="mt-3">
-  <Link className="btn btn-success" to="/addEquipment">
+  <Link className="btn btn-success" to="/Equipment_Management/addEquipment">
     <MdAdd /> Add Equipment
   </Link>
 </div>
@@ -183,7 +181,7 @@ return (
               <td>{equipment.damageequipment}</td>
               <td>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <Link to={`/editEquipment/${equipment.equipmentno}`}>
+                  <Link to={`/Equipment_Management/editEquipment/${equipment.equipmentno}`}>
                     <button className="btn btn-success me-3">
                       <AiFillEdit />
                     </button>

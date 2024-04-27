@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Equipment = require("../models/equipment");
 const cors = require("cors");
+const Equipment = require("../models/EquipmentManagement_equipment");
+
+
 const { ObjectId } = require("mongoose").Types;
+router.use(cors());
+
 
 
 

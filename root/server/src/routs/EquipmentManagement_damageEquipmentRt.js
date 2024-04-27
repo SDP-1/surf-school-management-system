@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-let DamageEquipment = require("../models/damageEquipment");
+let DamageEquipment = require("../models/EquipmentManagement_damageEquipment");
 const cors = require("cors");
 
 // Apply CORS middleware at the router level

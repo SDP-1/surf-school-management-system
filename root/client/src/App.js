@@ -21,20 +21,20 @@ function App() {
       <EquipmentManagement_Navbar />
       
       <Routes>
-        <Route path='/addEquipment' element={<EquipmentManagement_AddEquipment />} />
-        <Route path='/editEquipment/:equipmentno' element={<EquipmentManagement_EditEquipment />} />
-        <Route path='/delete/:equipmentno' element={<EquipmentManagement_DeleteEquipment />} />
-        <Route path='/' element={<EquipmentManagement_AllEquipment />} />
-        <Route path='/add' element={<EquipmentManagement_AddDamageEquip />} />
-        <Route path='/editDamageEquipment/:damageId' element={<EquipmentManagement_EditDamageEquip />} />
-        <Route path='/deleteDamage/:damageId' element={<EquipmentManagement_DeleteDamageEquip />} />
-        <Route path='/damage' element={<EquipmentManagement_AllDamageEquip />} />
-        <Route path='/t' element={<EquipmentManagement_TechnicianEmail />} />
-        <Route path='/addReservation' element={<EquipmentManagement_AddEquipmentReservation />} />
-        <Route path='/allReservation' element={<EquipmentManagement_AllEquipmentReservation />} />
-        <Route path='/editEquipmentReservation/:reservationId' element={<EquipmentManagement_EditEquipmentReservation />} />
-        <Route path='/cancelReservation/:reservationId' element={<EquipmentManagement_CancelReservation />} />
-        <Route path='/equipmentHome' element={<EquipmentManagement_EquipmentHome />} />
+        <Route path='/Equipment_Management/addEquipment' element={<EquipmentManagement_AddEquipment />} />
+        <Route path='/Equipment_Management/editEquipment/:equipmentno' element={<EquipmentManagement_EditEquipment />} />
+        <Route path='/Equipment_Management/delete/:equipmentno' element={<EquipmentManagement_DeleteEquipment />} />
+        <Route path='/Equipment_Management/' element={<EquipmentManagement_AllEquipment />} />
+        <Route path='/Equipment_Management/add' element={<EquipmentManagement_AddDamageEquip />} />
+        <Route path='/Equipment_Management/editDamageEquipment/:damageId' element={<EquipmentManagement_EditDamageEquip />} />
+        <Route path='/Equipment_Management/deleteDamage/:damageId' element={<EquipmentManagement_DeleteDamageEquip />} />
+        <Route path='/Equipment_Management/damage' element={<EquipmentManagement_AllDamageEquip />} />
+        <Route path='/Equipment_Management/t' element={<EquipmentManagement_TechnicianEmail />} />
+        <Route path='/Equipment_Management/addReservation' element={<EquipmentManagement_AddEquipmentReservation />} />
+        <Route path='/Equipment_Management/allReservation' element={<EquipmentManagement_AllEquipmentReservation />} />
+        <Route path='/Equipment_Management/editEquipmentReservation/:reservationId' element={<EquipmentManagement_EditEquipmentReservation />} />
+        <Route path='/Equipment_Management/cancelReservation/:reservationId' element={<EquipmentManagement_CancelReservation />} />
+        <Route path='/Equipment_Management/equipmentHome' element={<EquipmentManagement_EquipmentHome />} />
         
       </Routes>
       

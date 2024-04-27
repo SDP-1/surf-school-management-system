@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 const cors = require("cors");
-const EquipmentReservation = require("../models/equipReservation");
+const EquipmentReservation = require("../models/EquipmentManagement_equipReservation");
 
 // Apply CORS middleware at the router level
 router.use(cors());
@@ -40,7 +40,16 @@ router.route("/addReservation").post((req,res)=>{
 
 })
 
-
+//count reservations
+router.route("/countR").get(async (req, res) => {
+    try {
+      const count = await EquipmentReservation.countDocuments();
+      res.json({ count });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 //route for read
 router.route("/allReservation").get((req,res)=>{
     EquipmentReservation.find().then((equipmentReservationRt)=>{

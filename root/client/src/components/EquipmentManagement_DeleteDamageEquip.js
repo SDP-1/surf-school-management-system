@@ -13,8 +13,8 @@ export default function DeleteDamageEquip(){
                 const dmquipment = await axios.delete(`http://localhost:4000/damageEquipment/deleteDamage/${damageId}`);
                 setDeletedEquipment(dmquipment.data);
                 alert("Deleted Damage equipment");
-                // Redirect to the home page using window.location
-                window.location.href = "/damage"; // Redirect to the home page
+                
+                window.location.href = "/damage";
             } catch (err) {
                 console.error(err);
                 
@@ -24,7 +24,7 @@ export default function DeleteDamageEquip(){
         DeleteDamageEquip();
     }, [damageId]);
 
-    // Since we're using window.location for redirection, no return is necessary
+    
     return null;
 }
 

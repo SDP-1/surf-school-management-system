@@ -80,10 +80,10 @@ export default function EquipmentHome() {
       </main>
 
     <div className='button-container'>
-  <button className='button'><Link to="/" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Equipment Inventory</Link></button>
-  <button className='button' ><Link to="/damage" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Damage Equipment</Link></button>
-  <button className='button' ><Link to="/allReservation" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Equipment  Reservation</Link></button>
-  <button className='button' ><Link to="/t" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Assign Technician</Link></button>
+  <button className='button'><Link to="/Equipment_Management/" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Equipment Inventory</Link></button>
+  <button className='button' ><Link to="/Equipment_Management/damage" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Damage Equipment</Link></button>
+  <button className='button' ><Link to="/Equipment_Management/allReservation" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Equipment  Reservation</Link></button>
+  <button className='button' ><Link to="/Equipment_Management/t" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Assign Technician</Link></button>
   </div>
   </div>
   

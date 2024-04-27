@@ -55,7 +55,7 @@ export default function EditEquipment() {
   return (
     <div className="container mt-5">
       <form className="mx-auto w-50 shadow p-5" onSubmit={sendData}>
-        <Link className="btn btn-primary " to="/">
+        <Link className="btn btn-primary " to="/Equipment_Management/">
           Home
         </Link>
         <h3 className="mt-5 ">Edit details</h3>

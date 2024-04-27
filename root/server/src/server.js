@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const WebSocket = require('ws'); // Import WebSocket module
+
 
 const app = express();
 dotenv.config();
@@ -27,10 +27,10 @@ connection.once('open', () => {
 });
 
 // Import routes
-const equipmentRouter = require('./routs/equipmentRt.js');
-const damageEquipmentRouter = require('./routs/damageEquipmentRt.js');
-const technicianEmailRouter = require('./routs/technicianEmailRt.js');
-const equipmentReservationRouter = require('./routs/equipmentReservationRt.js');
+const equipmentRouter = require('./routs/Equipmentmanagement_equipmentRt.js');
+const damageEquipmentRouter = require('./routs/EquipmentManagement_damageEquipmentRt.js');
+const technicianEmailRouter = require('./routs/EquipmentManagement_technicianEmailRt.js');
+const equipmentReservationRouter = require('./routs/EquipmentManagement_equipmentReservationRt.js');
 console.log('equipmentRt.js is being imported');
 // Use routes
 app.use('/equipment', equipmentRouter);

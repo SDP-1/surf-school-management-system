@@ -99,7 +99,7 @@ export default function AllDamageEquip() {
           if (numDaysUntilDelivery === 0) {
             toast.warning(` ${equipmentNo} will be available  in today. Assigned to technician ${equipment.technicianname}.`, {
               position: "top-right",
-              autoClose: false, // prevent auto-closing
+              autoClose: false, 
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -109,7 +109,7 @@ export default function AllDamageEquip() {
           } else {
             toast.warning(` ${equipmentNo} will be available  in ${numDaysUntilDelivery} days. Assigned to technician ${equipment.technicianname}.`, {
               position: "top-right",
-              autoClose: false, // prevent auto-closing
+              autoClose: false, 
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -172,13 +172,11 @@ const totalrepaircost = filteredDamageEquipment.reduce((acc, item) => acc + pars
     const companyName = "Paradise Surf School";
      const companyAddress = "Midigama";
   
-    // Add Equipment Inventory Report as the center top of the page
-   // Set the font style for Surf Scool Management
+   
   doc.setFont("bold");
   doc.setFontSize(20);
   doc.text("Surf Scool Management", doc.internal.pageSize.width / 2, 20, { align: "center" });
 
-  // Set the font style for Equipment Inventory Report
   doc.setFont("bold");
   doc.setFontSize(15);
   doc.text("Damage Equipment Report", doc.internal.pageSize.width / 2, 30, { align: "center" });
@@ -231,13 +229,13 @@ doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
   return (
     <div className="container mt-5"  >
       <div className="mt-3">
-        <Link className="btn btn-success" to="/add">
+        <Link className="btn btn-success" to="/Equipment_Management/add">
         <MdAdd />Add Damage Equipment
         </Link>
       </div>
      
       <div className="mt-3">
-        <Link className="btn btn-primary" to="/t">
+        <Link className="btn btn-primary" to="/Equipment_Management/t">
           <MdEmail /> Assign technician
         </Link>
       </div>
@@ -290,7 +288,7 @@ doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
                 <td>{damageEquipment.repaircost}</td>
                 <td>
   <div style={{ display: "flex", alignItems: "center" }}>
-    <Link to={`/editDamageEquipment/${damageEquipment.damageId}`}>
+    <Link to={`/Equipment_Management/editDamageEquipment/${damageEquipment.damageId}`}>
       <button className="btn btn-success me-3">
         <AiFillEdit />
       </button>

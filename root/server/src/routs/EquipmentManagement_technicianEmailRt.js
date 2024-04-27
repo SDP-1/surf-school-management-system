@@ -1,10 +1,9 @@
-const app = require('../Server').app;
-const nodemailer = require('nodemailer');
-const cors = require('cors')
 const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
 const router = express.Router();
 
-const TechnicianEmail = require("../models/technicianEmail");
+const TechnicianEmail = require("../models/EquipmentManagement_technicianEmail");
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -13,11 +12,11 @@ const transporter = nodemailer.createTransport({
     pass: 'pgoi jmbj cwus bjhk'
   }
 });
+
 const Email = TechnicianEmail;
-router.post('/t', cors(), async(req, res) => {
+
+router.post('/t', cors(), async (req, res) => {
   const { to, subject, description } = req.body;
-  
-  
 
   if (!to || !subject || !description) {
     return res.status(400).json({
@@ -36,13 +35,14 @@ router.post('/t', cors(), async(req, res) => {
         <p>You have a new contact request.</p>
         <h3>Contact Details</h3>
         <ul>
-            <li>Email: ${to}</li>
-            <li>Subject: ${subject}</li>
-            <li>Message: ${description}</li>
+          <li>Email: ${to}</li>
+          <li>Subject: ${subject}</li>
+          <li>Message: ${description}</li>
         </ul>
       </div>
     `
   };
+
   try {
     const result = await transporter.sendMail(mailOptions);
     console.log(result);
@@ -64,7 +64,7 @@ router.post('/t', cors(), async(req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.json({
+    res.status(500).json({
       status: false,
       respMesg: 'Error sending email'
     });

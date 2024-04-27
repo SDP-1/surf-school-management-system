@@ -53,7 +53,7 @@ export default function AllEquipmentReservation() {
   return (
 <div className="container mt-5">
       <div className="mt-3">
-        <Link className="btn btn-success" to="/addReservation">
+        <Link className="btn btn-success" to="/Equipment_Management/addReservation">
           <MdAdd />Add Reservation
         </Link>
       </div>
@@ -97,7 +97,7 @@ export default function AllEquipmentReservation() {
 
               <td>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Link to={`/editEquipmentReservation/${equipReservation.reservationId}`}>
+                <Link to={`/Equipment_Management/editEquipmentReservation/${equipReservation.reservationId}`}>
                   <button className="btn btn-success me-3">
                     <AiFillEdit />
                   </button>

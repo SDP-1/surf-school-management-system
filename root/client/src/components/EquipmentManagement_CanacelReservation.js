@@ -15,8 +15,8 @@ export default function CancelReservation() {
         );
         setCancelReservation(dreservation.data);
         alert("Equipment Reservation Cancelled successfully");
-        // Redirect to the home page using window.location
-        window.location.href = "/allReservation"; // Redirect to the home page
+        
+        window.location.href = "/allReservation"; 
       } catch (err) {
         console.error(err);
       }
@@ -25,6 +25,6 @@ export default function CancelReservation() {
     handleCancelReservation();
   }, [reservationId]);
 
-  // Since we're using window.location for redirection, no return is necessary
+
   return null;
 }

@@ -2,6 +2,11 @@ const mongoose=require("mongoose");
 
 
 const Schema=mongoose.Schema;
+
+const nameValidator = (value) => {
+    const re = /^[a-zA-Z ]+$/; 
+    return re.test(String(value));
+};
 const ObjectId = Schema.Types.ObjectId;
 
 //variables
@@ -26,7 +31,11 @@ const damageEquipmentSchema=new Schema(
 
         technicianname:{
             type:String,
-            required:true
+            required:true,
+            validate: {
+                validator: nameValidator,
+                message: 'Technician name can only contain letters and spaces.'
+            }
         },
         technicianemail:{
             type:String,

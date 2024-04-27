@@ -10,7 +10,7 @@ const TechnicianEmail = () => {
     description: ""
   });
 
-  const { to, subject, description} = user; // corrected
+  const { to, subject, description} = user; 
   const onInputChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -33,7 +33,7 @@ const TechnicianEmail = () => {
   return (
     <div className="container mt-5">
        <form className="mx-auto w-50 shadow p-5" >
-       <Link className="btn btn-primary" to="/damage">Home</Link>
+       <Link className="btn btn-primary" to="Equipment_Management/damage">Home</Link>
          <h3 className="text-center text-success mb-2 mt-4">Assign the technician </h3>
          <h6 className="text-secondary text-center mb-4 mt-1">contact the technician</h6>
       <div className="row">  

@@ -19,16 +19,16 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-              <Link className={`nav-link nav-link-custom ${currentPage === "/equipmentHome" && "active"}`} aria-current="page" to="/equipmentHome" onClick={() => setCurrentPage("/equipmentHome")}>Home</Link>
+              <Link className={`nav-link nav-link-custom ${currentPage === "/Equipment_Management/equipmentHome" && "active"}`} aria-current="page" to="/Equipment_Management/equipmentHome" onClick={() => setCurrentPage("/equipmentHome")}>Home</Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link nav-link-custom ${currentPage === "/" && "active"}`} aria-current="page" to="/"onClick={() => setCurrentPage("/")}>Inventory</Link>
+              <Link className={`nav-link nav-link-custom ${currentPage === "/Equipment_Management/" && "active"}`} aria-current="page" to="/Equipment_Management/"onClick={() => setCurrentPage("/")}>Inventory</Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link nav-link-custom ${currentPage === "/damage" && "active"}`} aria-current="page" to="/damage" onClick={() => setCurrentPage("/damage")}>Damage Equipment</Link>
+              <Link className={`nav-link nav-link-custom ${currentPage === "/Equipment_Management/damage" && "active"}`} aria-current="page" to="/Equipment_Management/damage" onClick={() => setCurrentPage("/damage")}>Damage Equipment</Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link nav-link-custom ${currentPage === "/allReservation" && "active"}`} aria-current="page" to="/allReservation" onClick={() => setCurrentPage("/allReservation")}>Equipment Reservation</Link>
+              <Link className={`nav-link nav-link-custom ${currentPage === "/Equipment_Management/allReservation" && "active"}`} aria-current="page" to="/Equipment_Management/allReservation" onClick={() => setCurrentPage("/allReservation")}>Equipment Reservation</Link>
             </li>
             
             
