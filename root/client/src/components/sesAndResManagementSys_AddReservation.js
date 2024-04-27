@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
+import PaymentGateway from "../pages/FinancialManagement_PaymentGateway";
 
 function AddReservation() {
   const history = useNavigate();
@@ -22,6 +23,9 @@ function AddReservation() {
   const [isValidContact, setIsValidContact] = useState(true);
   const [isNumberValid, setIsNumberValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
+
+  // State to manage payment gateway modal visibility
+  const [showPaymentGateway, setShowPaymentGateway] = useState(false);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -77,17 +81,31 @@ function AddReservation() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(inputs);
-    if (isValidContact && isNumberValid && isEmailValid) {
-      sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log(inputs);
+    // if (isValidContact && isNumberValid && isEmailValid) {
+    //   sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
+    // }
+  // };
 
   const sendRequest = async () => {
     await axios.post("http://localhost:4000/reservations", inputs);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setShowPaymentGateway(true); // Show payment gateway modal
+  };
+
+  const handleClosePaymentGateway = () => {
+    setShowPaymentGateway(false); // Hide payment gateway modal
+  };
+
+// Define a function to redirect after successful payment
+const handleSuccessPayment = () => {
+  sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
+};
 
   return (
     <div>
@@ -217,6 +235,19 @@ function AddReservation() {
           Submit
         </button>
       </form>
+
+{/* Payment gateway modal */}
+{showPaymentGateway && (
+        <PaymentGateway
+          onClose={handleClosePaymentGateway}
+          // referenceNo={inputs.refID}
+          referenceNo={inputs.refID}
+          payableAmount={inputs.amount}
+          details={`Make a reservation for ${inputs.sessionID}`}
+          onSuccessPayment={handleSuccessPayment}
+        />
+      )}
+
     </div>
   );
 }
