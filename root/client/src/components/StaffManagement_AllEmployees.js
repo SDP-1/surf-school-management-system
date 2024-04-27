@@ -1,3 +1,4 @@
+// AllEmployees.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -5,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     async function getEmployees() {
@@ -35,21 +36,35 @@ export default function AllEmployees() {
     }
   };
 
-  const handleMouseEnter = (employee, event) => {
+  const handleMouseEnter = (employee) => {
     setSelectedEmployee(employee);
-    setPopupPosition({ x: event.clientX, y: event.clientY });
   };
 
   const handleMouseLeave = () => {
     setSelectedEmployee(null);
   };
 
+  const filteredEmployees = employees.filter((employee) => {
+    return (
+      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.eid.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      getRoleFromId(employee.eid).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1 style={{ color: 'blue', marginBottom: '20px' }}>All Employees</h1>
+      <input
+        type="text"
+        placeholder="Search by name, ID, or role"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ marginBottom: '20px', padding: '5px', width: '300px' }}
+      />
       <Link className="btn btn-success mb-4" to="/staff/add"> Add Employee</Link>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridGap: '20px', justifyContent: 'center' }}>
-        {employees.map((employee, index) => (
+        {filteredEmployees.map((employee, index) => (
           <div
             key={index}
             style={{
@@ -60,7 +75,7 @@ export default function AllEmployees() {
               textAlign: 'center',
               width: '250px',
             }}
-            onMouseEnter={(event) => handleMouseEnter(employee, event)}
+            onMouseEnter={() => handleMouseEnter(employee)}
             onMouseLeave={handleMouseLeave}
           >
             <div style={{ width: '200px', height: '200px', overflow: 'hidden', margin: '0 auto 15px', borderRadius: '50%' }}>
@@ -110,9 +125,3 @@ export default function AllEmployees() {
     </div>
   );
 }
-
-
-
-
-
-

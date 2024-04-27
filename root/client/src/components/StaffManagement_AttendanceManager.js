@@ -142,11 +142,15 @@ function AttendanceManager() {
 
     const generateReport = () => {
         const doc = new jsPDF();
-        doc.text('Attendance Report', 10, 10);
-        doc.autoTable({ html: '#attendance-table' });
-        doc.save('attendance_report.pdf');
+        doc.text('All Attendance Report', 10, 10);
+        const data = attendances.map(({ eid, name, date }) => [eid, name, date]);
+        doc.autoTable({
+            head: [['Employee ID', 'Name', 'Date']],
+            body: data
+        });
+        doc.save('all_attendance_report.pdf');
     };
-
+    
     const generateEmployeeReport = (employeeId) => {
         const doc = new jsPDF();
         const filteredAttendances = attendances.filter((attendance) => attendance.eid === employeeId);
@@ -161,7 +165,7 @@ function AttendanceManager() {
     };
 
     return (
-        <div style={{ backgroundColor: '#000000', minHeight: '100vh', color: '#ffffff', padding: '20px' }}>
+        <div style={{ backgroundColor: '#ADD8E6', minHeight: '100vh', color: '#ffffff', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 {/* First Grid: Add Attendance */}
                 <div style={{ flex: 1, marginRight: '20px', backgroundColor: '#2c3e50', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
