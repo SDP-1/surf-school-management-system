@@ -15,7 +15,7 @@ function DeleteEmployees(){
                 setDeletedEmployee(deletedEmp.data);
                 alert("Deleted employee");
                 // Redirect to the home page using window.location
-                window.location.href = "/"; // Redirect to the home page
+                window.location.href = "/staff/alle"; // Redirect to the home page
             } catch (error) {
                 console.error(error);
             }

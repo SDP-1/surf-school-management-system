@@ -18,7 +18,7 @@ const AddNoticeForm = () => {
       setExpirationDate('');
       setIsLoading(false);
   
-      window.location = '/notices';
+      window.location = '/staff/notices';
     } catch (err) {
       console.error(err);
       alert('Failed to add notice');

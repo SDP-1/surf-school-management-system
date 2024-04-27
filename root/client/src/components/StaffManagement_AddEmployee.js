@@ -54,7 +54,7 @@ export default function AddEmployee() {
     function sendData(e) {
         e.preventDefault();
 
-        // Validate all fields before submission
+        // Validation part
         const formErrors = {};
         for (let field in { eid, age, contactno, email }) {
             const errorMessage = validateInput(field, eval(field));
@@ -81,6 +81,7 @@ export default function AddEmployee() {
         axios.post("http://localhost:4000/employee/add", formData)
             .then(() => {
                 alert("Employee added");
+                window.location.href = "/staff/alle";
             }).catch((err) => {
                 console.error("Failed to add employee:", err);
                 setErrors({ ...errors, email: "Failed to add employee. Please try again later." });
