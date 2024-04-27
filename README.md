@@ -22,6 +22,7 @@ go to the inside server dir and type "npm run dev" and press enter
 
 npm install --save multer
 npm install instagram-private-api
+npm install mongoose express nodemailer cors
 
 ## install these Extensions
 
