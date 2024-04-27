@@ -19,24 +19,31 @@ const getAllReservations = async (req, res, next) => {
 };
 
 
-
-
 const addReservations = async (req, res, next) => {
-  const{      
-    refID,
-    stdname,
-    sessionID,
-    date,
-    time,
-    numOfParticipents,
-    contactNum,
-    email,
-    amount} = req.body;
+  try {
+    // Generate a random number between 0 and 1000
+    const randomNumber = Math.floor(Math.random() * 1000);
 
-  let reservations;
+    // Format the random number with leading zeros
+    const randomPart = String(randomNumber).padStart(4, "0");
 
-  try{
-    reservations = new Reservation({      
+    // Construct the reference ID
+    const refID = `RES${randomPart}`;
+
+    // Extract other fields from the request body
+    const {
+      stdname,
+      sessionID,
+      date,
+      time,
+      numOfParticipents,
+      contactNum,
+      email,
+      amount,
+    } = req.body;
+
+    // Create the new reservation
+    const newReservation = new Reservation({
       refID,
       stdname,
       sessionID,
@@ -45,26 +52,19 @@ const addReservations = async (req, res, next) => {
       numOfParticipents,
       contactNum,
       email,
-      amount});
-      await reservations.save();
-  }catch(err){
-      console.log(err);
-      return res.status(500).send({ message: "Internal Server Error" });
-  }
+      amount,
+    });
 
-  //if not insert reservations
-  if(!reservations){
-      return res.status(404).send({message:"unable to add reservation"});
+    // Save the new reservation to the database
+    await newReservation.save();
+
+    // If reservation creation is successful, return the new reservation
+    return res.status(200).json({ newReservation });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ message: "Internal Server Error" });
   }
-  return res.status(200).json({reservations});
 };
-
-
-
-
-
-
-
 
 
 //get reservation by id
