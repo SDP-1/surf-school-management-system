@@ -154,14 +154,8 @@ main{
 }
 
 
-.event-container {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-  background-color: #f8f8f8;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+
+
 
 
 
@@ -169,7 +163,7 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
 }
 
 .ticket-form {
@@ -203,7 +197,7 @@ main{
 }
 
 .ticket-count button {
-  background-color: rgb(0, 128, 0);
+  background-color: #1e5c8f;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -214,7 +208,7 @@ main{
 }
 
 .ticket-count button:hover {
-  background-color: darkgreen; /* Change button color on hover */
+  background-color: #1c4c74 /* Change button color on hover */
 }
 
 .ticket-count input {
@@ -224,7 +218,7 @@ main{
 }
 
 .purchase-button {
-  background-color: green;
+  background-color: #1e5c8f;
   color: white;
   border: none;
   padding: 15px 30px;
@@ -232,11 +226,13 @@ main{
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth hover transition */
   margin-left: 20px;
+  text-decoration: none;
  
 }
 
 .purchase-button:hover {
-  background-color: darkgreen; /* Change button color on hover */
+  background-color: #1c4c74;
+  /* Change button color on hover */
 }
 
 .ticket-form-container {
@@ -317,18 +313,18 @@ main{
 }
 
 .react-calendar__navigation {
-  background-color: #fc8c0dee;
+  background-color: #1c4c74;
   border-bottom: 1px solid #2e0202;
 }
 
 .react-calendar__navigation__arrow {
   font-size: 24px;
-  color: #f31212;
+  color: #f2a231;
 }
 
 .react-calendar__navigation__label {
   font-size: 18px;
-  color: #110808;
+  color: #f2a231;
 }
 
 .react-calendar__month-view__days {

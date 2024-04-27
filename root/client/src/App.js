@@ -13,8 +13,8 @@ import SearchView from './components/EventManagement_eventsearch';
 import FreeEvents from './components/EventManagement_freeEvents';
 import CurrentEvents from './components/EventManagement_currentEvents';
 import Reports from './components/EventManagement_eventReport';
-import Analytics from './components/EventManagement_EventAnalytics';
 import CalendarComponent from './components/EventManagement_Eventcalander';
+import CombinedChartsPage from './components/EventManagement_combinedAnalytics';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
@@ -105,13 +105,22 @@ function App() {
     </Routes>
 
     <Routes>  
-    <Route path="/Event/Analytics" element={<Analytics />} /> 
+    <Route path="/Event/Analytics" element={<CombinedChartsPage />} /> 
     </Routes>
 
     <Routes>  
     <Route path="/Event/calander" element={<CalendarComponent/>} /> 
     </Routes>
 
+    
+    
+    
+   
+
+    <Routes>  
+    <Route path="/Event/*" element={<Footer/>} />      
+    </Routes>
+    
 
 
         {/* Finacial Management routers */}

@@ -11,30 +11,35 @@ function Addevent() {
   const [Date, setDate] = useState("");
   const [Start, setStart] = useState("");
   const [End, setEnd] = useState("");
+  const [error, setError] = useState("");
 
   function sendData(e) {
     e.preventDefault();
-    const startString = Start.toString();
-    const endString = End.toString();
-    const newevent = {
-      Title,
-      Location,
-      Capacity,
-      Description,
-      Image,
-      Type,
-      Date,
-      Start:startString,
-      End:endString
-    };
-    axios
-      .post("http://localhost:4000/event/add", newevent)
-      .then(() => {
-        alert("Event added");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (error === "") {
+      const startString = Start.toString();
+      const endString = End.toString();
+      const newevent = {
+        Title,
+        Location,
+        Capacity,
+        Description,
+        Image,
+        Type,
+        Date,
+        Start: startString,
+        End: endString
+      };
+      axios
+        .post("http://localhost:4000/event/add", newevent)
+        .then(() => {
+          alert("Event added");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    } else {
+      alert("Please correct the errors before submitting.");
+    }
   }
 
   function handleImageChange(e) {
@@ -49,125 +54,141 @@ function Addevent() {
     };
   }
 
+  function handleTypeChange(e) {
+    const inputValue = e.target.value.trim();
+    if (inputValue !== "Free" && inputValue !== "Purchased") {
+      setError("Invalid input. Please enter either 'Free' or 'Purchased'.");
+    } else {
+      setError("");
+    }
+    setType(inputValue);
+  }
+
   return (
     <div className="container" style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '20px', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.1)' ,marginBottom: '30px',marginTop:'30px'}}>
-    <form onSubmit={sendData}>
+      <form onSubmit={sendData}>
 
         <div className="mb-3">
-            <label htmlFor="titleInput" className="form-label">
-                Event Title
-            </label>
-            <input
-                type="text"
-                className="form-control"
-                id="titleInput"
-                onChange={(e) => setTitle(e.target.value)}
-            />
-        </div>
-
-        <div className="mb-3">
-            <label htmlFor="locationInput" className="form-label">
-                Location
-            </label>
-            <input
-                type="text"
-                className="form-control"
-                id="locationInput"
-                onChange={(e) => setLocation(e.target.value)}
-            />
+          <label htmlFor="titleInput" className="form-label">
+            Event Title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="titleInput"
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
 
         <div className="mb-3">
-            <label htmlFor="capacityInput" className="form-label">
-                Capacity
-            </label>
-            <input
-                type="text"
-                className="form-control"
-                id="capacityInput"
-                onChange={(e) => setCapacity(e.target.value)}
-            />
+          <label htmlFor="locationInput" className="form-label">
+            Location
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="locationInput"
+            onChange={(e) => setLocation(e.target.value)}
+          />
         </div>
 
         <div className="mb-3">
-            <label htmlFor="descriptionInput" className="form-label">
-                Description
-            </label>
-            <input
-                type="text"
-                className="form-control"
-                id="descriptionInput"
-                onChange={(e) => setDescription(e.target.value)}
-            />
-        </div>
-        <div className="mb-3">
-            <label htmlFor="typeInput" className="form-label">
-                Event Type
-            </label>
-            <input
-                type="text"
-                className="form-control"
-                id="typeInput"
-                placeholder="Free/Purchased"
-                onChange={(e) => setType(e.target.value)}
-            />
-        </div>
-        <div className="mb-3">
-            <label htmlFor="dateInput" className="form-label">
-                Date
-            </label>
-            <input
-                type="date"
-                className="form-control"
-                id="dateInput"
-                onChange={(e) => setDate(e.target.value)}
-            />
-        </div>
-        <div className="mb-3">
-            <label htmlFor="startInput" className="form-label">
-                Start Time
-            </label>
-            <input
-                type="time"
-                className="form-control"
-                id="startInput"
-                onChange={(e) => setStart(e.target.value)}
-            />
-        </div>
-        <div className="mb-3">
-            <label htmlFor="endInput" className="form-label">
-                End Time
-            </label>
-            <input
-                type="time"
-                className="form-control"
-                id="endInput"
-                onChange={(e) => setEnd(e.target.value)}
-            />
+          <label htmlFor="capacityInput" className="form-label">
+            Capacity
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="capacityInput"
+            onChange={(e) => setCapacity(e.target.value)}
+          />
         </div>
 
         <div className="mb-3">
-            <label htmlFor="fileInput" className="form-label">
-                Image
-            </label>
-            <input
-                type="file"
-                name="myfile"
-                id="fileInput"
-                accept=".jpeg,.png,.jpg"
-                onChange={handleImageChange}
-            />
-            {Image === "" || Image === null ? (
-                ""
-            ) : (
-                <img width={100} height={100} src={Image} alt="Preview" />
-            )}
+          <label htmlFor="descriptionInput" className="form-label">
+            Description
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="descriptionInput"
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
 
-        <button type="submit" className="btn btn-primary">Submit</button>
-    </form>
-</div>
 
+        <div className="mb-3">
+          <label htmlFor="typeInput" className="form-label">
+            Event Type
+          </label>
+          <input
+            type="text"
+            className={`form-control ${error ? "is-invalid" : ""}`}
+            id="typeInput"
+            placeholder="Free/Purchased"
+            onChange={handleTypeChange}
+            value={Type}
+          />
+          {error && <div className="invalid-feedback">{error}</div>}
+        </div>
+
+
+        <div className="mb-3">
+          <label htmlFor="dateInput" className="form-label">
+            Date
+          </label>
+          <input
+            type="date"
+            className="form-control"
+            id="dateInput"
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="startInput" className="form-label">
+            Start Time
+          </label>
+          <input
+            type="time"
+            className="form-control"
+            id="startInput"
+            onChange={(e) => setStart(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="endInput" className="form-label">
+            End Time
+          </label>
+          <input
+            type="time"
+            className="form-control"
+            id="endInput"
+            onChange={(e) => setEnd(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="fileInput" className="form-label">
+            Image
+          </label>
+          <input
+            type="file"
+            name="myfile"
+            id="fileInput"
+            accept=".jpeg,.png,.jpg"
+            onChange={handleImageChange}
+          />
+          {Image === "" || Image === null ? (
+            ""
+          ) : (
+            <img width={100} height={100} src={Image} alt="Preview" />
+          )}
+        </div>
+
+        <button type="submit" className="btn btn-primary" style={{ backgroundColor: "#1e5c8f" }}>Submit</button>
+
+      </form>
+    </div>
   );
 }
 

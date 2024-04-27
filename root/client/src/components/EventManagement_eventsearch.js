@@ -30,8 +30,8 @@ function SearchView() {
     }
 
     return (
-        <div className="event-container">
-            <h1>{event.Title}</h1>
+        <div style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '20px', backgroundColor: '#f8f8f8' }}>
+            <h2>{event.Title}</h2>
             {event.Image && <img src={event.Image} alt="Event Image" style={{ maxWidth: '900px', height: '400px', paddingBottom: '10px' }} />}
             <div className="event-details">
                 <p>Location: {event.Location}</p>
@@ -58,6 +58,8 @@ function SearchView() {
                 >
                 Update
                 </Link>
+
+                <Link to={`/Event/getsingleEvent/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none',fontSize: '15px' }}>View</Link>
 
 
             </div>
