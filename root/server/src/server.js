@@ -46,6 +46,27 @@ app.use(postTransaction);
 const postMonthlyTarget = require("./routs/FinancialManagement_MonthlyTargets.js");
 app.use(postMonthlyTarget);
 
+//staff management
+const employeeRouter = require("./routs/StaffManagement_employees.js");
+app.use("/employee",employeeRouter);
+
+const worksheetRouter=require("./routs/StaffManagement_worksheets.js");
+app.use("/worksheet",worksheetRouter);
+
+const leaveRouter =  require("./routs/StaffManagement_leaveRoutes.js");
+app.use("/LeaveRequest",leaveRouter);
+
+const noticeRouter =  require("./routs/StaffManagement_notices.js");
+app.use("/Notice",noticeRouter);
+
+
+const qrCodeRouter = require('./routs/StaffManagement_qrCodeRouter.js');
+app.use('/Qr', qrCodeRouter);
+
+const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
+app.use("/Attendance",attendanceRouter);
+
+//end
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
