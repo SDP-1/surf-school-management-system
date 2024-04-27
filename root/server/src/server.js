@@ -7,7 +7,7 @@ require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 8070;
-
+app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json({ limit: "20MB" }));
 
@@ -23,6 +23,13 @@ connection.once("open", () => {
   console.log("MongoDB database connected successfully!");
 });
 
+//routes
+
+const sessionRouter = require("./routs/SessionRoutes.js");
+const reservationRouter = require("./routs/ReservationRoutes.js");
+
+app.use("/sessions", sessionRouter);
+app.use("/reservations", reservationRouter);
 
 const eventRouter = require("./routs/EventManagement_events.js");
 app.use("/event", eventRouter);
