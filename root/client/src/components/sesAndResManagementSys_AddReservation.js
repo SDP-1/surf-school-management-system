@@ -9,7 +9,6 @@ function AddReservation() {
   const history = useNavigate();
   const location = useLocation();
   const [inputs, setInputs] = useState({
-    refID: "",
     stdname: "",
     sessionID: "",
     date: "",
@@ -18,7 +17,11 @@ function AddReservation() {
     contactNum: "",
     email: "",
     amount: "",
+    refID: ""
   });
+  const [isValidContact, setIsValidContact] = useState(true);
+  const [isNumberValid, setIsNumberValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -33,6 +36,11 @@ function AddReservation() {
         time: timeParam || "",
       }));
     }
+    const randomNum = Math.floor(10000 + Math.random() * 90000); // Generates random 5-digit number
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      refID: "RES" + randomNum,
+    }));
   }, [location.search]);
 
   const handleChange = (e) => {
@@ -41,19 +49,40 @@ function AddReservation() {
       ...prevState,
       [name]: value,
     }));
-    if (name === "numOfParticipents") {
-      const amount = parseInt(value) * 5000;
+
+    if (name === "contactNum") {
+      // Contact number validation
+      if (/^\d{10}$/.test(value)) {
+        setIsValidContact(true);
+      } else {
+        setIsValidContact(false);
+      }
+    } else if (name === "numOfParticipents") {
+      // Number of participants validation
+      if (!isNaN(value) && value !== "") {
+        setIsNumberValid(true);
+      } else {
+        setIsNumberValid(false);
+      }
+      // Calculate amount
+      const amount = isNaN(value) ? "" : parseInt(value) * 5000;
       setInputs((prevState) => ({
         ...prevState,
         amount: amount,
       }));
+    } else if (name === "email") {
+      // Email validation
+      const regex = /@gmail\.com$|@icloud\.com$/;
+      setIsEmailValid(regex.test(value));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs);
-    sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
+    if (isValidContact && isNumberValid && isEmailValid) {
+      sendRequest().then(() => history("/sesAndResManagement/reservationdetails"));
+    }
   };
 
   const sendRequest = async () => {
@@ -65,6 +94,14 @@ function AddReservation() {
       <Nav />
       <h1>Add Reservation</h1>
       <form onSubmit={handleSubmit}>
+        {/* Hidden input field for refID */}
+        <input
+          type="hidden"
+          name="refID"
+          value={inputs.refID}
+          onChange={handleChange}
+        />
+
         <div className="mb-3">
           <label htmlFor="stdname" className="form-label">
             Name
@@ -121,13 +158,14 @@ function AddReservation() {
             Number of Participants
           </label>
           <input
-            type="number"
-            className="form-control"
+            type="text"
+            className={`form-control ${isNumberValid ? "" : "is-invalid"}`}
             name="numOfParticipents"
             onChange={handleChange}
             value={inputs.numOfParticipents}
             required
           />
+          {!isNumberValid && <div className="invalid-feedback">Please enter a valid number</div>}
         </div>
 
         <div className="mb-3">
@@ -136,12 +174,13 @@ function AddReservation() {
           </label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${isValidContact ? "" : "is-invalid"}`}
             name="contactNum"
             onChange={handleChange}
             value={inputs.contactNum}
             required
           />
+          {!isValidContact && <div className="invalid-feedback">Please enter a valid contact number with 10 digits</div>}
         </div>
 
         <div className="mb-3">
@@ -150,12 +189,13 @@ function AddReservation() {
           </label>
           <input
             type="email"
-            className="form-control"
+            className={`form-control ${isEmailValid ? "" : "is-invalid"}`}
             name="email"
             onChange={handleChange}
             value={inputs.email}
             required
           />
+          {!isEmailValid && <div className="invalid-feedback">Please enter a valid email address ending with "@gmail.com" or "@icloud.com"</div>}
         </div>
 
         <div className="mb-3">
