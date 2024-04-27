@@ -314,11 +314,11 @@ function SideBar({ children }) {
               <span className="tooltip">Session</span>
             </li>
             <li>
-              <a href="#">
+              <a href="/staff/dash">
                 <i className="bx bx-folder"></i>
-                <span className="links_name">File Manager</span>
+                <span className="links_name">Staff Management</span>
               </a>
-              <span className="tooltip">Files</span>
+              <span className="tooltip">Staff Management</span>
             </li>
             <li>
               <a href="#">
