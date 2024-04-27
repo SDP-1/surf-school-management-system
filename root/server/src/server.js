@@ -67,6 +67,21 @@ const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
 app.use("/Attendance",attendanceRouter);
 
 //end
+ saleRouter = require("./routs/SalesManagement_sales.js");
+http://localhost:4000/sale
+app.use("/sale",saleRouter);
+
+
+http://localhost:4000/Rental
+ rentalRouter = require("./routs/SalesManagement_rental.js");
+app.use("/Rental", rentalRouter);
+
+
+http://localhost:4000/Receipt
+ receiptRouter = require("./routs/SalesManagement_receipt.js");
+app.use('/Receipt', receiptRouter);
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
