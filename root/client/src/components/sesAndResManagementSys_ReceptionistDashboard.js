@@ -257,7 +257,7 @@ const Dashboard = () => {
                 <CCol sm="6" lg="3">
                   <CCard color="success" className="text-white text-center">
                     <CCardBody>
-                      <CCardTitle>Total Revenue</CCardTitle>
+                      <CCardTitle>Reservation Revenue</CCardTitle>
                       <CCardText>${totalRevenue}</CCardText>
                       <CButton color="light" className="mt-3" block>
                         View Details
