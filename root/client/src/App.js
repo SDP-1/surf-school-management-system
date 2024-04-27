@@ -49,6 +49,9 @@ import AddAttendance from './components/StaffManagement_AddAttendance';
 import Staff_Admin from './components/StaffManagement_Dashboard';
 import Staff_AllNotices from './components/StaffManagement_ManageNotices';
 import HomePage from './components/StaffManagement_Dashboard';
+import StaffManagement_WorkSheetView from './components/StaffManagement_WorkSheetView';
+//staff end
+
 import Home from "./components/sesAndResManagementSys_Home";
 import AddSession from "./components/sesAndResManagementSys_AddSession";
 import Sessions from "./components/sesAndResManagementSys_Sessions";
@@ -56,6 +59,7 @@ import UpdateSession from "./components/sesAndResManagementSys_UpdateSession";
 import AddReservation from "./components/sesAndResManagementSys_AddReservation";
 import Reservations from "./components/sesAndResManagementSys_Reservations";
 import UpdateReservation from "./components/sesAndResManagementSys_UpdateReservation";
+
 
 function App() {
   return (
@@ -298,6 +302,10 @@ function App() {
 
           <Routes>
         <Route path ="/staff/adnotices" exact element={<Staff_AllNotices/>}/>
+          </Routes>
+
+          <Routes>
+        <Route path ="/staff/worksheetview" exact element={<StaffManagement_WorkSheetView/>}/>
           </Routes>
     
     {/*end*/}
