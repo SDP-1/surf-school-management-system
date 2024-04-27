@@ -197,7 +197,7 @@ function Outgoing() {
     const logo = new Image();
     logo.src =
       "https://static.vecteezy.com/system/resources/previews/000/660/538/original/vector-surfing-paradise-logo.jpg";
-    doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
+    doc.addImage(logo, "JPEG", doc.internal.pageSize.width - 40, 5, 50, 50);
   
     doc.text(companyName, 10, 50);
     doc.text(companyAddress, 10, 55);

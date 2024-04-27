@@ -3,7 +3,7 @@ const router = require("express").Router();
 const event = require("../models/EventManagement_event");
 
 // Function to post to Instagram
-const postToInsta = async (imageData, title) => {
+const postToInsta = async (imageData, title,des,date) => {
     try {
         console.log("Posting image to Instagram...");
 
@@ -16,7 +16,8 @@ const postToInsta = async (imageData, title) => {
 
         await ig.publish.photo({
             file: imageBuffer,
-            caption: `${title}`,
+            caption: `Event name: ${title} Event description: ${des} Event date: ${date}`,
+
         });
 
         console.log("Image posted to Instagram successfully");
@@ -63,7 +64,7 @@ router.route("/add").post(async (req, res) => {
         console.log("Event saved to the database");
         
         // Upload image to Instagram
-        await uploadImageToInstagram(Image, Title);
+        await uploadImageToInstagram(Image, Title,Description,Date);
 
         // Send response
         res.json("Event added successfully");
@@ -74,7 +75,7 @@ router.route("/add").post(async (req, res) => {
 });
 
 // Function to upload image to Instagram after event creation
-const uploadImageToInstagram = async (imageData, title) => {
+const uploadImageToInstagram = async (imageData, title,des,date) => {
     try {
         // Remove data URL prefix if present
         const base64String = imageData.split(',')[1];
@@ -82,7 +83,7 @@ const uploadImageToInstagram = async (imageData, title) => {
         const imageBuffer = Buffer.from(base64String, 'base64');
 
         // Call postToInsta function to upload the image to Instagram
-        await postToInsta(imageBuffer, title);
+        await postToInsta(imageBuffer, title,des,date);
     } catch (error) {
         console.error("Error uploading image to Instagram:", error);
         // Handle error if needed

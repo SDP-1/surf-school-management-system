@@ -307,18 +307,18 @@ function SideBar({ children }) {
               <span className="tooltip">Event management</span>
             </li>
             <li>
-              <a href="#">
+              <a href="/sesAndResManagement/mainhome">
                 <i className="bx bx-pie-chart-alt-2"></i>
-                <span className="links_name">Analytics</span>
+                <span className="links_name">Session</span>
               </a>
-              <span className="tooltip">Analytics</span>
+              <span className="tooltip">Session</span>
             </li>
             <li>
-              <a href="#">
+              <a href="/staff/dash">
                 <i className="bx bx-folder"></i>
-                <span className="links_name">File Manager</span>
+                <span className="links_name">Staff Management</span>
               </a>
-              <span className="tooltip">Files</span>
+              <span className="tooltip">Staff Management</span>
             </li>
             <li>
               <a href="#">

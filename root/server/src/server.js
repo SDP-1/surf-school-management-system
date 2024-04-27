@@ -7,7 +7,7 @@ require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 8070;
-
+app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json({ limit: "20MB" }));
 
@@ -23,6 +23,13 @@ connection.once("open", () => {
   console.log("MongoDB database connected successfully!");
 });
 
+//routes
+
+const sessionRouter = require("./routs/SessionRoutes.js");
+const reservationRouter = require("./routs/ReservationRoutes.js");
+
+app.use("/sessions", sessionRouter);
+app.use("/reservations", reservationRouter);
 
 const eventRouter = require("./routs/EventManagement_events.js");
 app.use("/event", eventRouter);
@@ -39,6 +46,27 @@ app.use(postTransaction);
 const postMonthlyTarget = require("./routs/FinancialManagement_MonthlyTargets.js");
 app.use(postMonthlyTarget);
 
+//staff management
+const employeeRouter = require("./routs/StaffManagement_employees.js");
+app.use("/employee",employeeRouter);
+
+const worksheetRouter=require("./routs/StaffManagement_worksheets.js");
+app.use("/worksheet",worksheetRouter);
+
+const leaveRouter =  require("./routs/StaffManagement_leaveRoutes.js");
+app.use("/LeaveRequest",leaveRouter);
+
+const noticeRouter =  require("./routs/StaffManagement_notices.js");
+app.use("/Notice",noticeRouter);
+
+
+const qrCodeRouter = require('./routs/StaffManagement_qrCodeRouter.js');
+app.use('/Qr', qrCodeRouter);
+
+const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
+app.use("/Attendance",attendanceRouter);
+
+//end
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -26,9 +26,9 @@ function ReadSingleEvents() {
     }
 
     return (
-        <div className="event-container">
-            <h1>{event.Title}</h1>
-            {event.Image && <img src={event.Image} alt="Event Image" style={{ maxWidth: '900px', height: '400px', paddingBottom: '10px' }} />}
+        <div  style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '20px', backgroundColor: '#f8f8f8' }}>
+            <h4>{event.Title}</h4>
+            {event.Image && <img src={event.Image} alt="Event Image" style={{ maxWidth: '800px', height: '400px', paddingBottom: '10px' }} />}
             <div className="event-details">
                 <p>Location: {event.Location}</p>
                 <p>Capacity: {event.Capacity}</p>

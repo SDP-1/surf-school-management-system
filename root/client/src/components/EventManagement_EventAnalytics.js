@@ -113,7 +113,7 @@ function Analytics() {
 
     return (
         <div>
-            <h2>Events by Month</h2>
+            <h2 style={{ fontFamily: 'Roboto, sans-serif', color: '#333', fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Events By Month</h2>
             <div style={{ margin: "20px" }}>
                 <canvas id="myChart" width="200" height="60"></canvas>
             </div>
