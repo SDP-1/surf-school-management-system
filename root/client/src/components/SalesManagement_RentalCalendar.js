@@ -67,7 +67,7 @@ const RentalCalendar = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#091f36', minHeight: '100vh', padding: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#ADD8E6', minHeight: '100vh', padding: '20px' }}>
             <h2 style={{ marginBottom: '20px', color: 'white' }}>Rental Calendar</h2>
             <Calendar
                 onChange={handleDateChange}

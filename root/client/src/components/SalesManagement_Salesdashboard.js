@@ -217,16 +217,16 @@ function HDashboard() {
         {/* Navigation Links Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/dashboard" className="nav-link active" aria-current="page"> Dashboard </Link>
+            <Link to="/Sale/Hdashboard" className="nav-link active" aria-current="page"> Dashboard </Link>
           </div>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/category/:category" className="nav-link active" aria-current="page"> Home </Link>
+            <Link to="/Sales/category/:category" className="nav-link active" aria-current="page"> POS </Link>
           </div>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/add" className="nav-link">Add Sales</Link>
+            <Link to="/Sales/receipts" className="nav-link">Sales</Link>
           </div>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/rental/add" className="nav-link">Rental</Link>
+            <Link to="/Sales/rental/date/:date" className="nav-link">Rental Calendar</Link>
           </div>
           {/* Add more navigation links here */}
         </div>

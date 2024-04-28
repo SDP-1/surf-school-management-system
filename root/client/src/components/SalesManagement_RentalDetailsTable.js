@@ -131,134 +131,135 @@ const RentalDetailsTable = () => {
     );
 
     return (
-        <div style={{ backgroundColor: '#222', padding: '20px', borderRadius: '10px', color: 'white' }}>
-            <h2>Rental Details</h2>
-            <Link to="/Sales/rental/add" style={{ textDecoration: 'none' }}>
-                <button style={{
-                    backgroundColor: '#4CAF50',
-                    color: 'white',
-                    padding: '10px 20px',
-                    border: 'none',
-                    borderRadius: '5px',
-                    margin: '10px 0',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.3s ease-in-out',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                    background: 'linear-gradient(to bottom, #66bb6a, #43a047)'
-                }}>Add Rentals</button>
-            </Link>
-            <input
-                type="text"
-                placeholder="Search name, passport, or item"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
-                style={{ marginBottom: '10px', padding: '5px',marginLeft:'800px' }}
-            />
-            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-                <thead>
-                    <tr>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Customer Name</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Passport ID</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Rental Start Date</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Rental End Date</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Rental Item</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Price Per Day</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Handover Item</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Actions</th>
+        <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '10px', color: 'black' }}>
+        <h2>Rental Details</h2>
+        <Link to="/Sales/rental/add" style={{ textDecoration: 'none' }}>
+            <button style={{
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                margin: '10px 0',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s ease-in-out',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                background: 'linear-gradient(to bottom, #66bb6a, #43a047)'
+            }}>Add Rentals</button>
+        </Link>
+        <input
+            type="text"
+            placeholder="Search name, passport, or item"
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+            style={{ marginBottom: '10px', padding: '5px', marginLeft: '800px' }}
+        />
+        <table style={{ borderCollapse: 'collapse', width: '100%', backgroundColor: '#FFFFFF', border: '1px solid #000' }}>
+            <thead style={{ backgroundColor: '#B3E5FC', color: '#03A9F4' }}>
+                <tr>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Customer Name</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Passport ID</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Rental Start Date</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Rental End Date</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Rental Item</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Price Per Day</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Handover Item</th>
+                    <th style={{ padding: '10px', border: '1px solid #000' }}>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filteredRentals.map((rental) => (
+                    <tr key={rental._id} style={{ cursor: 'pointer', backgroundColor: '#FFFFFF', transition: 'background-color 0.3s', border: '1px solid #000' }}>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="text"
+                                name="customerName"
+                                value={updatedFormData.customerName}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.customerName
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="text"
+                                name="passportId"
+                                value={updatedFormData.passportId}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.passportId
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="date"
+                                name="rentalStartDate"
+                                value={updatedFormData.rentalStartDate}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.rentalStartDate
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="date"
+                                name="rentalEndDate"
+                                value={updatedFormData.rentalEndDate}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.rentalEndDate
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="text"
+                                name="rentalItem"
+                                value={updatedFormData.rentalItem}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.rentalItem
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="number"
+                                name="pricePerDay"
+                                value={updatedFormData.pricePerDay}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.pricePerDay
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <input
+                                type="text"
+                                name="handoverItem"
+                                value={updatedFormData.handoverItem}
+                                onChange={handleInputChange}
+                            />
+                        ) : (
+                            rental.handoverItem
+                        )}</td>
+                        <td style={{ padding: '10px', border: '1px solid #000' }}>
+                            {isEditing && selectedRental && selectedRental._id === rental._id ? (
+                                <>
+                                    <button onClick={handleUpdateSubmit} style={{ backgroundColor: 'blue', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Save</button>
+                                    <button onClick={handleCancelClick} style={{ backgroundColor: 'red', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>Cancel</button>
+                                </>
+                            ) : (
+                                <>
+                                    <button onClick={() => handleUpdateClick(rental)} style={{ backgroundColor: 'green', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Edit</button>
+                                    <button onClick={() => handleDeleteClick(rental._id)} style={{ backgroundColor: 'orange', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>Delete</button>
+                                    <button onClick={() => handleGenerateInvoice(rental)} style={{ backgroundColor: 'purple', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginLeft: '5px' }}>Invoice</button>
+                                </>
+                            )}
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {filteredRentals.map((rental) => (
-                        <tr key={rental._id} style={{ cursor: 'pointer', backgroundColor: '#333', transition: 'background-color 0.3s' }}>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="customerName"
-                                    value={updatedFormData.customerName}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.customerName
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="passportId"
-                                    value={updatedFormData.passportId}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.passportId
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="date"
-                                    name="rentalStartDate"
-                                    value={updatedFormData.rentalStartDate}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.rentalStartDate
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="date"
-                                    name="rentalEndDate"
-                                    value={updatedFormData.rentalEndDate}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.rentalEndDate
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="rentalItem"
-                                    value={updatedFormData.rentalItem}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.rentalItem
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="number"
-                                    name="pricePerDay"
-                                    value={updatedFormData.pricePerDay}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.pricePerDay
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="handoverItem"
-                                    value={updatedFormData.handoverItem}
-                                    onChange={handleInputChange}
-                                />
-                            ) : (
-                                rental.handoverItem
-                            )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>
-                                {isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                    <>
-                                        <button onClick={handleUpdateSubmit} style={{ backgroundColor: 'blue', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Save</button>
-                                        <button onClick={handleCancelClick} style={{ backgroundColor: 'red', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>Cancel</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button onClick={() => handleUpdateClick(rental)} style={{ backgroundColor: 'green', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Edit</button>
-                                        <button onClick={() => handleDeleteClick(rental._id)} style={{ backgroundColor: 'orange', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>Delete</button>
-                                        <button onClick={() => handleGenerateInvoice(rental)} style={{ backgroundColor: 'purple', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginLeft: '5px' }}>Invoice</button>
-                                    </>
-                                )}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                ))}
+            </tbody>
+        </table>
+    </div>
+    
     );
 };
 
