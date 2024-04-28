@@ -58,6 +58,12 @@ import AddReservation from "./components/sesAndResManagementSys_AddReservation";
 import Reservations from "./components/sesAndResManagementSys_Reservations";
 import UpdateReservation from "./components/sesAndResManagementSys_UpdateReservation";
 
+//customermanagement
+import CustomerManagement_AddCustomer from './components/CustomerManagement_AddCustomer';
+import CustomerManagement_AllCustomers from './components/CustomerManagement_AllCustomers';
+import CustomerManagement_Dashboard from './components/CustomerManagement_DashBoard';
+import CustomerManagement_CustomerTable from './components/CustomerManagement_CustomerTable';
+import CustomerManagement_CHeader from './components/CustomerManagement_CHeader';
 import HHeader from './components/SalesManagement_Header';
 import ItemsAdd from './components/SalesManagement_ItemsAdd';
 import Pos from './components/SalesManagement_Pos';
@@ -355,6 +361,33 @@ function App() {
         </Routes>
     
     {/*end*/}
+        
+    {/*customer management*/}
+    <div>
+    <Routes>
+          <Route path="/customer/*" element={<CustomerManagement_CHeader/>} />
+        </Routes>
+
+    
+
+        <Routes>
+          <Route path="/customer" element={<CustomerManagement_AddCustomer/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/customer/customers" element={<CustomerManagement_AllCustomers/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/customer/dashboard" element={<CustomerManagement_Dashboard/>} />
+        </Routes>
+
+        
+        <Routes>
+          <Route path="/customer/table" element={<CustomerManagement_CustomerTable/>} />
+        </Routes>
+      </div>
+      {/*end*/}
     </Router>
    
         {/* <Footer /> */}

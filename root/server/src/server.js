@@ -69,6 +69,8 @@ app.use('/Qr', qrCodeRouter);
 const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
 app.use("/Attendance",attendanceRouter);
 
+const customerRouter = require("./routs/CustomerManagement_customer.js");
+app.use("/Customer",customerRouter);
 //end
  saleRouter = require("./routs/SalesManagement_sales.js");
 http://localhost:4000/sale
