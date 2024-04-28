@@ -80,8 +80,8 @@ const MonthlyTargetMeter = ({ name, year, month, incomeAchieved }) => {
   return (
     <MeterContainer>
       <CircularMeterContainer>
-      <LabelContainer>
-          <Label>Monthly Income : Rs. {targetIncome}</Label>
+        <LabelContainer>
+          <Label>Monthly Income Target : Rs. {targetIncome}</Label>
           <Label>Income Achieved : Rs. {incomeAchieved}</Label>
         </LabelContainer>
         <CircularMeter viewBox="0 0 100 100">
@@ -105,7 +105,6 @@ const MonthlyTargetMeter = ({ name, year, month, incomeAchieved }) => {
             {isNaN(percentage) ? 0 : percentage.toFixed(2)}%
           </PercentageText>
         </CircularMeter>
-        
       </CircularMeterContainer>
       <ButtonContainer>
         <Input

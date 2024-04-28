@@ -2,15 +2,21 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
-export default function PaymentGateway({ onClose }) {
-  let payableAmount = 1000;
-  let referenceNo = "REF0001";
+ 
+export default function PaymentGateway({
+  onClose,
+  referenceNo,
+  payableAmount,
+  details,
+  onSuccessPayment,
+}) {
+  // let payableAmount = 1000;
+  // let referenceNo = "REF0001";
   let nowPaybleAmount = payableAmount;
   let amountDue = 0;
   let cashType = "Cash Payment";
   let advancePayment = false;
-  let details = "Buy surf bord";
+  // let details = "Buy surf bord";
 
   const [slip, setSlip] = useState(null);
 
@@ -41,22 +47,10 @@ export default function PaymentGateway({ onClose }) {
     amountDueElement.style.fontWeight = "bold";
   }
 
-  // function print() {
-  //   console.log(
-  //     payableAmount,
-  //     nowPaybleAmount,
-  //     amountDue,
-  //     referenceNo,
-  //     cashType,
-  //     advancePayment,
-  //     details,
-  //     slip
-  //   );
-  // }
-
   const onInputChange = (e) => {
     // console.log(e.target.files[0]);
     setSlip(e.target.files[0]);
+    enablePaymentProcessButton();
   };
 
   //convert to two decimalpace
@@ -109,20 +103,19 @@ export default function PaymentGateway({ onClose }) {
       });
   }, []);
 
-  function disablePaymentProcessButton(){
+  function disablePaymentProcessButton() {
     const proceedButton = document.getElementById("proceedButton");
     if (proceedButton) {
       proceedButton.disabled = true;
     }
   }
 
-  function enablePaymentProcessButton(){
+  function enablePaymentProcessButton() {
     const proceedButton = document.getElementById("proceedButton");
     if (proceedButton) {
       proceedButton.disabled = false;
     }
   }
-
 
   function cashPaymentSelect() {
     enablePaymentProcessButton();
@@ -141,11 +134,7 @@ export default function PaymentGateway({ onClose }) {
     dragandDropContainer.style.display = "none";
 
     cashType = "Cash Payment";
-    // console.log("clicked cash payment");
-    // Call your specific function here
-    // Example: YourFunction();
     resetValues();
-    // print();
   }
 
   function bankTransferSelect() {
@@ -167,45 +156,6 @@ export default function PaymentGateway({ onClose }) {
     // print();
   }
 
-  // const handleProceedToPayment = () => {
-
-  //   const dragandDropContainer = document.getElementById(
-  //     "dragand-drop-container"
-  //   );
-  //   if (dragandDropContainer.style.display !== "none") {
-  //     // Call your function here
-  //     bankTransferSelect();
-  //   } else {
-  //     cashPaymentSelect();
-  //   }
-
-  //   // print();
-  //   const data = {
-  //     refId: referenceNo,
-  //     cashType: cashType,
-  //     Advance: advancePayment,
-  //     totalAmount: payableAmount,
-  //     amountPaid: nowPaybleAmount,
-  //     amountDue: amountDue,
-  //     details: details,
-  //     slip: slip,
-  //   };
-
-  //   // Make a POST request to your backend server to save the data to MongoDB
-  //   axios
-  //     .post("http://localhost:4000/payment/save", data, {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //     })
-  //     .then((response) => {
-  //       console.log("Data saved successfully:", response.data);
-  //       // Handle success (e.g., show a success message to the user)
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error saving data:", error);
-  //       // Handle error (e.g., show an error message to the user)
-  //     });
-  // };
-
   const handleProceedToPayment = () => {
     // Show a confirmation dialog
     const isConfirmed = window.confirm(
@@ -214,7 +164,6 @@ export default function PaymentGateway({ onClose }) {
 
     if (isConfirmed) {
       // Set payment processing to true
-
 
       // Continue with the payment process
       const dragandDropContainer = document.getElementById(
@@ -248,6 +197,7 @@ export default function PaymentGateway({ onClose }) {
           // Show a success message to the user
           disablePaymentProcessButton();
           alert("Payment successful!");
+          onSuccessPayment();
         })
         .catch((error) => {
           console.error("Error saving data:", error);
@@ -420,7 +370,6 @@ export default function PaymentGateway({ onClose }) {
                       backgroundColor: "red",
                     }} // Corrected style property names
                   >
-                    {/* <div className="card-header">Cash</div> */}
                     <div
                       className="card-body"
                       id="cashPayment"
@@ -444,7 +393,6 @@ export default function PaymentGateway({ onClose }) {
                       backgroundColor: "red",
                     }}
                   >
-                    {/* <div className="card-header">Bank</div> */}
                     <div
                       className="card-body"
                       id="bankTransfer"
@@ -477,7 +425,6 @@ export default function PaymentGateway({ onClose }) {
                     style={{ maxWidth: "250px", marginLeft: "30px" }}
                   >
                     <span className="input-group-text">$</span>
-                    {/* <span className="input-group-text">0.00</span> */}
                     <input
                       type="number"
                       className="form-control"
@@ -490,12 +437,6 @@ export default function PaymentGateway({ onClose }) {
               </form>
               <form className="pb-3"></form>
               <div>
-                {/* <input
-                  type="button"
-                  value="Proceed to payment"
-                  className="btn btn-primary btn-block"
-                  onClick={handleProceedToPayment}
-                /> */}
                 <input
                   type="button"
                   value="Proceed to payment"
@@ -531,14 +472,6 @@ export default function PaymentGateway({ onClose }) {
                   <b>- Rs. {nowPaybleAmount}</b>
                 </div>
               </div>
-              {/* <div className="p-2 d-flex">
-                <div className="col-8">Coinsurance( % )</div>
-                <div className="ml-auto">+ Rs. </div>
-              </div>
-              <div className="p-2 d-flex">
-                <div className="col-8">Copayment</div>
-                <div className="ml-auto">+ $40.00</div>
-              </div> */}
               <div className="border-top px-4 mx-3"></div>
               <div className="p-2 d-flex pt-3">
                 <div className="col-8">
@@ -548,37 +481,6 @@ export default function PaymentGateway({ onClose }) {
                   <b>Rs. {amountDue}</b>
                 </div>
               </div>
-              {/* <div className="p-2 d-flex">
-                <div className="col-8">
-                  Maximum out-of-pocket on Insurance Policy (not reached)
-                </div>
-                <div className="ml-auto">$6500.00</div>
-              </div> */}
-              {/* <div className="border-top px-4 mx-3"></div>
-              <div className="p-2 d-flex pt-3">
-                <div className="col-8">Insurance Responsibility</div>
-                <div className="ml-auto">
-                  <b>$71.76</b>
-                </div>
-              </div> */}
-              {/* <div className="p-2 d-flex">
-                <div className="col-8">
-                  Patient Balance{" "}
-                  <span className="fa fa-question-circle text-secondary"></span>
-                </div>
-                <div className="ml-auto">
-                  <b>$71.76</b>
-                </div>
-              </div> */}
-              {/* <div className="border-top px-4 mx-3"></div>
-              <div className="p-2 d-flex pt-3">
-                <div className="col-8">
-                  <b>Total</b>
-                </div>
-                <div className="ml-auto">
-                  <b className="green">$85.00</b>
-                </div>
-              </div> */}
             </div>
 
             {/* Dragand drop */}
@@ -586,20 +488,12 @@ export default function PaymentGateway({ onClose }) {
               style={{
                 width: "40rem",
                 Height: "3rem",
-                // overflow: "hidden",
-                // border: "2px dashed #ccc",
-                // padding: "1rem",
               }}
             >
               <div
                 style={{
                   width: "60rem",
                   height: "200px",
-                  // border: "2px dashed #ccc",
-                  // padding: "1rem",
-                  // display: "flex",
-                  // justifyContent: "center",
-                  // alignItems: "center",
                 }}
               >
                 <div className="container" id="dragand-drop-container">
@@ -631,20 +525,6 @@ export default function PaymentGateway({ onClose }) {
           rel="stylesheet"
           id="bootstrap-css"
         />
-
-        {/* Dragand drop
-        <div className="container" id="dragand-drop-container">
-          <div className="row">
-            <div className="col-md-6">
-              <form method="post" action="#" id="#">
-                <div className="form-group files">
-                  <label>Upload Your File </label>
-                  <input type="file" className="form-control" multiple="" />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

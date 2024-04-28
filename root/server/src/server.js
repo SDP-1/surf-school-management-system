@@ -7,9 +7,12 @@ require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 8070;
+
+ // Set a higher limit, e.g., 10MB
+
+app.use(bodyParser.json({ limit: "100MB" }));
 app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json({ limit: "20MB" }));
 
 const URL = process.env.MONGODB_URL;
 
@@ -66,6 +69,8 @@ app.use('/Qr', qrCodeRouter);
 const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
 app.use("/Attendance",attendanceRouter);
 
+const customerRouter = require("./routs/CustomerManagement_customer.js");
+app.use("/Customer",customerRouter);
 //end
  saleRouter = require("./routs/SalesManagement_sales.js");
 http://localhost:4000/sale
