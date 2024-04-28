@@ -102,14 +102,14 @@ export default function NavBar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link
+                {/* <Link
                   className="nav-link active"
                   aria-current="page"
                   to="/FinancialManagement/payment"
                   style={navStyles.brand}
                 >
                   Payment
-                </Link>
+                </Link> */}
               </li>
               <li className="nav-item">
                 <Link

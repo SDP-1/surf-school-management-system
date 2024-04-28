@@ -19,6 +19,7 @@ import CombinedChartsPage from './components/EventManagement_combinedAnalytics';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import NavBar from "./pages/FinancialManagement_Navbar";
+import LoginPage from "./components/Login";
 import AllTransaction from "./components/FinancialManagement_AllTransaction";
 import PaymentGateway from "./pages/FinancialManagement_PaymentGateway";
 import Income from "./pages/FinancialManagement_Income";
@@ -159,6 +160,9 @@ function App() {
         {/* <Routes>
           <Route path="/dashboard/*" exact Component={Dashboard} />
         </Routes> */}
+        <Routes>
+          <Route path="/LoginPage" exact Component={LoginPage} />
+        </Routes>
         <Routes>
           <Route path="/FinancialManagement/*" exact Component={NavBar} />
         </Routes>
