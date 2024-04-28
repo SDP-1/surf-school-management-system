@@ -57,7 +57,7 @@ export default function EditDamageEquip() {
     axios.put(`http://localhost:4000/damageEquipment/editDamageEquipment/${damageId}`, updatedDamageEquipment)
       .then(() => {
         alert("Damage Equipment updated successfully");
-        window.location.href = "/damage";
+        window.location.href = "/supplier/damage";
       })
       .catch((err) => {
         alert(err);
@@ -67,7 +67,7 @@ export default function EditDamageEquip() {
   return (
     <div className="container mt-5">
       <form className="mx-auto w-50 shadow p-5" onSubmit={sendData}>
-        <Link className="btn btn-primary" to="/damage">Home</Link>
+        <Link className="btn btn-primary" to="/supplier/damage">Home</Link>
         <h3 className="mt-5">Edit details</h3>
         <div className="row">
           <div className="col">

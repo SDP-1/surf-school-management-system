@@ -14,7 +14,7 @@ export default function DeleteDamageEquip(){
                 setDeletedEquipment(dmquipment.data);
                 alert("Deleted Damage equipment");
                 // Redirect to the home page using window.location
-                window.location.href = "/damage"; // Redirect to the home page
+                window.location.href = "/supplier/damage"; // Redirect to the home page
             } catch (err) {
                 console.error(err);
                 

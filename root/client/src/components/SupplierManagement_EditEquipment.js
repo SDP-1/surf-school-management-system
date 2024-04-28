@@ -49,7 +49,7 @@ export default function EditEquipment() {
     axios.put(`http://localhost:4000/equipment/editEquipment/${equipmentno}`, updatedEquipment)
       .then(() => {
         alert("Equipment updated successfully");
-        window.location.href = "/";
+        window.location.href = "/supplier/allequipment";
       })
       .catch((err) => {
         alert(err);

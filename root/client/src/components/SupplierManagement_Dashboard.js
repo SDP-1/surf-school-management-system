@@ -89,10 +89,10 @@ export default function Dashboard() {
       </main>
 
     <div className='button-container'>
-  <button className='button'><Link to="/allequipment" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Equipment Inventory</Link></button>
-  <button className='button' ><Link to="/damage" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Damage Equipment</Link></button>
-  <button className='button' ><Link to="/allsup" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Suppliers</Link></button>
-  <button className='button' ><Link to="/t" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Assign Supplier</Link></button>
+  <button className='button'><Link to="/supplier/allequipment" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Equipment Inventory</Link></button>
+  <button className='button' ><Link to="/supplier/damage" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Damage Equipment</Link></button>
+  <button className='button' ><Link to="/supplier/allsup" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Suppliers</Link></button>
+  <button className='button' ><Link to="/supplier/t" style={{ color: 'white', textDecoration: 'none', display: 'block' }}>Assign Supplier</Link></button>
   </div>
   </div>
   

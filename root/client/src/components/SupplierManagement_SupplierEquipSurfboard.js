@@ -180,7 +180,7 @@ export default function AllSupplier() {
               <td>{supplierall.note}</td>
               <td>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <Link to={`/supupdate/${supplierall.suppliercode}`}>
+                  <Link to={`/supplier/supupdate/${supplierall.suppliercode}`}>
                     <button className="btn btn-success me-3">
                       <AiFillEdit />
                     </button>
@@ -204,7 +204,7 @@ export default function AllSupplier() {
       </table>
       <div className="mt-3">
         <button className="btn btn-primary" onClick={generateSupplierReport}>
-          <GrDocumentPdf /> Generate Annual Supplier Report
+          <GrDocumentPdf /> Generate Annual SurfBoard Supplier Report
         </button>
       </div>
     </div>

@@ -369,7 +369,10 @@ main{
   background-color: #093a6a;
   color: #fff;
 }
+
+
 /* Main  Suppliermanagement*/  
+/* Main  */  
 .main-container {
   grid-area: main;
   overflow-y: auto;

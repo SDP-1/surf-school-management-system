@@ -52,7 +52,7 @@ export default function AddEquipment() {
   return (
     <div className="container mt-5">
       <form className="mx-auto w-50 shadow p-5" onSubmit={sendData}>
-        <Link className="btn btn-primary" to="/">Home</Link>
+        <Link className="btn btn-primary" to="/supplier/allequipment">Home</Link>
         <h3 className="mt-5">Fill-up details</h3>
         <div className="row">
           <div className="col">

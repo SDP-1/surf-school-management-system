@@ -14,7 +14,7 @@ export default function DeleteEquipment(){
                 setDeletedEquipment(dequipment.data);
                 alert("Deleted equipment");
                 // Redirect to the home page using window.location
-                window.location.href = "/"; // Redirect to the home page
+                window.location.href = "/supplier/allequipment"; // Redirect to the home page
             } catch (err) {
                 console.error(err);
                 

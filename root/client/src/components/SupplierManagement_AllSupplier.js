@@ -134,7 +134,7 @@ const generateSupplierReport = () => {
   return (
 <div className="container mt-5">
       <div className="mt-3">
-        <Link className="btn btn-success" to="/addsup">
+        <Link className="btn btn-success" to="/supplier/addsup">
           <MdAdd />Add Supplier
         </Link>
       </div>
@@ -185,7 +185,7 @@ const generateSupplierReport = () => {
               <td>{supplierall.note}</td>
               <td>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Link to={`/supupdate/${supplierall.suppliercode}`}>
+                <Link to={`/supplier/supupdate/${supplierall.suppliercode}`}>
                   <button className="btn btn-success me-3">
                     <AiFillEdit />
                   </button>

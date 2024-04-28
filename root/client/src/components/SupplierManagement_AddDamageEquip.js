@@ -48,7 +48,7 @@ export default function AddDamageEquip() {
     return (
         <div className="container mt-5">
             <form className="mx-auto w-50 shadow p-5" onSubmit={sendData}>
-                <Link className="btn btn-primary" to="/damage">Home</Link>
+                <Link className="btn btn-primary" to="/supplier/damage">Home</Link>
                 <h3 className="mt-5">Fill-up details</h3>
                 <div className="row">
                 <div className="col">

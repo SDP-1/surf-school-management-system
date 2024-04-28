@@ -85,7 +85,7 @@ export default function UpdateSupplier(){
          axios.put(`http://localhost:4000/supplier/updatesupplier/${suppliercode}`, updatedSupplier)
       .then(() => {
         alert("Supplier  updated successfully");
-        window.location.href = "/allsup";
+        window.location.href = "/supplier/allsup";
       })
       .catch((err) => {
         alert(err);
@@ -94,7 +94,7 @@ export default function UpdateSupplier(){
       return (
         <div className="container mt-5">
           <form className="mx-auto w-50 shadow p-5" onSubmit={sendData}>
-            <Link className="btn btn-primary" to="/allsup">Home</Link>
+            <Link className="btn btn-primary" to="/supplier/allsup">Home</Link>
             <h3 className="mt-5">Edit details</h3>
             <div className="mb-3">
               <label htmlFor="suppliercode" className="form-label">Supplier Code</label>

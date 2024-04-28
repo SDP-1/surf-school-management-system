@@ -20,22 +20,22 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/supplierDashboard">Dashboard</Link>
+              <Link className="nav-link active" aria-current="page" to="/supplier/supplierDashboard">Dashboard</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/allsup">Supplier</Link>
+              <Link className="nav-link active" aria-current="page" to="/supplier/allsup">Supplier</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/allequipment">Inventory</Link>
+              <Link className="nav-link active" aria-current="page" to="/supplier/allequipment">Inventory</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/damage">Damage Equipment</Link>
+              <Link className="nav-link active" aria-current="page" to="/supplier/damage">Damage Equipment</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/equipSup">Surf Board</Link>
+              <Link className="nav-link active" aria-current="page" to="/supplier/equipSup">Surf Board</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/websuits">Web Suits</Link>
+              <Link className="nav-link active" aria-current="page" to="/supplier/websuits">Web Suits</Link>
             </li>
             {/* <li className="nav-item dropdown">
         <a

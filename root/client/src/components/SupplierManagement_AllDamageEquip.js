@@ -239,7 +239,7 @@ doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
       </div> */}
      
       <div className="mt-3">
-        <Link className="btn btn-primary" to="/t">
+        <Link className="btn btn-primary" to="/supplier/t">
           <MdEmail /> Assign supplier
         </Link>
       </div>
@@ -296,7 +296,7 @@ doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
                 <td>{damageEquipment.repaircost}</td>
                 <td>
   <div style={{ display: "flex", alignItems: "center" }}>
-    <Link to={`/editDamageEquipment/${damageEquipment.damageId}`}>
+    <Link to={`/supplier/editDamageEquipment/${damageEquipment.damageId}`}>
       <button className="btn btn-success me-3">
         <AiFillEdit />
       </button>

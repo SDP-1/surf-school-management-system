@@ -150,7 +150,7 @@ return (
   </Link>
 </div> */}
  <div className="mt-3">
-        <Link className="btn btn-primary" to="/t">
+        <Link className="btn btn-primary" to="/supplier/t">
           <MdEmail /> Assign supplier
         </Link>
       </div>
@@ -203,7 +203,7 @@ return (
               <td>{equipment.supplieremail}</td>
               <td>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <Link to={`/editEquipment/${equipment.equipmentno}`}>
+                  <Link to={`/supplier/editEquipment/${equipment.equipmentno}`}>
                     <button className="btn btn-success me-3">
                       <AiFillEdit />
                     </button>
