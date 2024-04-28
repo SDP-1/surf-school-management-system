@@ -51,6 +51,8 @@ function App() {
 
     <Sidebar>
     <Router>
+      
+
     <Routes>  
     <Route path="/supplierNavbar/*" element={<SupplierManagement_Navbar/>} />      
     </Routes>
@@ -119,6 +121,8 @@ function App() {
     <Route path='/websuits' element={<SupplierManagement_Websuits />} />   
     </Routes>
 
+
+   
 
 
 
