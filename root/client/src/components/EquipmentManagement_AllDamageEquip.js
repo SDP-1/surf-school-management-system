@@ -22,7 +22,7 @@ export default function AllDamageEquip() {
     function getDamageEquipment() {
       axios.get("http://localhost:4000/damageEquipment/damage").then((res) => {
         setequipment(res.data);
-        setFilteredDamageEquipment(res.data); // Initialize filtered data
+        setFilteredDamageEquipment(res.data); 
       }).catch((err) => {
         alert(err.message);
       })
@@ -152,9 +152,9 @@ export default function AllDamageEquip() {
     
       filteredDamageEquipment.forEach((equipment) => {
         const deliveryDate = new Date(equipment.deliverydate);
-        deliveryDate.setHours(0, 0, 0, 0); // set time to 00:00:00
+        deliveryDate.setHours(0, 0, 0, 0); 
     
-        // Compare only the dates
+        
         if (deliveryDate.getDate() <= currentDate.getDate() + 2 &&
             deliveryDate.getMonth() === currentDate.getMonth() &&
             deliveryDate.getFullYear() === currentDate.getFullYear()) {
@@ -163,9 +163,9 @@ export default function AllDamageEquip() {
       });
     
     }, [filteredDamageEquipment]);
-// Calculate sum of available items and in-stock items
+
 const totalrepaircost = filteredDamageEquipment.reduce((acc, item) => acc + parseInt(item.repaircost || 0), 0);
-   //generate report
+   
    const generateReport = () => {
     const doc = new jsPDF("p", "mm", "a4");
 
@@ -181,13 +181,13 @@ const totalrepaircost = filteredDamageEquipment.reduce((acc, item) => acc + pars
   doc.setFontSize(15);
   doc.text("Damage Equipment Report", doc.internal.pageSize.width / 2, 30, { align: "center" });
 
-  // Load the logo from an external source
+  
 const logo = new Image();
 logo.src = "https://static.vecteezy.com/system/resources/previews/000/660/538/original/vector-surfing-paradise-logo.jpg";
 
-// Add the logo to the top right of the page
+
 doc.addImage(logo, "PNG", doc.internal.pageSize.width - 40, 5, 50, 50);
-    // Set the company name and address on the right-hand side of the page after the middle
+    
     doc.text(companyName, 10, 50);
     doc.text(companyAddress, 10, 55);
   

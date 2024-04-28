@@ -43,7 +43,7 @@ export default function EditEquipment() {
     axios.put(`http://localhost:4000/equipmentReservation/editEquipmentReservation/${reservationId}`, updatedReservation)
       .then(() => {
         alert("Equipment Reservation  updated successfully");
-        window.location.href = "/allReservation";
+        window.location.href = "/Equipment_Management/allReservation";
       })
       .catch((err) => {
         alert(err);
