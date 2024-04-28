@@ -142,7 +142,7 @@ function AttendanceManager() {
 
     const generateReport = () => {
         const doc = new jsPDF();
-        doc.text('All Attendance Report', 10, 10);
+        doc.text('Paradise Surf School Attendance Report', 10, 10);
         const data = attendances.map(({ eid, name, date }) => [eid, name, date]);
         doc.autoTable({
             head: [['Employee ID', 'Name', 'Date']],
@@ -168,7 +168,7 @@ function AttendanceManager() {
         <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', color: '#000000', padding: '20px' }}>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {/* First Grid: Add Attendance */}
-        <div style={{ flex: 1, marginRight: '20px', backgroundColor: '#ADD8E6', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
+        <div style={{ flex: 1, marginRight: '20px', backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
             <h3>Add New Attendance</h3>
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: '10px' }}>
@@ -188,14 +188,14 @@ function AttendanceManager() {
         </div>
 
         {/* Second Grid: Upload Attendance */}
-        <div style={{ flex: 1, marginRight: '20px', backgroundColor: '#ADD8E6', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
+        <div style={{ flex: 1, marginRight: '20px', backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
             <h3>Upload Attendance from Spreadsheet</h3>
             <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} style={{ marginBottom: '10px' }} />
             <button onClick={handleFileUpload} style={{ backgroundColor: '#87CEFA', border: 'none', color: '#ffffff', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}>Upload</button>
         </div>
 
         {/* Third Grid: Get Attendance Count */}
-        <div style={{ flex: 1, backgroundColor: '#ADD8E6', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
+        <div style={{ flex: 1, backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
             <h3>Get Attendance Count for Employee</h3>
             <input type="text" value={employeeIdForCount} onChange={(e) => setEmployeeIdForCount(e.target.value)} style={{ marginBottom: '10px', width: '100%' }} />
             <button onClick={handleGetAttendanceCount} style={{ backgroundColor: '#87CEFA', border: 'none', color: '#ffffff', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}>Get Attendance Count</button>
@@ -204,7 +204,7 @@ function AttendanceManager() {
     </div>
 
     {/* Attendance List */}
-    <div style={{ marginTop: '20px', backgroundColor: '#ADD8E6', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
+    <div style={{ marginTop: '20px', backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
         <h3>Attendance List</h3>
         <input
             type="text"
