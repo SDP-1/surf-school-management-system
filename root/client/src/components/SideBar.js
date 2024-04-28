@@ -286,7 +286,7 @@ function SideBar({ children }) {
               <span className="tooltip">Search</span>
             </li>
             <li>
-              <a href="/dashboard">
+              <a href="/LoginPage">
                 <i className="bx bx-grid-alt"></i>
                 <span className="links_name">Dashboard</span>
               </a>
@@ -311,21 +311,21 @@ function SideBar({ children }) {
                 <i className="bx bx-pie-chart-alt-2"></i>
                 <span className="links_name">Session</span>
               </a>
-              <span className="tooltip">Session</span>
+              <span className="tooltip">Session Management</span>
             </li>
             <li>
               <a href="/staff/dash">
                 <i className="bx bx-folder"></i>
-                <span className="links_name">Staff Management</span>
+                <span className="links_name">Staff</span>
               </a>
               <span className="tooltip">Staff Management</span>
             </li>
             <li>
-              <a href="#">
+              <a href="/Sales/Hdashboard">
                 <i className="bx bx-cart-alt"></i>
-                <span className="links_name">Order</span>
+                <span className="links_name">Sales</span>
               </a>
-              <span className="tooltip">Order</span>
+              <span className="tooltip">Sales Dashboard</span>
             </li>
             <li>
               <a href="#">
@@ -360,7 +360,13 @@ function SideBar({ children }) {
             </li>
           </ul>
         </div>
-        <div style={{ marginLeft: isOpen ? "240px" : "70px", transition: "all 0.5s ease" }} className="bars">
+        <div
+          style={{
+            marginLeft: isOpen ? "240px" : "70px",
+            transition: "all 0.5s ease",
+          }}
+          className="bars"
+        >
           <main>{children}</main>
         </div>
       </div>

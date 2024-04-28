@@ -19,6 +19,7 @@ import CombinedChartsPage from './components/EventManagement_combinedAnalytics';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import NavBar from "./pages/FinancialManagement_Navbar";
+import LoginPage from "./components/Login";
 import AllTransaction from "./components/FinancialManagement_AllTransaction";
 import PaymentGateway from "./pages/FinancialManagement_PaymentGateway";
 import Income from "./pages/FinancialManagement_Income";
@@ -63,6 +64,15 @@ import CustomerManagement_AllCustomers from './components/CustomerManagement_All
 import CustomerManagement_Dashboard from './components/CustomerManagement_DashBoard';
 import CustomerManagement_CustomerTable from './components/CustomerManagement_CustomerTable';
 import CustomerManagement_CHeader from './components/CustomerManagement_CHeader';
+import HHeader from './components/SalesManagement_Header';
+import ItemsAdd from './components/SalesManagement_ItemsAdd';
+import Pos from './components/SalesManagement_Pos';
+import RentalForm from './components/SalesManagement_RentalForm';
+import RentalDetailsTable from './components/SalesManagement_RentalDetailsTable';
+import RentalCalendar from './components/SalesManagement_RentalCalendar';
+import Receipts from './components/SalesManagement_Receipt';
+import HDashboard from './components/SalesManagement_Salesdashboard';
+import Sales_Items from './components/SalesManagement_SalesItems';
 
 
 function App() {
@@ -156,6 +166,9 @@ function App() {
         {/* <Routes>
           <Route path="/dashboard/*" exact Component={Dashboard} />
         </Routes> */}
+        <Routes>
+          <Route path="/LoginPage" exact Component={LoginPage} />
+        </Routes>
         <Routes>
           <Route path="/FinancialManagement/*" exact Component={NavBar} />
         </Routes>
@@ -307,6 +320,45 @@ function App() {
           <Routes>
         <Route path ="/staff/adnotices" exact element={<Staff_AllNotices/>}/>
           </Routes>
+
+
+    {/* /Sales and rental Management */}
+
+          <Routes>  
+     <Route path="/Sales/*" element={<HHeader/>} />      
+     </Routes>
+    
+        <Routes>
+        <Route path="/Sales/category/:category" element={<Pos/>} />
+        </Routes>
+      
+        <Routes>
+          <Route path="/Sales/add" element={<ItemsAdd />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/rental/add" element={<RentalForm />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/rental/all" element={<RentalDetailsTable/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/rental/date/:date" element={<RentalCalendar/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/receipts" element={<Receipts/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/Hdashboard" element={<HDashboard/>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/Sales/item" element={<Sales_Items/>} />
+        </Routes>
     
     {/*end*/}
         
@@ -338,6 +390,7 @@ function App() {
       {/*end*/}
     </Router>
    
+        {/* <Footer /> */}
     </Sidebar>
   );
 }

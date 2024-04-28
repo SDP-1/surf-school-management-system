@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { BsCreditCard } from "react-icons/bs";
-import { AiOutlineMore } from "react-icons/ai";
-import { BiTransfer } from "react-icons/bi";
-import { BsBank } from "react-icons/bs";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { AiOutlineMore } from "react-icons/ai";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { MdOutlinePending } from "react-icons/md";
+import { MdPendingActions } from "react-icons/md";
+import { RiPassPendingLine } from "react-icons/ri";
 import MonthlyTargetMeter from "../components/FinancialManagement_MonthlyTargetMeter";
 import PercentageMeter from "../components/FinancialManagement_IncomeVsOutgoingMeter";
 
@@ -108,27 +109,27 @@ function Analytic({ year, month }) {
     <Container>
       <Section>
         <AnalyticCard
-          icon={<BsCreditCard />}
+          icon={<GiTakeMyMoney />}
           value={`Rs. ${income}`}
           label="Income"
         />
         <AnalyticCard
-          icon={<BiTransfer />}
+          icon={<FaMoneyBillTrendUp />}
           value={`Rs. ${outgoing}`}
           label="Outgoing"
         />
         <AnalyticCard
-          icon={<BsBank />}
+          icon={<MdOutlinePending />}
           value={`Rs. ${pendingIncome}`}
           label="Pending Income"
         />
         <AnalyticCard
-          icon={<GiTakeMyMoney />}
+          icon={<MdPendingActions />}
           value={`Rs. ${unconfirmedIncome}`}
           label="Unconfirmed Income"
         />
         <AnalyticCard
-          icon={<GiTakeMyMoney />}
+          icon={<RiPassPendingLine />}
           value={`Rs. ${unconfirmedOutgoing}`}
           label="Unconfirmed Outgoing"
         />
