@@ -53,7 +53,7 @@ export default function EditDamageEquip() {
     axios.put(`http://localhost:4000/damageEquipment/editDamageEquipment/${damageId}`, updatedDamageEquipment)
       .then(() => {
         alert("Damage Equipment updated successfully");
-        window.location.href = "/damage";
+        
       })
       .catch((err) => {
         alert(err);
