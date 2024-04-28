@@ -138,41 +138,42 @@ const CustomerManagement_AllCustomers = () => {
           }
         }}
       >
-        <div>
-          <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Edit Customer</h2>
-          <div>
-            <label>Customer ID:</label>
-            <input type="text" name="customerId" value={editedData.customerId} onChange={handleChange} disabled />
-          </div>
-          <div>
-            <label>Name:</label>
-            <input type="text" name="name" value={editedData.name} onChange={handleChange} />
-          </div>
-          <div>
-            <label>Passport:</label>
-            <input type="text" name="passport" value={editedData.passport} onChange={handleChange} />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input type="email" name="email" value={editedData.email} onChange={handleChange} />
-          </div>
-          <div>
-            <label>Points:</label>
-            <input type="number" name="points" value={editedData.points} onChange={handleChange} />
-          </div>
-          <div>
-            <label>Membership Level:</label>
-            <select name="membershipLevel" value={editedData.membershipLevel} onChange={handleChange}>
-              <option value="Gold">Gold</option>
-              <option value="Silver">Silver</option>
-              <option value="Platinum">Platinum</option>
-            </select>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-            <button onClick={handleCloseEditModal} className="btn btn-danger">Cancel</button>
-            <button onClick={handleSaveChanges} className="btn btn-success">Save</button>
-          </div>
-        </div>
+       <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+  <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#1c4c74' }}>Edit Customer</h2>
+  <div style={{ marginBottom: '15px' }}>
+    <label style={{ display: 'block', marginBottom: '5px' }}>Customer ID:</label>
+    <input style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} type="text" name="customerId" value={editedData.customerId} onChange={handleChange} disabled />
+  </div>
+  <div style={{ marginBottom: '15px' }}>
+    <label style={{ display: 'block', marginBottom: '5px' }}>Name:</label>
+    <input style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} type="text" name="name" value={editedData.name} onChange={handleChange} />
+  </div>
+  <div style={{ marginBottom: '15px' }}>
+    <label style={{ display: 'block', marginBottom: '5px' }}>Passport:</label>
+    <input style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} type="text" name="passport" value={editedData.passport} onChange={handleChange} />
+  </div>
+  <div style={{ marginBottom: '15px' }}>
+    <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
+    <input style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} type="email" name="email" value={editedData.email} onChange={handleChange} />
+  </div>
+  <div style={{ marginBottom: '15px' }}>
+    <label style={{ display: 'block', marginBottom: '5px' }}>Points:</label>
+    <input style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} type="number" name="points" value={editedData.points} onChange={handleChange} />
+  </div>
+  <div style={{ marginBottom: '15px' }}>
+    <label style={{ display: 'block', marginBottom: '5px' }}>Membership Level:</label>
+    <select style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} name="membershipLevel" value={editedData.membershipLevel} onChange={handleChange}>
+      <option value="Gold">Gold</option>
+      <option value="Silver">Silver</option>
+      <option value="Platinum">Platinum</option>
+    </select>
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <button onClick={handleCloseEditModal} style={{ padding: '10px 20px', border: 'none', borderRadius: '3px', backgroundColor: '#dc3545', color: 'white', cursor: 'pointer' }}>Cancel</button>
+    <button onClick={handleSaveChanges} style={{ padding: '10px 20px', border: 'none', borderRadius: '3px', backgroundColor: '#28a745', color: 'white', cursor: 'pointer' }}>Save</button>
+  </div>
+</div>
+
       </Modal>
     </div>
   );

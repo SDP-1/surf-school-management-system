@@ -49,7 +49,7 @@ const CustomerManagement_AddCustomer = () => {
         },
       });
       setMessage('Customer added successfully!');
-      window.location.href ="/customer/customers"
+      
       setFormData({
         customerId: '',
         name: '',
