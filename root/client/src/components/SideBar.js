@@ -328,16 +328,9 @@ function SideBar({ children }) {
               <span className="tooltip">Sales Dashboard</span>
             </li>
             <li>
-              <a href="#">
-                <i className="bx bx-heart"></i>
-                <span className="links_name">Saved</span>
-              </a>
-              <span className="tooltip">Saved</span>
-            </li>
-            <li>
               <a href="/customer/dashboard">
                 <i className="bx bx-heart"></i>
-                <span className="links_name">Customer Dashboard</span>
+                <span className="links_name">Customer</span>
               </a>
               <span className="tooltip">Customer Dashboard</span>
             </li>

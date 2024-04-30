@@ -73,6 +73,7 @@ import RentalCalendar from './components/SalesManagement_RentalCalendar';
 import Receipts from './components/SalesManagement_Receipt';
 import HDashboard from './components/SalesManagement_Salesdashboard';
 import Sales_Items from './components/SalesManagement_SalesItems';
+import ExchangeRate from './pages/FinancialManagement_ExcahangeRatesPage';
 
 
 function App() {
@@ -174,6 +175,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/FinancialManagement/dashboard/*" exact Component={Dashboard} />
+        </Routes>
+        <Routes>
+          <Route path="/FinancialManagement/exchangeRate" exact Component={ExchangeRate} />
         </Routes>
         <Routes>
           <Route

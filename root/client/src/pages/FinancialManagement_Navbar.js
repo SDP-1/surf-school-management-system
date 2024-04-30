@@ -53,6 +53,16 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
+                  to="/FinancialManagement/exchangeRate"
+                  style={navStyles.brand}
+                >
+                  Exchange Rate
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
                   to="/FinancialManagement/transaction"
                   style={navStyles.brand}
                 >
