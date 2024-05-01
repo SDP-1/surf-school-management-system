@@ -1,7 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "boxicons/css/boxicons.min.css";
 
 function SideBar({ children }) {
+  const [userData, setUserData] = useState(null);
+  
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+    if (data && data.status === "Ref") {
+      const element = document.getElementById("financialLi");
+      if (element) element.style.display = "none";
+    } else {
+      console.log("User data not found in session.");
+    }
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -262,7 +281,6 @@ function SideBar({ children }) {
     }
   }
   `;
-
   return (
     <div>
       <div>
@@ -292,7 +310,7 @@ function SideBar({ children }) {
               </a>
               <span className="tooltip">Dashboard</span>
             </li>
-            <li>
+            <li id="financialLi">
               <a href="/FinancialManagement/dashboard">
                 <i className="bx bx-money"></i>
                 <span className="links_name">Financial</span>

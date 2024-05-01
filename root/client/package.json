@@ -38,6 +38,7 @@
     "react-scripts": "^5.0.1",
     "react-time-picker": "^6.6.0",
     "react-to-print": "^2.15.1",
+    "reactstrap": "^9.2.2",
     "recharts": "^2.12.4",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
