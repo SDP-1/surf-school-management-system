@@ -57,7 +57,7 @@ function LoginForm() {
       });
       if (response.data) {
         createSession(response.data);
-        window.location.href = "/FinancialManagement/dashboard";
+        window.location.href = "/Event/";
       }
     } catch (err) {
       setError("Invalid username or password. Please try again.");
