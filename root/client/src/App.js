@@ -78,12 +78,48 @@ import HDashboard from "./components/SalesManagement_Salesdashboard";
 import Sales_Items from "./components/SalesManagement_SalesItems";
 import ExchangeRate from "./pages/FinancialManagement_ExcahangeRatesPage";
 
+
+
+
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Function to handle login
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
-    <div>
-      {/* <LoginPage/> */}
-      <Sidebar>
-        <Router>
+    <Router>
+      <Routes>
+        {/* Route for login page */}
+        <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/" element={<LoginPage/>} />
+
+        {/* Protected routes */}
+        <Route path="/*" element={<ProtectedRoutes isLoggedIn={isLoggedIn} />} />
+      </Routes>
+    </Router>
+  );
+}
+
+function ProtectedRoutes({ isLoggedIn }) {
+  if (!isLoggedIn) {
+    // return <Navigate to="/" />;
+  // <Routes>
+  //    <Route path="/Event/" element={<ReadEvents />} />
+  // </Routes>
+    
+}
+
+
+
+
+  return (
+    <Sidebar>
+      
+    
           <Routes>
             <Route path="/sesAndResManagement" element={<Home />} />
             <Route path="/sesAndResManagement/mainhome" element={<Home />} />
@@ -419,11 +455,10 @@ function App() {
             </Routes>
           </div>
           {/*end*/}
-        </Router>
-
+       
         {/* <Footer /> */}
-      </Sidebar>
-    </div>
+      
+    </Sidebar>
   );
 }
 
