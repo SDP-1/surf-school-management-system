@@ -50,6 +50,8 @@ import Staff_Admin from './components/StaffManagement_Dashboard';
 import Staff_AllNotices from './components/StaffManagement_ManageNotices';
 import HomePage from './components/StaffManagement_Dashboard';
 import StaffManagement_WorkSheetView from './components/StaffManagement_WorkSheetView';
+import StaffManagement_AddSalary from './components/StaffManagement_AddSalary';
+
 //staff end
 
 import Home from "./components/sesAndResManagementSys_Home";
@@ -59,6 +61,7 @@ import UpdateSession from "./components/sesAndResManagementSys_UpdateSession";
 import AddReservation from "./components/sesAndResManagementSys_AddReservation";
 import Reservations from "./components/sesAndResManagementSys_Reservations";
 import UpdateReservation from "./components/sesAndResManagementSys_UpdateReservation";
+import StaffManagement_salarydetails from './components/StaffManagement_salarydetails';
 
 
 function App() {
@@ -307,7 +310,15 @@ function App() {
           <Routes>
         <Route path ="/staff/worksheetview" exact element={<StaffManagement_WorkSheetView/>}/>
           </Routes>
-    
+
+          <Routes>
+        <Route path ="/staff/addsalary" exact element={<StaffManagement_AddSalary/>}/>
+          </Routes>
+
+          <Routes>
+        <Route path ="/staff/details" exact element={<StaffManagement_salarydetails/>}/>
+          </Routes>
+         
     {/*end*/}
     </Router>
    

@@ -66,6 +66,10 @@ app.use('/Qr', qrCodeRouter);
 const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
 app.use("/Attendance",attendanceRouter);
 
+const salaryRouter =  require("./routs/StaffManagement_salary.js");
+app.use("/salaries",salaryRouter);
+
+
 //end
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
