@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "boxicons/css/boxicons.min.css";
+import { Modal, Button } from "react-bootstrap";
 
 function SideBar({ children }) {
   const [userData, setUserData] = useState(null);
-  
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
   useEffect(() => {
     const getSessionData = () => {
       const userData = sessionStorage.getItem("userData");
@@ -20,6 +22,19 @@ function SideBar({ children }) {
       console.log("User data not found in session.");
     }
   }, []);
+
+  const handleLogout = () => {
+    setShowLogoutModal(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    sessionStorage.removeItem("userData");
+    window.location.href = "/";
+  };
+
+  const handleLogoutCancel = () => {
+    setShowLogoutModal(false);
+  };
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -353,7 +368,7 @@ function SideBar({ children }) {
               <span className="tooltip">Customer Dashboard</span>
             </li>
             <li>
-              <a href="#">
+              <a href="/User/UserManagement">
                 <i className="bx bx-cog"></i>
                 <span className="links_name">Setting</span>
               </a>
@@ -363,12 +378,30 @@ function SideBar({ children }) {
               <div className="profile-details">
                 <img src="profile.jpg" alt="profileImg" />
                 <div className="name_job">
-                  <div className="name">Prem Shahi</div>
+                  <div className="name">{userData && userData.fullName}</div>
                   <div className="job">Web designer</div>
                 </div>
               </div>
-              <i className="bx bx-log-out" id="log_out"></i>
+              <i
+                className="bx bx-log-out"
+                id="log_out"
+                onClick={handleLogout}
+              ></i>
             </li>
+            <Modal show={showLogoutModal} onHide={handleLogoutCancel}>
+              <Modal.Header closeButton>
+                <Modal.Title>Confirm Logout</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Are you sure you want to log out?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleLogoutCancel}>
+                  Cancel
+                </Button>
+                <Button variant="primary" onClick={handleLogoutConfirm}>
+                  Log Out
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </ul>
         </div>
         <div

@@ -23,6 +23,9 @@ const postSchema = new mongoose.Schema({
     requied: true,
     default: "Rec",  //Adm - admin , Rec - recipshanist
   },
+  image: {
+    type: String,
+  },
 });
 
 

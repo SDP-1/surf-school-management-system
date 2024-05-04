@@ -77,10 +77,9 @@ import Receipts from "./components/SalesManagement_Receipt";
 import HDashboard from "./components/SalesManagement_Salesdashboard";
 import Sales_Items from "./components/SalesManagement_SalesItems";
 import ExchangeRate from "./pages/FinancialManagement_ExcahangeRatesPage";
-
-
-
-
+import CreateUserPage from "./components/CreateNewUser";
+import ShowAllUsers from "./components/ShowAllUsers";
+import UserManage from "./pages/UserManagement";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -95,10 +94,13 @@ function App() {
       <Routes>
         {/* Route for login page */}
         <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="/" element={<LoginPage/>} />
+        <Route path="/" element={<LoginPage />} />
 
         {/* Protected routes */}
-        <Route path="/*" element={<ProtectedRoutes isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/*"
+          element={<ProtectedRoutes isLoggedIn={isLoggedIn} />}
+        />
       </Routes>
     </Router>
   );
@@ -107,357 +109,320 @@ function App() {
 function ProtectedRoutes({ isLoggedIn }) {
   if (!isLoggedIn) {
     // return <Navigate to="/" />;
-  // <Routes>
-  //    <Route path="/Event/" element={<ReadEvents />} />
-  // </Routes>
-    
-}
-
-
-
+    // <Routes>
+    //    <Route path="/Event/" element={<ReadEvents />} />
+    // </Routes>
+  }
 
   return (
     <Sidebar>
-      
-    
-          <Routes>
-            <Route path="/sesAndResManagement" element={<Home />} />
-            <Route path="/sesAndResManagement/mainhome" element={<Home />} />
-            <Route
-              path="/sesAndResManagement/addsession"
-              element={<AddSession />}
-            />
-            <Route
-              path="/sesAndResManagement/sessiondetails"
-              element={<Sessions />}
-            />
-            <Route
-              path="/sesAndResManagement/sessiondetails/:id"
-              element={<UpdateSession />}
-            />
-            <Route
-              path="/sesAndResManagement/addreservation"
-              element={<AddReservation />}
-            />
-            <Route
-              path="/sesAndResManagement/reservationdetails"
-              element={<Reservations />}
-            />
-            <Route
-              path="/sesAndResManagement/reservationdetails/:id"
-              element={<UpdateReservation />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/sesAndResManagement" element={<Home />} />
+        <Route path="/sesAndResManagement/mainhome" element={<Home />} />
+        <Route
+          path="/sesAndResManagement/addsession"
+          element={<AddSession />}
+        />
+        <Route
+          path="/sesAndResManagement/sessiondetails"
+          element={<Sessions />}
+        />
+        <Route
+          path="/sesAndResManagement/sessiondetails/:id"
+          element={<UpdateSession />}
+        />
+        <Route
+          path="/sesAndResManagement/addreservation"
+          element={<AddReservation />}
+        />
+        <Route
+          path="/sesAndResManagement/reservationdetails"
+          element={<Reservations />}
+        />
+        <Route
+          path="/sesAndResManagement/reservationdetails/:id"
+          element={<UpdateReservation />}
+        />
+      </Routes>
 
-          <Routes>
-            <Route path="/Event/*" element={<Header />} />
-          </Routes>
+      <Routes>
+        <Route path="/Event/*" element={<Header />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Event/" element={<ReadEvents />} />
+      <Routes>
+        <Route path="/Event/" element={<ReadEvents />} />
 
-            <Route path="/Event/addevent" element={<Addevent />} />
+        <Route path="/Event/addevent" element={<Addevent />} />
 
-            <Route
-              path="/Event/getsingleEvent/:Title"
-              element={<ReadSingleEvents />}
-            />
+        <Route
+          path="/Event/getsingleEvent/:Title"
+          element={<ReadSingleEvents />}
+        />
 
-            <Route
-              path="/Event/deleteEvent/:Title"
-              element={<DeleteEvents />}
-            />
+        <Route path="/Event/deleteEvent/:Title" element={<DeleteEvents />} />
 
-            <Route path="/Event/updateEvent/:Title" element={<UpdateEvent />} />
+        <Route path="/Event/updateEvent/:Title" element={<UpdateEvent />} />
 
-            <Route
-              path="/Event/Purchaseform/:Title"
-              element={<TicketPurchaseForm />}
-            />
+        <Route
+          path="/Event/Purchaseform/:Title"
+          element={<TicketPurchaseForm />}
+        />
 
-            <Route
-              path="/Event/insertCount/:Title/:ticketCount"
-              element={<InsertTicket />}
-            />
+        <Route
+          path="/Event/insertCount/:Title/:ticketCount"
+          element={<InsertTicket />}
+        />
 
-            <Route path="/Event/search" element={<SearchView />} />
+        <Route path="/Event/search" element={<SearchView />} />
 
-            <Route path="/Event/freeevents" element={<FreeEvents />} />
+        <Route path="/Event/freeevents" element={<FreeEvents />} />
 
-            <Route path="/Event/currentevents" element={<CurrentEvents />} />
+        <Route path="/Event/currentevents" element={<CurrentEvents />} />
 
-            <Route path="/Event/Report" element={<Reports />} />
+        <Route path="/Event/Report" element={<Reports />} />
 
-            <Route path="/Event/Analytics" element={<CombinedChartsPage />} />
-          </Routes>
+        <Route path="/Event/Analytics" element={<CombinedChartsPage />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Event/calander" element={<CalendarComponent />} />
-          </Routes>
+      <Routes>
+        <Route path="/Event/calander" element={<CalendarComponent />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Event/*" element={<Footer />} />
-          </Routes>
+      <Routes>
+        <Route path="/Event/*" element={<Footer />} />
+      </Routes>
 
-          {/* <Routes>
+      {/* <Routes>
             <Route path="/LoginPage" exact Component={LoginPage} />
           </Routes> */}
-          <Routes>
-            <Route path="/FinancialManagement/*" exact Component={NavBar} />
-          </Routes>
-          <Routes>
-            <Route
-              path="/FinancialManagement/dashboard/"
-              exact
-              Component={Dashboard}
-            />
+      <Routes>
+        <Route path="/User/UserManagement" exact Component={UserManage} />
+      </Routes>
+      <Routes>
+        <Route path="/FinancialManagement/*" exact Component={NavBar} />
+      </Routes>
+      <Routes>
+        <Route
+          path="/FinancialManagement/dashboard/"
+          exact
+          Component={Dashboard}
+        />
 
-            <Route
-              path="/FinancialManagement/exchangeRate"
-              exact
-              Component={ExchangeRate}
-            />
+        <Route
+          path="/FinancialManagement/exchangeRate"
+          exact
+          Component={ExchangeRate}
+        />
 
-            <Route
-              path="/FinancialManagement/transaction"
-              exact
-              Component={AllTransaction}
-            />
+        <Route
+          path="/FinancialManagement/transaction"
+          exact
+          Component={AllTransaction}
+        />
 
-            <Route
-              path="/FinancialManagement/payment"
-              exact
-              Component={PaymentGateway}
-            />
-            <Route
-              path="/FinancialManagement/income/exportCSV/all"
-              exact
-              element={<IncomeRepostGeanarateCSV data="all" />}
-            />
-            <Route
-              path="/FinancialManagement/income/exportCSV/pending"
-              exact
-              element={<IncomeRepostGeanarateCSV data="pending" />}
-            />
-            <Route
-              path="/FinancialManagement/income/exportCSV/confirm"
-              exact
-              element={<IncomeRepostGeanarateCSV data="confirm" />}
-            />
-            <Route
-              path="/FinancialManagement/outcome/exportCSV/all"
-              exact
-              element={<OutgoingRepostGeanarateCSV data="all" />}
-            />
-            <Route
-              path="/FinancialManagement/outcome/exportCSV/pending"
-              exact
-              element={<OutgoingRepostGeanarateCSV data="pending" />}
-            />
-            <Route
-              path="/FinancialManagement/outcome/exportCSV/confirm"
-              exact
-              element={<OutgoingRepostGeanarateCSV data="confirm" />}
-            />
-            <Route
-              path="/FinancialManagement/income"
-              exact
-              Component={Income}
-            />
-            <Route
-              path="/FinancialManagement/outgoing"
-              exact
-              Component={Outgoing}
-            />
-          </Routes>
+        <Route
+          path="/FinancialManagement/payment"
+          exact
+          Component={PaymentGateway}
+        />
+        <Route
+          path="/FinancialManagement/income/exportCSV/all"
+          exact
+          element={<IncomeRepostGeanarateCSV data="all" />}
+        />
+        <Route
+          path="/FinancialManagement/income/exportCSV/pending"
+          exact
+          element={<IncomeRepostGeanarateCSV data="pending" />}
+        />
+        <Route
+          path="/FinancialManagement/income/exportCSV/confirm"
+          exact
+          element={<IncomeRepostGeanarateCSV data="confirm" />}
+        />
+        <Route
+          path="/FinancialManagement/outcome/exportCSV/all"
+          exact
+          element={<OutgoingRepostGeanarateCSV data="all" />}
+        />
+        <Route
+          path="/FinancialManagement/outcome/exportCSV/pending"
+          exact
+          element={<OutgoingRepostGeanarateCSV data="pending" />}
+        />
+        <Route
+          path="/FinancialManagement/outcome/exportCSV/confirm"
+          exact
+          element={<OutgoingRepostGeanarateCSV data="confirm" />}
+        />
+        <Route path="/FinancialManagement/income" exact Component={Income} />
+        <Route
+          path="/FinancialManagement/outgoing"
+          exact
+          Component={Outgoing}
+        />
+      </Routes>
 
-          {/*END of the Finacial Management routers */}
+      {/*END of the Finacial Management routers */}
 
-          {/* <Staffmanagement/> */}
+      {/* <Staffmanagement/> */}
 
-          <Routes>
-            <Route path="/staff/*" exact element={<SHeader />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/*" exact element={<SHeader />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/dash" exact element={<HomePage />} />
-          </Routes>
-          <Routes>
-            <Route path="/staff/add" exact element={<AddEmployee />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/dash" exact element={<HomePage />} />
+      </Routes>
+      <Routes>
+        <Route path="/staff/add" exact element={<AddEmployee />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/alle" exact element={<AllEmployees />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/alle" exact element={<AllEmployees />} />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/update/:eid"
-              exact
-              element={<EditEmployees />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/staff/update/:eid" exact element={<EditEmployees />} />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/delete/:eid"
-              exact
-              element={<DeleteEmployees />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/staff/delete/:eid" exact element={<DeleteEmployees />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/addw" exact element={<Staff_WorkSheetAdd />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/addw" exact element={<Staff_WorkSheetAdd />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/w" exact element={<Staff_AllWorkSheet />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/w" exact element={<Staff_AllWorkSheet />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/request" exact element={<LeaveRequestForm />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/request" exact element={<LeaveRequestForm />} />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/request/:employeeId"
-              exact
-              element={<LeaveDetails />}
-            />
-          </Routes>
+      <Routes>
+        <Route
+          path="/staff/request/:employeeId"
+          exact
+          element={<LeaveDetails />}
+        />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/requests"
-              exact
-              element={<AdminLeaveRequests />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/staff/requests" exact element={<AdminLeaveRequests />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/notice" exact element={<AddNoticeForm />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/notice" exact element={<AddNoticeForm />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/staff/notices" exact element={<AllNotices />} />
-          </Routes>
+      <Routes>
+        <Route path="/staff/notices" exact element={<AllNotices />} />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/generateQRCode"
-              exact
-              element={<AttendanceQRCode />}
-            />
-          </Routes>
+      <Routes>
+        <Route
+          path="/staff/generateQRCode"
+          exact
+          element={<AttendanceQRCode />}
+        />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/Attendance"
-              exact
-              element={<AttendanceManager />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/staff/Attendance" exact element={<AttendanceManager />} />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/Attendance/addtt"
-              exact
-              element={<AddAttendance />}
-            />
-          </Routes>
+      <Routes>
+        <Route
+          path="/staff/Attendance/addtt"
+          exact
+          element={<AddAttendance />}
+        />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/staff/adnotices"
-              exact
-              element={<Staff_AllNotices />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/staff/adnotices" exact element={<Staff_AllNotices />} />
+      </Routes>
 
-          {/* /Sales and rental Management */}
+      {/* /Sales and rental Management */}
 
-          <Routes>
-            <Route path="/Sales/*" element={<HHeader />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/*" element={<HHeader />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/category/:category" element={<Pos />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/category/:category" element={<Pos />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/add" element={<ItemsAdd />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/add" element={<ItemsAdd />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/rental/add" element={<RentalForm />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/rental/add" element={<RentalForm />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/rental/all" element={<RentalDetailsTable />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/rental/all" element={<RentalDetailsTable />} />
+      </Routes>
 
-          <Routes>
-            <Route
-              path="/Sales/rental/date/:date"
-              element={<RentalCalendar />}
-            />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/rental/date/:date" element={<RentalCalendar />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/receipts" element={<Receipts />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/receipts" element={<Receipts />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/Hdashboard" element={<HDashboard />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/Hdashboard" element={<HDashboard />} />
+      </Routes>
 
-          <Routes>
-            <Route path="/Sales/item" element={<Sales_Items />} />
-          </Routes>
+      <Routes>
+        <Route path="/Sales/item" element={<Sales_Items />} />
+      </Routes>
 
-          {/*end*/}
+      {/*end*/}
 
-          {/*customer management*/}
-          <div>
-            <Routes>
-              <Route
-                path="/customer/*"
-                element={<CustomerManagement_CHeader />}
-              />
-            </Routes>
+      {/*customer management*/}
+      <div>
+        <Routes>
+          <Route path="/customer/*" element={<CustomerManagement_CHeader />} />
+        </Routes>
 
-            <Routes>
-              <Route
-                path="/customer"
-                element={<CustomerManagement_AddCustomer />}
-              />
-            </Routes>
+        <Routes>
+          <Route
+            path="/customer"
+            element={<CustomerManagement_AddCustomer />}
+          />
+        </Routes>
 
-            <Routes>
-              <Route
-                path="/customer/customers"
-                element={<CustomerManagement_AllCustomers />}
-              />
-            </Routes>
+        <Routes>
+          <Route
+            path="/customer/customers"
+            element={<CustomerManagement_AllCustomers />}
+          />
+        </Routes>
 
-            <Routes>
-              <Route
-                path="/customer/dashboard"
-                element={<CustomerManagement_Dashboard />}
-              />
-            </Routes>
+        <Routes>
+          <Route
+            path="/customer/dashboard"
+            element={<CustomerManagement_Dashboard />}
+          />
+        </Routes>
 
-            <Routes>
-              <Route
-                path="/customer/table"
-                element={<CustomerManagement_CustomerTable />}
-              />
-            </Routes>
-          </div>
-          {/*end*/}
-       
-        {/* <Footer /> */}
-      
+        <Routes>
+          <Route
+            path="/customer/table"
+            element={<CustomerManagement_CustomerTable />}
+          />
+        </Routes>
+      </div>
+      {/*end*/}
+
+      {/* <Footer /> */}
     </Sidebar>
   );
 }
