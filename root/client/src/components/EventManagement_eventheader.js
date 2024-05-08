@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterLocationQuery, setLocationQuery] = useState('');
+  const [filterTimeQuery, setTimeQuery] = useState('');
+  const [filterDateQuery, setDateQuery] = useState('');
   const navigate = useNavigate();
 
   const styles = {
@@ -34,6 +37,13 @@ function Header() {
     e.preventDefault();
     // Navigate to the search results page with the search query as a URL parameter
     navigate(`/Event/search?q=${encodeURIComponent(searchQuery)}`);
+  };
+
+  const handlefilterSearch = (e) => {
+    e.preventDefault();
+    // Navigate to the search results page with the search query as a URL parameter
+    navigate(`/Event/filtersearch?location=${encodeURIComponent(filterLocationQuery)}&time=${encodeURIComponent(filterTimeQuery)}&date=${encodeURIComponent(filterDateQuery)}`);
+
   };
 
   return (
@@ -79,13 +89,14 @@ function Header() {
            
           </ul>
 
+
           <div className="dropdown" style={styles.filterDropdown}>
             <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               Filter
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <li className="p-3">
-                <form onSubmit={handleSearch}>
+                <form onSubmit={handlefilterSearch}>
                   <div className="mb-3">
                     <label htmlFor="locationInput" className="form-label">Location</label>
                     <input
@@ -93,6 +104,8 @@ function Header() {
                       className="form-control"
                       type="text"
                       placeholder="Enter Location"
+                      value={filterLocationQuery}
+                      onChange={(e) => setLocationQuery(e.target.value)}
                     />
                   </div>
                   <div className="mb-3">
@@ -100,8 +113,10 @@ function Header() {
                     <input
                       id="timeInput"
                       className="form-control"
-                      type="text"
+                      type="time"
                       placeholder="Enter Time"
+                      value={filterTimeQuery}
+                      onChange={(e) => setTimeQuery(e.target.value)}
                     />
                   </div>
                   <div className="mb-3">
@@ -109,8 +124,11 @@ function Header() {
                     <input
                       id="dateInput"
                       className="form-control"
-                      type="text"
+                      type="date"
                       placeholder="Enter Date"
+                      value={filterDateQuery}
+                      onChange={(e) => setDateQuery(e.target.value)}
+
                     />
                   </div>
                   <button className="btn btn-primary" type="submit">Search</button>

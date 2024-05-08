@@ -70,7 +70,7 @@ function Addevent() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-    <div style={{ border: '1px solid #ccc', borderRadius: '15px', padding: '30px', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.1)', marginBottom: '30px', marginTop: '30px', width: '600px' ,marginLeft:'20px'}}>
+    <div style={{ border: '1px solid #ccc', borderRadius: '15px', padding: '30px', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.1)', marginBottom: '30px', marginTop: '30px', width: '600px' ,marginLeft:'20px',backgroundColor: '#f5f5f5'}}>
       <form onSubmit={sendData}>
       <div className="mb-3">
             <label htmlFor="titleInput" className="form-label">
@@ -195,7 +195,8 @@ function Addevent() {
      
       </form>
     </div>
-    <div style={{ width: '600px' ,marginRight:'140px',marginTop: '30px',justifyContent: 'center'}}>
+
+    <div style={{ width: '600px' ,marginRight:'140px',marginTop: '30px',justifyContent: 'center',marginLeft:'20px'}}>
     <div>
     <h3>Create Your Event</h3>
     <p style={{ fontSize: '16px', fontWeight:'lighter', textAlign: 'justify', marginBottom: '20px' }}>Experience the exhilarating world of surf events, where the waves become a stage for adrenaline-fueled competition and breathtaking displays of skill. Dive into the heart of coastal culture as surfers from around the globe converge to showcase their talent in thrilling contests. From iconic beach breaks to legendary point breaks, each event offers a unique blend of athleticism and artistry against the backdrop of stunning ocean vistas. Spectators can immerse themselves in the vibrant atmosphere, cheering on their favorite athletes and soaking up the energy of the surf community. Join us for an unforgettable celebration of wave riding, camaraderie, and the pure joy of riding the waves</p>
