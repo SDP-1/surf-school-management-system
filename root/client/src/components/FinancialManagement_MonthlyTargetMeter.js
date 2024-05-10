@@ -15,7 +15,10 @@ const MonthlyTargetMeter = ({ name, year, month, incomeAchieved }) => {
       setPercentage(0);
     } else {
       // Calculate the percentage of completion
-      const calculatedPercentage = (incomeAchieved / targetIncome) * 100;
+      const calculatedPercentage = Math.min(
+        (incomeAchieved / targetIncome) * 100,
+        100
+      );
       setPercentage(calculatedPercentage);
     }
   }, [incomeAchieved, targetIncome]);
