@@ -35,7 +35,7 @@ function Header() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Navigate to the search results page with the search query as a URL parameter
+    // Navigate to the search results page with the search query as a URL parameterr
     navigate(`/Event/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
