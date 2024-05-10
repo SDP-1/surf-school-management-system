@@ -60,6 +60,10 @@ const ShowAllUsers = () => {
     }
   };
 
+  const handleUpdated = () => {
+    fetchUsers();
+  };
+
   const pageStyles = `
  .container {
       max-width: 100%;
@@ -200,7 +204,7 @@ const ShowAllUsers = () => {
         <EditUser
           user={selectedUser}
           onClose={handleCloseModal}
-          onSave={fetchUsers}
+          onSave={handleUpdated}
         />
       )}
     </div>

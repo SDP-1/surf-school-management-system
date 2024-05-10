@@ -290,6 +290,7 @@ function SideBar({ children }) {
     font-weight: 500;
     margin: 18px
   }
+ 
   @media (max-width: 420px) {
     .sidebar li .tooltip{
       display: none;
@@ -376,10 +377,20 @@ function SideBar({ children }) {
             </li>
             <li className="profile">
               <div className="profile-details">
-                <img src="profile.jpg" alt="profileImg" />
+                <img
+                  src={userData && userData.image}
+                  alt="profileImg"
+                  style={{ borderRadius: "50%" }}
+                />
                 <div className="name_job">
                   <div className="name">{userData && userData.fullName}</div>
-                  <div className="job">Web designer</div>
+                  <div className="job">
+                    {userData && userData.status === "Adm"
+                      ? "Admin"
+                      : userData && userData.status === "Ref"
+                      ? "Receptionist"
+                      : "User"}
+                  </div>
                 </div>
               </div>
               <i
