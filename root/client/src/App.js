@@ -14,6 +14,8 @@ import CurrentEvents from "./components/EventManagement_currentEvents";
 import Reports from "./components/EventManagement_eventReport";
 import CalendarComponent from "./components/EventManagement_Eventcalander";
 import CombinedChartsPage from "./components/EventManagement_combinedAnalytics";
+import Filtersearch from "./components/EventManagement_filtersearch";
+
 
 import {
   BrowserRouter as Router,
@@ -163,10 +165,10 @@ function ProtectedRoutes({ isLoggedIn }) {
 
         <Route path="/Event/updateEvent/:Title" element={<UpdateEvent />} />
 
-        <Route
-          path="/Event/Purchaseform/:Title"
-          element={<TicketPurchaseForm />}
-        />
+            <Route
+              path="/Event/Purchaseform/:Title/:Price"
+              element={<TicketPurchaseForm />}
+            />
 
         <Route
           path="/Event/insertCount/:Title/:ticketCount"
@@ -188,9 +190,13 @@ function ProtectedRoutes({ isLoggedIn }) {
         <Route path="/Event/calander" element={<CalendarComponent />} />
       </Routes>
 
-      <Routes>
-        <Route path="/Event/*" element={<Footer />} />
-      </Routes>
+          <Routes>
+            <Route path="/Event/filtersearch" element={<Filtersearch/>} />
+          </Routes>
+
+          <Routes>
+            <Route path="/Event/*" element={<Footer />} />
+          </Routes>
 
       {/* <Routes>
             <Route path="/LoginPage" exact Component={LoginPage} />

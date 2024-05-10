@@ -43,7 +43,7 @@ router.route("/add").post(async (req, res) => {
         console.log("Received request to add event:", req.body);
 
         // Extract request body data
-        const { Title, Location, Capacity, Description, Image, Type, Date, Start, End } = req.body;
+        const { Title, Location, Capacity, Description, Image, Type, Date, Start, End,Price } = req.body;
 
         // Create a new event object
         const newEvent = new event({
@@ -56,7 +56,8 @@ router.route("/add").post(async (req, res) => {
             Date,
             Start,
             End,
-            TicketCount: 0
+            TicketCount: 0,
+            Price
         });
 
         // Save the event to the database
