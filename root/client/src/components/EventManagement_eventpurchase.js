@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 function TicketPurchaseForm() {
-  const { Title } = useParams();
-  let [ticketCount, setTicketCount] = useState(1);
-  const ticketPrice = 10;
+  const { Title, Price } = useParams();
+  
+  // Decode Price from URL and convert it to a number
+  const ticketPrice = parseFloat(decodeURIComponent(Price));
 
+  let [ticketCount, setTicketCount] = useState(1);
 
   const handleIncrement = () => {
     setTicketCount(prevCount => prevCount + 1);
@@ -23,15 +25,12 @@ function TicketPurchaseForm() {
   return (
     <div className="ticket-form-container">
       <div className="ticket-form">
-        <h2>Ticket Purchase for {Title}</h2>
+        <h2>Ticket Purchase for {decodeURIComponent(Title)}</h2>
         <p>Ticket Price: ${ticketPrice}</p>
         
         <form>
-        <label htmlFor="ticketCount" style={{ paddingLeft: '20px',marginBottom:'10px' }}>Number of Tickets:</label>
-
+          <label htmlFor="ticketCount" style={{ paddingLeft: '20px', marginBottom: '10px' }}>Number of Tickets:</label>
           <div className="ticket-count">
-          
-          
             <button type="button" onClick={handleDecrement}>-</button>
             <input 
               type="text" 
@@ -41,20 +40,20 @@ function TicketPurchaseForm() {
             />
             <button type="button" onClick={handleIncrement}>+</button>
           </div>
+          
           {/* Subtotal and Total Amount */}
           <div className="ticket-summary">
             <p>Subtotal: ${subtotal}</p>
             <p>Total Amount: ${totalAmount}</p>
           </div>
+          
           {/* Purchase button */}
-        <Link 
-        to={`/Event/insertCount/${encodeURIComponent(Title)}/${encodeURIComponent(ticketCount)}`} 
-        className="purchase-button"
-      >
-        Purchase
-      </Link>
-
-
+          <Link 
+            to={`/Event/insertCount/${encodeURIComponent(Title)}/${encodeURIComponent(ticketCount)}`} 
+            className="purchase-button"
+          >
+            Purchase
+          </Link>
         </form>
       </div>
     </div>

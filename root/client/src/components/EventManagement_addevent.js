@@ -15,6 +15,7 @@ function Addevent() {
   const [Date, setDate] = useState("");
   const [Start, setStart] = useState("");
   const [End, setEnd] = useState("");
+  const [Price, setPrice] = useState("");
   const [error, setError] = useState("");
 
   function sendData(e) {
@@ -31,7 +32,8 @@ function Addevent() {
         Type,
         Date,
         Start: startString,
-        End: endString
+        End: endString,
+        Price
       };
       axios
         .post("http://localhost:4000/event/add", newevent)
@@ -117,6 +119,18 @@ function Addevent() {
               className="form-control"
               id="descriptionInput"
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="descriptionInput" className="form-label">
+              Price
+            </label>
+            <input
+              type="Number"
+              className="form-control"
+              id="priceInput"
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
   

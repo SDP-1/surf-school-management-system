@@ -14,7 +14,7 @@ function InsertTicket() {
 
     // Convert 'ticketCount' to a number
     const Count = parseInt(ticketCount);
-
+  
     const randomId = generateRandomId();
 
     console.log("ticketCount:", ticketCount); // Add this line to log the value of ticketCount

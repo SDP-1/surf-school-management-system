@@ -173,7 +173,7 @@ function ProtectedRoutes({ isLoggedIn }) {
             <Route path="/Event/updateEvent/:Title" element={<UpdateEvent />} />
 
             <Route
-              path="/Event/Purchaseform/:Title"
+              path="/Event/Purchaseform/:Title/:Price"
               element={<TicketPurchaseForm />}
             />
 

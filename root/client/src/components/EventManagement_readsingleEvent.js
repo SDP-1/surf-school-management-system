@@ -33,6 +33,7 @@ function ReadSingleEvents() {
                 <p>Location: {event.Location}</p>
                 <p>Capacity: {event.Capacity}</p>
                 <p>Description: {event.Description}</p>
+                <p>Ticket Price $: {event.Price}</p>
                 <Link
                 to={`/Event/deleteEvent/${encodeURIComponent(event.Title)}`}
                 style={{
@@ -54,7 +55,14 @@ function ReadSingleEvents() {
                 >
                 Update
                 </Link>
-                <Link to={`/Event/Purchaseform/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>purchase</Link>
+                <Link
+                to={`/Event/Purchaseform/${encodeURIComponent(event.Title)}/${encodeURIComponent(parseFloat(event.Price ||0 ))}`}
+                style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}
+                >
+                purchase
+                </Link>
+
+
 
 
             </div>
