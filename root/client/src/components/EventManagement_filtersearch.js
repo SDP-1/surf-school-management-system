@@ -17,7 +17,7 @@ function Filtersearch() {
             try {
                 const response = await axios.get("http://localhost:4000/event/");
                 console.log("Response:", response);
-                if (response.data && Array.isArray(response.data)) { // Check if response data exists and is an array
+                if (response.data && Array.isArray(response.data)) { // Check if response data exists and is an array filter
                     const allEvents = response.data;
                     const filteredEvents = allEvents.filter(event => {
                         return (
