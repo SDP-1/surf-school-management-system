@@ -14,7 +14,21 @@ function Income() {
   const [refreshTable, setRefreshTable] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const loginUser = "Sehan Devidna";
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+  }, []);
+
+  // const loginUser = "Sehan Devidna";
+  const loginUser = userData && userData.fullName;
+
 
   useEffect(() => {
     handleFilterChange({ target: { value: filterStatus } });
@@ -288,7 +302,7 @@ function Income() {
   };
 
   return (
-    <div className="container-xl">
+    <div className="container-fluid">
       <div className="table-responsive">
         <div className="table-wrapper">
           <div className="table-title">
