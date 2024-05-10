@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -7,6 +8,29 @@ function Header() {
   const [filterTimeQuery, setTimeQuery] = useState('');
   const [filterDateQuery, setDateQuery] = useState('');
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useState(null);
+  
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+    if (data && data.status === "Ref") {
+      const addEventElement = document.getElementById("Add");
+      const reportsElement = document.getElementById("Reports");
+      if (addEventElement) addEventElement.style.display = "none";
+      if (reportsElement) reportsElement.style.display = "none";
+
+    } else {
+      console.log("User data not found in session.");
+    }
+  }, []);
+
 
   const styles = {
     navbar: {
@@ -60,10 +84,10 @@ function Header() {
               <Link to="/Event/" className="nav-link active" aria-current="page" style={styles.link}>Home</Link>
             </li>
             <li className="nav-item">
-              <Link to="/Event/addevent" className="nav-link active" aria-current="page" style={styles.link}>Add Event</Link>
+              <Link to="/Event/addevent" className="nav-link active" id="Add" aria-current="page" style={styles.link}>Add Event</Link>
             </li>
             <li className="nav-item">
-              <Link to="/Event/Report" className="nav-link active" aria-current="page" style={styles.link}>Reports</Link>
+              <Link to="/Event/Report" className="nav-link active" id="Reports" aria-current="page" style={styles.link}>Reports</Link>
             </li>
 
             <li className="nav-item">

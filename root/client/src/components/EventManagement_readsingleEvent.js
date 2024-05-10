@@ -4,8 +4,25 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function ReadSingleEvents() {
+
     const [event, setEvent] = useState(null); // Change 'events' to 'event'
     const { Title } = useParams(); // Use useParams to get route parameters
+    const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const getSessionData = () => {
+       
+  
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+  }, []);
+
+
+   
 
     useEffect(() => {
         async function getEvent() {
@@ -34,8 +51,13 @@ function ReadSingleEvents() {
                 <p>Capacity: {event.Capacity}</p>
                 <p>Description: {event.Description}</p>
                 <p>Ticket Price $: {event.Price}</p>
+
+                <div>
+                {userData && userData.status !== "Ref" && (   
+                    <>
                 <Link
                 to={`/Event/deleteEvent/${encodeURIComponent(event.Title)}`}
+                id="delete"
                 style={{
                   color:'red',
                   textDecoration: 'none'
@@ -47,6 +69,7 @@ function ReadSingleEvents() {
 
                 <Link
                 to={`/Event/updateEvent/${encodeURIComponent(event.Title)}`}
+                id="update"
                 style={{
                   color:'green',
                   textDecoration: 'none',
@@ -55,6 +78,10 @@ function ReadSingleEvents() {
                 >
                 Update
                 </Link>
+                </>
+                )}
+                </div>
+
                 <Link
                 to={`/Event/Purchaseform/${encodeURIComponent(event.Title)}/${encodeURIComponent(parseFloat(event.Price ||0 ))}`}
                 style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}
