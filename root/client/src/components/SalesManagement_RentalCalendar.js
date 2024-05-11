@@ -82,6 +82,7 @@ const RentalCalendar = () => {
                         <div key={rental._id} className="get" style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px', marginRight: '10px', backgroundColor: '#9e363a', color: 'white' }}>
                             <p>Customer Name: {rental.customerName}</p>
                             <p>Passport ID: {rental.passportId}</p>
+                            <p>Email: {rental.email}</p>
                             <p>Rental Item: {rental.rentalItem}</p>
                             <p>Start Date: {new Date(rental.rentalStartDate).toDateString()}</p>
                             <p>End Date: {new Date(rental.rentalEndDate).toDateString()}</p>
@@ -94,6 +95,7 @@ const RentalCalendar = () => {
                         <div key={rental._id} className="get" style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px', marginRight: '10px', backgroundColor: '#0f2862', color: 'white' }}>
                             <p>Customer Name: {rental.customerName}</p>
                             <p>Passport ID: {rental.passportId}</p>
+                            <p>Email: {rental.email}</p>
                             <p>Rental Item: {rental.rentalItem}</p>
                             <p>Start Date: {new Date(rental.rentalStartDate).toDateString()}</p>
                             <p>End Date: {new Date(rental.rentalEndDate).toDateString()}</p>

@@ -5,6 +5,7 @@ const RentalForm = () => {
     const [formData, setFormData] = useState({
         customerName: '',
         passportId: '',
+        email: '',
         rentalStartDate: '',
         rentalEndDate: '',
         rentalItem: '',
@@ -15,6 +16,7 @@ const RentalForm = () => {
     const [errors, setErrors] = useState({
         customerName: '',
         passportId: '',
+        email: '',
         rentalItem: '',
         handoverItem: '',
         pricePerDay: ''
@@ -42,6 +44,16 @@ const RentalForm = () => {
         if (name === 'passportId') {
             if (!value.match(/^[a-zA-Z0-9]*$/)) {
                 setErrors({ ...errors, [name]: 'Only letters and numbers are allowed' });
+            } else {
+                setErrors({ ...errors, [name]: '' });
+            }
+        }
+
+        // Email validation
+        if (name === 'email') {
+            const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            if (!isValidEmail) {
+                setErrors({ ...errors, [name]: 'Please enter a valid email address' });
             } else {
                 setErrors({ ...errors, [name]: '' });
             }
@@ -85,6 +97,7 @@ const RentalForm = () => {
             setFormData({
                 customerName: '',
                 passportId: '',
+                email: '',
                 rentalStartDate: '',
                 rentalEndDate: '',
                 rentalItem: '',
@@ -130,6 +143,18 @@ const RentalForm = () => {
                     </div>
                     <div style={{ display: 'flex', marginBottom: '20px' }}>
                         <div style={{ flex: '1', marginRight: '10px' }}>
+                            <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+                            />
+                            {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+                        </div>
+                        <div style={{ flex: '1', marginLeft: '10px' }}>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Rental Start Date:</label>
                             <input
                                 type="date"
@@ -140,7 +165,9 @@ const RentalForm = () => {
                                 style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
                             />
                         </div>
-                        <div style={{ flex: '1', marginLeft: '10px' }}>
+                    </div>
+                    <div style={{ display: 'flex', marginBottom: '20px' }}>
+                        <div style={{ flex: '1', marginRight: '10px' }}>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Rental End Date:</label>
                             <input
                                 type="date"
@@ -151,42 +178,44 @@ const RentalForm = () => {
                                 style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
                             />
                         </div>
+                        <div style={{ flex: '1', marginLeft: '10px' }}>
+                            <label style={{ display: 'block', marginBottom: '5px' }}>Rental Item:</label>
+                            <input
+                                type="text"
+                                name="rentalItem"
+                                value={formData.rentalItem}
+                                onChange={handleChange}
+                                required
+                                style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+                            />
+                            {errors.rentalItem && <span style={{ color: 'red' }}>{errors.rentalItem}</span>}
+                        </div>
                     </div>
-                    <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px' }}>Rental Item:</label>
-                        <input
-                            type="text"
-                            name="rentalItem"
-                            value={formData.rentalItem}
-                            onChange={handleChange}
-                            required
-                            style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
-                        />
-                        {errors.rentalItem && <span style={{ color: 'red' }}>{errors.rentalItem}</span>}
-                    </div>
-                    <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px' }}>Price Per Day:</label>
-                        <input
-                            type="number"
-                            name="pricePerDay"
-                            value={formData.pricePerDay}
-                            onChange={handleChange}
-                            required
-                            style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
-                        />
-                        {errors.pricePerDay && <span style={{ color: 'red' }}>{errors.pricePerDay}</span>}
-                    </div>
-                    <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px' }}>Handover Item:</label>
-                        <input
-                            type="text"
-                            name="handoverItem"
-                            value={formData.handoverItem}
-                            onChange={handleChange}
-                            required
-                            style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
-                        />
-                        {errors.handoverItem && <span style={{ color: 'red' }}>{errors.handoverItem}</span>}
+                    <div style={{ display: 'flex', marginBottom: '20px' }}>
+                        <div style={{ flex: '1', marginRight: '10px' }}>
+                            <label style={{ display: 'block', marginBottom: '5px' }}>Price Per Day:</label>
+                            <input
+                                type="number"
+                                name="pricePerDay"
+                                value={formData.pricePerDay}
+                                onChange={handleChange}
+                                required
+                                style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+                            />
+                            {errors.pricePerDay && <span style={{ color: 'red' }}>{errors.pricePerDay}</span>}
+                        </div>
+                        <div style={{ flex: '1', marginLeft: '10px' }}>
+                            <label style={{ display: 'block', marginBottom: '5px' }}>Handover Item:</label>
+                            <input
+                                type="text"
+                                name="handoverItem"
+                                value={formData.handoverItem}
+                                onChange={handleChange}
+                                required
+                                style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+                            />
+                            {errors.handoverItem && <span style={{ color: 'red' }}>{errors.handoverItem}</span>}
+                        </div>
                     </div>
                     <button type="submit" style={{ backgroundColor: '#4CAF50', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>Add Rental</button>
                 </form>
