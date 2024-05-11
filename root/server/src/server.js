@@ -87,20 +87,6 @@ app.use("/Rental", rentalRouter);
 http: receiptRouter = require("./routs/SalesManagement_receipt.js");
 app.use("/Receipt", receiptRouter);
 
-
-const supplierRouter = require("./routs/SupplierManagement_suppliers.js");
-app.use("/supplier",supplierRouter);
-
-const damageEquipmentSRouter = require('./routs/SupplierManagement_damageEquipmentR.js');
-app.use('/damageEquipment',damageEquipmentSRouter);
-
-const supplierEmailRouter = require('./routs/SupplierManagement_emailsupplierR.js');
-app.use('/supplierEmail', supplierEmailRouter);
-
-const equipmentSRouter = require('./routs/SupplierManagement_equipmentR.js');
-app.use('/equipment',equipmentSRouter);
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-module.exports = app;
