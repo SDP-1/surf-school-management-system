@@ -328,6 +328,13 @@ function SideBar({ children }) {
               <span className="tooltip">Financial Management</span>
             </li>
             <li>
+              <a href="/supplier/supplierDashboard">
+                <i class="bx bx-male-female"></i>
+                <span className="links_name">Supplier</span>
+              </a>
+              <span className="tooltip">Supplier Management</span>
+            </li>
+            <li>
               <a href="/Event/">
                 <i class="bx bx-calendar-event"></i>
                 <span className="links_name">Event</span>
