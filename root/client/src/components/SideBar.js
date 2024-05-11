@@ -328,7 +328,7 @@ function SideBar({ children }) {
               <span className="tooltip">Financial Management</span>
             </li>
             <li>
-              <a href="/supplier/supplierDashboard">
+              <a href="/supplier/allsup">
                 <i class="bx bx-male-female"></i>
                 <span className="links_name">Supplier</span>
               </a>

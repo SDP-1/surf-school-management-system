@@ -100,7 +100,7 @@ import SupplierManagement_SupplierEquipSurfboard from'./components/SupplierManag
  import SupplierManagement_AllDamageEquip from './components/SupplierManagement_AllDamageEquip';
  import SupplierManagement_DeleteDamageEquip from './components/SupplierManagement_DeleteDamageEquip';
  import SupplierManagement_SupplierEmail from './components/SupplierManagement_SupplierEmail';
- import SupplierManagement_Dashboard from './components/SupplierManagement_Dashboard';
+ //import SupplierManagement_Dashboard from './components/SupplierManagement_Dashboard';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -170,9 +170,9 @@ function ProtectedRoutes({ isLoggedIn }) {
     <Route path="/supplier/*" element={<SupplierManagement_Navbar/>} />      
     </Routes>
 
-    <Routes>  
+    {/* <Routes>  
     <Route path="/supplier/supplierDashboard" element={<SupplierManagement_Dashboard/>} />      
-    </Routes>
+    </Routes> */}
 
     <Routes>  
     <Route path='/supplier/addEquipment' element={<SupplierManagement_AddEquipment />} />      
