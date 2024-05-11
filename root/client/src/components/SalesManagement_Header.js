@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
+const navStyles = {
+    marginTop: '-5px',
+    marginLeft: '-2px',
+    backgroundColor: '#1c4c74',
+};
+
 function HHeader() {
     const [sale, setSales] = useState([]);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#1c4c74' }}>
+        <nav className="navbar navbar-expand-lg navbar-light" style={navStyles}>
             <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
