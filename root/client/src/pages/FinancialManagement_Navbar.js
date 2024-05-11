@@ -7,6 +7,8 @@ const navStyles = {
     color: 'white',
     marginTop: '-5px', // Adjust margin top as needed
     marginLeft: '-2px',
+    // position: 'fixed', // Add this line
+    // top: '0', // Add this line
     marginBottom: '10px', // Adjust margin left as needed
   },
   brand: {
@@ -47,6 +49,16 @@ export default function NavBar() {
                   style={navStyles.brand}
                 >
                   Dashboard
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/FinancialManagement/exchangeRate"
+                  style={navStyles.brand}
+                >
+                  Exchange Rate
                 </Link>
               </li>
               <li className="nav-item">
