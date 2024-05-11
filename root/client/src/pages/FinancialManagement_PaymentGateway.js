@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
+ 
 export default function PaymentGateway({
   onClose,
   referenceNo,
@@ -50,6 +50,7 @@ export default function PaymentGateway({
   const onInputChange = (e) => {
     // console.log(e.target.files[0]);
     setSlip(e.target.files[0]);
+    enablePaymentProcessButton();
   };
 
   //convert to two decimalpace

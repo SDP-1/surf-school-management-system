@@ -45,6 +45,9 @@ const eventschema=new schema({
     TicketCount: {
         type: Number, 
        
+    },
+    Price:{
+        type: Number, 
     }
 })
 

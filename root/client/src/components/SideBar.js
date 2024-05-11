@@ -1,7 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "boxicons/css/boxicons.min.css";
+import { Modal, Button } from "react-bootstrap";
 
 function SideBar({ children }) {
+  const [userData, setUserData] = useState(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+    if (data && data.status === "Ref") {
+      const element = document.getElementById("financialLi");
+      if (element) element.style.display = "none";
+    } else {
+      console.log("User data not found in session.");
+    }
+  }, []);
+
+  const handleLogout = () => {
+    setShowLogoutModal(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    sessionStorage.removeItem("userData");
+    window.location.href = "/";
+  };
+
+  const handleLogoutCancel = () => {
+    setShowLogoutModal(false);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -256,13 +290,13 @@ function SideBar({ children }) {
     font-weight: 500;
     margin: 18px
   }
+ 
   @media (max-width: 420px) {
     .sidebar li .tooltip{
       display: none;
     }
   }
   `;
-
   return (
     <div>
       <div>
@@ -285,14 +319,8 @@ function SideBar({ children }) {
               <input type="text" placeholder="Search..." />
               <span className="tooltip">Search</span>
             </li>
-            <li>
-              <a href="/dashboard">
-                <i className="bx bx-grid-alt"></i>
-                <span className="links_name">Dashboard</span>
-              </a>
-              <span className="tooltip">Dashboard</span>
-            </li>
-            <li>
+
+            <li id="financialLi">
               <a href="/FinancialManagement/dashboard">
                 <i className="bx bx-money"></i>
                 <span className="links_name">Financial</span>
@@ -301,7 +329,7 @@ function SideBar({ children }) {
             </li>
             <li>
               <a href="/Event/">
-                <i className="bx bx-chat"></i>
+                <i class="bx bx-calendar-event"></i>
                 <span className="links_name">Event</span>
               </a>
               <span className="tooltip">Event management</span>
@@ -328,32 +356,73 @@ function SideBar({ children }) {
               <span className="tooltip">Sales Dashboard</span>
             </li>
             <li>
-              <a href="#">
-                <i className="bx bx-heart"></i>
-                <span className="links_name">Saved</span>
+              <a href="/customer/dashboard">
+                <i class="bx bx-male-female"></i>
+                <span className="links_name">Customer</span>
               </a>
-              <span className="tooltip">Saved</span>
+              <span className="tooltip">Customer Dashboard</span>
             </li>
             <li>
               <a href="#">
-                <i className="bx bx-cog"></i>
-                <span className="links_name">Setting</span>
+                <i class="bx bx-swim"></i>
+                <span className="links_name">Equipment</span>
               </a>
-              <span className="tooltip">Setting</span>
+              <span className="tooltip">Equipment Management</span>
+            </li>
+            <li>
+              <a href="/User/UserManagement">
+                <i class="bx bxs-user"></i>
+                <span className="links_name">Account</span>
+              </a>
+              <span className="tooltip">Account Management</span>
             </li>
             <li className="profile">
               <div className="profile-details">
-                <img src="profile.jpg" alt="profileImg" />
+                <img
+                  src={userData && userData.image}
+                  alt="profileImg"
+                  style={{ borderRadius: "50%" }}
+                />
                 <div className="name_job">
-                  <div className="name">Prem Shahi</div>
-                  <div className="job">Web designer</div>
+                  <div className="name">{userData && userData.fullName}</div>
+                  <div className="job">
+                    {userData && userData.status === "Adm"
+                      ? "Admin"
+                      : userData && userData.status === "Ref"
+                      ? "Receptionist"
+                      : "User"}
+                  </div>
                 </div>
               </div>
-              <i className="bx bx-log-out" id="log_out"></i>
+              <i
+                className="bx bx-log-out"
+                id="log_out"
+                onClick={handleLogout}
+              ></i>
             </li>
+            <Modal show={showLogoutModal} onHide={handleLogoutCancel}>
+              <Modal.Header closeButton>
+                <Modal.Title>Confirm Logout</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Are you sure you want to log out?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleLogoutCancel}>
+                  Cancel
+                </Button>
+                <Button variant="primary" onClick={handleLogoutConfirm}>
+                  Log Out
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </ul>
         </div>
-        <div style={{ marginLeft: isOpen ? "240px" : "70px", transition: "all 0.5s ease" }} className="bars">
+        <div
+          style={{
+            marginLeft: isOpen ? "240px" : "70px",
+            transition: "all 0.5s ease",
+          }}
+          className="bars"
+        >
           <main>{children}</main>
         </div>
       </div>

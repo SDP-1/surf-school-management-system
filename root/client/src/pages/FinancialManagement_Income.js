@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditPayment from "../components/FinancialManagement_EditPayment";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import { GrDocumentPdf } from "react-icons/gr";
+import "jspdf-autotable";
 
 function Income() {
   const [payments, setPayments] = useState([]);
@@ -11,7 +14,21 @@ function Income() {
   const [refreshTable, setRefreshTable] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const loginUser = "Sehan Devidna";
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+  }, []);
+
+  // const loginUser = "Sehan Devidna";
+  const loginUser = userData && userData.fullName;
+
 
   useEffect(() => {
     handleFilterChange({ target: { value: filterStatus } });
@@ -191,8 +208,101 @@ function Income() {
     setFilterStatus(selectedStatus);
   };
 
+  const generateReport = () => {
+    const doc = new jsPDF("p", "mm", "a4");
+
+    const companyName = "Paradise Surf School";
+    const companyAddress = "Midigama";
+
+    doc.setFont("bold");
+    doc.setFontSize(20);
+    doc.text("Surf School Management", doc.internal.pageSize.width / 2, 20, {
+      align: "center",
+    });
+
+    doc.setFont("bold");
+    doc.setFontSize(15);
+    doc.text(
+      `Income Report (${filterStatus})`,
+      doc.internal.pageSize.width / 2,
+      30,
+      {
+        align: "center",
+      }
+    );
+
+    const logo = new Image();
+    logo.src =
+      "https://static.vecteezy.com/system/resources/previews/000/660/538/original/vector-surfing-paradise-logo.jpg";
+    doc.addImage(logo, "JPEG", doc.internal.pageSize.width - 40, 5, 50, 50);
+
+    doc.text(companyName, 10, 50);
+    doc.text(companyAddress, 10, 55);
+
+    const tableWidth = 200;
+    const tableHeight = 20 * payments.length;
+    const leftMargin = (doc.internal.pageSize.width - tableWidth) / 2;
+
+    doc.autoTable({
+      head: [
+        [
+          "#",
+          "RefId",
+          "Date/Time",
+          "Details",
+          "Comment",
+          "Status",
+          "AcceptBy",
+          "CashType",
+          "Is Advance",
+          "Total",
+          "Paid",
+          "Due",
+        ],
+      ],
+      body: payments.map((payment, index) => [
+        index + 1,
+        payment.refId,
+        `${payment.date} / ${payment.time}`,
+        payment.details,
+        payment.comment,
+        payment.status,
+        payment.acceptBy,
+        payment.cashType,
+        payment.Advance ? "Yes" : "No",
+        payment.totalAmount,
+        payment.amountPaid,
+        payment.amountDue,
+      ]),
+      margin: { left: leftMargin, top: 70 },
+      didDrawPage: (data) => {
+        const currentPage = data.pageCount;
+        const pageText = "Page " + currentPage;
+        doc.text(
+          pageText,
+          doc.internal.pageSize.width / 2,
+          doc.internal.pageSize.height - 10,
+          { align: "center" }
+        );
+      },
+    });
+
+    doc.text(
+      "Prepared by: Sehan Devinda",
+      10,
+      doc.internal.pageSize.height - 25
+    );
+    doc.text(
+      "Date: " + new Date().toLocaleDateString(),
+      10,
+      doc.internal.pageSize.height - 20
+    );
+
+    doc.save("income_report.pdf");
+  };
+
   return (
-    <div className="container-xl">
+    <div className="container-fluid">
       <div className="table-responsive">
         <div className="table-wrapper">
           <div className="table-title">
@@ -388,7 +498,13 @@ function Income() {
         </div>
       </div>
 
-      <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyItems: "center",
+        }}
+      >
         <Link
           to={`/FinancialManagement/income/exportCSV/${filterStatus}`}
           style={{
@@ -403,7 +519,21 @@ function Income() {
         >
           Export CSV
         </Link>
-      </>
+        <div className="mt-3">
+          <button
+            className="btn btn-primary"
+            onClick={generateReport}
+            style={{
+              backgroundColor: "blue",
+              marginLeft: "20px",
+              borderRadius: "5px",
+              marginTop: "6px",
+            }}
+          >
+            <GrDocumentPdf /> Generate Outgoing Report    
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

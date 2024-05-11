@@ -12,12 +12,12 @@ const PercentageMeter = ({ incomePercentage }) => {
   const blueDashArray = `${incomePercentage * 2.512} ${circumference}`;
   const blueDashOffset = 0;
 
-  const redStart = (251.2 * incomePercentage) / 100; // Starting point for red stroke
+  const redStart = (251.2 * (100 - incomePercentage)) / 100; // Starting point for red stroke
   const redDashArray = `${redStart} 251.2`;
   const redDashOffset = -1 * (251.2 - redStart);
 
   // Conditional rendering to show/hide the circle based on incomePercentage
-  const renderCircle = incomePercentage !== 0;
+  const renderCircle = incomePercentage!== 0;
 
   return (
     <MeterContainer>
@@ -37,18 +37,19 @@ const PercentageMeter = ({ incomePercentage }) => {
                 r="40"
                 fill="none"
                 strokeWidth="12"
-                stroke="red" // Set stroke color to blue
+                stroke="#007bff" // Set stroke color to blue
                 strokeDasharray={blueDashArray}
                 strokeDashoffset={blueDashOffset}
               />
 
+              {/* Red Circle */}
               <Percentage
                 cx="50"
                 cy="50"
                 r="40"
                 fill="none"
                 strokeWidth="12"
-                stroke="#007bff" // Set stroke color to red
+                stroke="red" // Set stroke color to red
                 strokeDasharray={redDashArray}
                 strokeDashoffset={redDashOffset}
               />
@@ -59,9 +60,9 @@ const PercentageMeter = ({ incomePercentage }) => {
                 y="55"
                 dominantBaseline="middle"
                 textAnchor="middle"
-                fill={isIncome ? "#007bff" : "red"}
+                fill={isIncome? "#007bff" : "red"}
               >
-                {isNaN(incomePercentage) ? 0 : incomePercentage.toFixed(2)}%
+                {isNaN(incomePercentage)? 0 : incomePercentage.toFixed(2)}%
               </PercentageText>
             </>
           )}

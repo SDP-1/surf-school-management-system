@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Analytic from "../components/FinancialManagement_Analytic";
 import BarChart from "../components/FinancialManagement_BarChart";
 import LineChart from "../components/FinancialManagement_LineChart";
-import MonthlyTargetMeter from "../components/FinancialManagement_MonthlyTargetMeter";
 import { getMonth, getYear } from "date-fns";
 
 function Dashboard() {
@@ -75,10 +74,10 @@ function Dashboard() {
 
         <Analytic year={selectedYear} month={selectedMonth} />
 
-        {/* <MonthlyTargetMeter targetIncome={monthlyTargetIncome} /> */}
         <BarChart year={selectedYear} month={selectedMonth} />
         <LineChart year={selectedYear} month={selectedMonth} />
       </div>
+
     </Section>
   );
 }
