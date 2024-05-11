@@ -8,6 +8,19 @@ export default function HomePage() {
   const [attendanceData, setAttendanceData] = useState({});
   const chartRef = useRef(null);
 
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+  }, []);
+
+
   useEffect(() => {
     fetchTotalEmployees();
     fetchAttendanceData();
@@ -134,15 +147,68 @@ export default function HomePage() {
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontSize: "calc(10px + 2vmin)", color: "black" }}>
       <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Staff Management</h2>
       <div className="main-container" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", justifyContent: "center", background: "#ffffff", padding: "20px", borderRadius: "10px", boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)" }}>
-        <Link to="/staff/alle" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Profile Management <span className="sr-only"></span></Link>
-        <Link to="/staff/request" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>LeaveRequest <span className="sr-only"></span></Link>
-        <Link to="/staff/requests" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Leave management<span className="sr-only"></span></Link>
-        <Link to="/staff/w" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Manage Worksheet <span className="sr-only"></span></Link>
-        <Link to="/staff/notices" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Manage Notices <span className="sr-only"></span></Link>
-        <Link to="/staff/adnotices" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Notices <span className="sr-only"></span></Link>
-        <Link to="/staff/generateQRCode" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Qr code <span className="sr-only"></span></Link>
-        <Link to="/staff/Attendance" className="nav-link" style={{ backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Attendance management <span className="sr-only"></span></Link>
-        <div className="employee-count" style={{ gridColumn: "span 4", backgroundColor: "#336699", display: "flex", flexDirection: "column", justifyContent: "space-around", padding: "10px 15px", borderRadius: "20px", textAlign: "center", textDecoration: "none", color: "#fff" }}>Total Employees: {totalEmployees}</div>
+        <Link to="/staff/alle" className="nav-link" style={{ ...navLinkStyle }}>Profile Management <span className="sr-only"></span></Link>
+        <Link to="/staff/request" className="nav-link" style={{ ...navLinkStyle }}>LeaveRequest <span className="sr-only"></span></Link>
+
+        <div>
+        {userData && userData.status !== "Ref" && (   
+        <>
+
+        <Link to="/staff/requests" id="lv" className="nav-link" style={{ ...navLinkStyle }}>Leave management<span className="sr-only"></span></Link>
+
+        </>
+        )}
+        </div>
+
+
+        <div>
+        {userData && userData.status !== "Ref" && (   
+        <>
+
+        <Link to="/staff/w" className="nav-link" id="mw" style={{ ...navLinkStyle }}>Manage Worksheet <span className="sr-only"></span></Link>
+
+
+        </>
+        )}
+        </div>
+
+
+
+
+        <div>
+        {userData && userData.status !== "Ref" && (   
+        <>
+
+
+        <Link to="/staff/notices" className="nav-link" id="mn" style={{ ...navLinkStyle }}>Manage Notices <span className="sr-only"></span></Link>
+
+
+
+        </>
+        )}
+        </div>
+
+
+
+
+
+        <Link to="/staff/adnotices" className="nav-link" style={{ ...navLinkStyle }}>Notices <span className="sr-only"></span></Link>
+        <Link to="/staff/generateQRCode" className="nav-link" style={{ ...navLinkStyle }}>Qr code <span className="sr-only"></span></Link>
+
+       
+        <div>
+        {userData && userData.status !== "Ref" && (   
+        <>
+
+
+        <Link to="/staff/Attendance" className="nav-link" id="am" style={{ ...navLinkStyle }}>Attendance management <span className="sr-only"></span></Link>
+
+
+        </>
+        )}
+        </div>
+
+        <div className="employee-count" style={{ gridColumn: "span 4", ...navLinkStyle }}>Total Employees: {totalEmployees}</div>
       </div>
       <div className="chart-container" style={{ marginTop: "20px", width: "80%", height: "12cm" }}>
         <canvas id="attendanceChart"></canvas>
@@ -150,3 +216,16 @@ export default function HomePage() {
     </div>
   );
 }
+
+const navLinkStyle = {
+  backgroundColor: "#336699",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-around",
+  padding: "10px 15px",
+  borderRadius: "20px",
+  textAlign: "center",
+  textDecoration: "none",
+  color: "#fff",
+  height: "100%", // Set the height to 100% to make all links have the same height
+};

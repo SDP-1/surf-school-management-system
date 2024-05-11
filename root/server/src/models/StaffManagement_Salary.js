@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const salarySchema = new mongoose.Schema({
     employeeID: { type: String, required: true },
     employeeName: { type: String, required: true },
@@ -8,7 +7,14 @@ const salarySchema = new mongoose.Schema({
     bonus: { type: Number, default: 0 },
     paymentMethod: { type: String, required: true },
     notes: { type: String },
-    paymentDate: { type: Date, required: true }
+    paymentDate: { type: Date, required: true },
+    status: { type: String, default: 'pending' } // Default status is 'pending'
+});
+
+// Middleware to update status to 'pending' when updating a document
+salarySchema.pre('findOneAndUpdate', function(next) {
+    this._update.status = 'pending';
+    next();
 });
 
 // Define a virtual property to calculate netSalary
