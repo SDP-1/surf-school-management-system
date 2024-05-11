@@ -8,6 +8,20 @@ function SearchView() {
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get('q');
 
+    const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const getSessionData = () => {
+       
+  
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+  }, []);
+
     useEffect(() => {
         async function getEvent() {
             try {
@@ -37,8 +51,14 @@ function SearchView() {
                 <p>Location: {event.Location}</p>
                 <p>Capacity: {event.Capacity}</p>
                 <p>Description: {event.Description}</p>
+
+                <div>
+                {userData && userData.status !== "Ref" && (   
+                <>
+
                 <Link
                 to={`/deleteEvent/${encodeURIComponent(event.Title)}`}
+                id="delete"
                 style={{
                   color:'red',
                   textDecoration: 'none'
@@ -50,6 +70,7 @@ function SearchView() {
 
                 <Link
                 to={`/updateEvent/${encodeURIComponent(event.Title)}`}
+                id="update"
                 style={{
                   color:'green',
                   textDecoration: 'none',
@@ -58,7 +79,9 @@ function SearchView() {
                 >
                 Update
                 </Link>
-
+                </>
+                )}
+                </div>
                 <Link to={`/Event/getsingleEvent/${encodeURIComponent(event.Title)}`} style={{ display: 'block', textAlign: 'center', textDecoration: 'none',fontSize: '15px' }}>View</Link>
 
 

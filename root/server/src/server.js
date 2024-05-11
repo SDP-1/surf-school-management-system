@@ -8,7 +8,7 @@ const app = express();
 
 const PORT = process.env.PORT || 8070;
 
- // Set a higher limit, e.g., 10MB
+// Set a higher limit, e.g., 10MB
 
 app.use(bodyParser.json({ limit: "100MB" }));
 app.use(express.json());
@@ -37,6 +37,9 @@ app.use("/reservations", reservationRouter);
 const eventRouter = require("./routs/EventManagement_events.js");
 app.use("/event", eventRouter);
 
+const User = require("./routs/User.js");
+app.use(User);
+
 const postPayments = require("./routs/FinancialManagement_payment");
 app.use(postPayments);
 
@@ -51,39 +54,37 @@ app.use(postMonthlyTarget);
 
 //staff management
 const employeeRouter = require("./routs/StaffManagement_employees.js");
-app.use("/employee",employeeRouter);
+app.use("/employee", employeeRouter);
 
-const worksheetRouter=require("./routs/StaffManagement_worksheets.js");
-app.use("/worksheet",worksheetRouter);
+const worksheetRouter = require("./routs/StaffManagement_worksheets.js");
+app.use("/worksheet", worksheetRouter);
 
-const leaveRouter =  require("./routs/StaffManagement_leaveRoutes.js");
-app.use("/LeaveRequest",leaveRouter);
+const leaveRouter = require("./routs/StaffManagement_leaveRoutes.js");
+app.use("/LeaveRequest", leaveRouter);
 
-const noticeRouter =  require("./routs/StaffManagement_notices.js");
-app.use("/Notice",noticeRouter);
+const noticeRouter = require("./routs/StaffManagement_notices.js");
+app.use("/Notice", noticeRouter);
 
+const qrCodeRouter = require("./routs/StaffManagement_qrCodeRouter.js");
+app.use("/Qr", qrCodeRouter);
 
-const qrCodeRouter = require('./routs/StaffManagement_qrCodeRouter.js');
-app.use('/Qr', qrCodeRouter);
+const attendanceRouter = require("./routs/StaffManagement_attendance.js");
+app.use("/Attendance", attendanceRouter);
 
-const attendanceRouter =  require("./routs/StaffManagement_attendance.js");
-app.use("/Attendance",attendanceRouter);
-
+const customerRouter = require("./routs/CustomerManagement_customer.js");
+app.use("/Customer", customerRouter);
 //end
- saleRouter = require("./routs/SalesManagement_sales.js");
-http://localhost:4000/sale
-app.use("/sale",saleRouter);
+saleRouter = require("./routs/SalesManagement_sales.js");
+//localhost:4000/sale
+http: app.use("/sale", saleRouter);
 
-
-http://localhost:4000/Rental
- rentalRouter = require("./routs/SalesManagement_rental.js");
+//localhost:4000/Rental
+http: rentalRouter = require("./routs/SalesManagement_rental.js");
 app.use("/Rental", rentalRouter);
 
-
-http://localhost:4000/Receipt
- receiptRouter = require("./routs/SalesManagement_receipt.js");
-app.use('/Receipt', receiptRouter);
-
+//localhost:4000/Receipt
+http: receiptRouter = require("./routs/SalesManagement_receipt.js");
+app.use("/Receipt", receiptRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
