@@ -6,10 +6,10 @@ const router = express.Router();
 const cors = require("cors");
 const EquipmentReservation = require("../models/EquipmentManagement_equipReservation");
 
-// Apply CORS middleware at the router level
+
 router.use(cors());
 
-//create variables in backend for frontend request body
+
 //route for create
 router.route("/addReservation").post((req,res)=>{
     const reservationId=req.body.reservationId;
@@ -62,11 +62,11 @@ router.route("/allReservation").get((req,res)=>{
 
 //route for update
 router.route("/editEquipmentReservation/:reservationId").put(async(req,res)=>{
-     //create a variable for store id
+     
       let userId=req.params.id;
       const{reservationId,equipmentId,renterId,reservationDate,returnDate,status}=req.body;//destructure
 
-      //create a object for update
+      
       const updateReservation={
        reservationId,
        equipmentId,
@@ -76,7 +76,7 @@ router.route("/editEquipmentReservation/:reservationId").put(async(req,res)=>{
        status
       }
       try{
-        //check the user
+        
         const update=await EquipmentReservation.findOneAndUpdate
         ({reservationId:reservationId},updateReservation);
         if(update){
