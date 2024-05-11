@@ -174,6 +174,7 @@ const RentalForm = () => {
                                 name="rentalEndDate"
                                 value={formData.rentalEndDate}
                                 onChange={handleChange}
+                                min={formData.rentalStartDate} // Set min attribute dynamically
                                 required
                                 style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
                             />
