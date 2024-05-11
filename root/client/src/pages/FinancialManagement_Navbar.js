@@ -7,6 +7,8 @@ const navStyles = {
     color: 'white',
     marginTop: '-5px', // Adjust margin top as needed
     marginLeft: '-2px',
+    // position: 'fixed', // Add this line
+    // top: '0', // Add this line
     marginBottom: '10px', // Adjust margin left as needed
   },
   brand: {
