@@ -7,10 +7,13 @@ require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 8070;
-app.use(express.json());
-app.use(cors());
-app.use(bodyParser.json({ limit: "20MB" }));
 
+//middleware setup
+app.use(express.json());                                      // Parse JSON bodies
+app.use(cors());                                              // Enable CORS
+app.use(bodyParser.json({ limit: "20MB" }));                  // Parse JSON bodies with specified size limit
+
+// MongoDB connection setup
 const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL, {
@@ -23,7 +26,7 @@ connection.once("open", () => {
   console.log("MongoDB database connected successfully!");
 });
 
-//routes
+// Routes setup
 
 const sessionRouter = require("./routs/SessionRoutes.js");
 const reservationRouter = require("./routs/ReservationRoutes.js");
@@ -81,7 +84,7 @@ http://localhost:4000/Receipt
  receiptRouter = require("./routs/SalesManagement_receipt.js");
 app.use('/Receipt', receiptRouter);
 
-
+// Server listening
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
