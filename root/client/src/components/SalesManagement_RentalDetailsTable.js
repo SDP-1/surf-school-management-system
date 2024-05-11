@@ -7,9 +7,22 @@ const RentalDetailsTable = () => {
     const [rentals, setRentals] = useState([]);
     const [selectedRental, setSelectedRental] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+
+    const [userData, setUserData] = useState(null);
+    useEffect(() => {
+        const getSessionData = () => {
+            const userData = sessionStorage.getItem("userData");
+            return userData ? JSON.parse(userData) : null;
+        };
+
+        const data = getSessionData();
+        setUserData(data);
+    }, []);
+
     const [updatedFormData, setUpdatedFormData] = useState({
         customerName: '',
         passportId: '',
+        email: '',
         rentalStartDate: '',
         rentalEndDate: '',
         rentalItem: '',
@@ -17,6 +30,8 @@ const RentalDetailsTable = () => {
         handoverItem: ''
     });
     const [searchQuery, setSearchQuery] = useState('');
+
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         fetchRentals();
@@ -36,6 +51,7 @@ const RentalDetailsTable = () => {
         setUpdatedFormData({
             customerName: rental.customerName,
             passportId: rental.passportId,
+            email: rental.email,
             rentalStartDate: formatDate(rental.rentalStartDate),
             rentalEndDate: formatDate(rental.rentalEndDate),
             rentalItem: rental.rentalItem,
@@ -47,7 +63,7 @@ const RentalDetailsTable = () => {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        return date.toISOString().split('T')[0];
     };
 
     const handleCancelClick = () => {
@@ -55,6 +71,7 @@ const RentalDetailsTable = () => {
         setUpdatedFormData({
             customerName: '',
             passportId: '',
+            email: '',
             rentalStartDate: '',
             rentalEndDate: '',
             rentalItem: '',
@@ -64,7 +81,40 @@ const RentalDetailsTable = () => {
     };
 
     const handleInputChange = (e) => {
-        setUpdatedFormData({ ...updatedFormData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setUpdatedFormData({ ...updatedFormData, [name]: value });
+        
+        // Validate name: Only letters and spaces allowed
+        if (name === 'customerName') {
+            const isValid = /^[a-zA-Z\s]+$/.test(value);
+            setErrors({ ...errors, [name]: isValid ? '' : 'Name can only contain letters and spaces' });
+        }
+
+        // Validate rental end date: Must be after start date
+        if (name === 'rentalEndDate' && updatedFormData.rentalStartDate) {
+            const startDate = new Date(updatedFormData.rentalStartDate);
+            const endDate = new Date(value);
+            const isValid = endDate > startDate;
+            setErrors({ ...errors, [name]: isValid ? '' : 'End date must be after start date' });
+        }
+
+        // Validate rental item: Must start with 'R'
+        if (name === 'rentalItem') {
+            const isValid = value.startsWith('R');
+            setErrors({ ...errors, [name]: isValid ? '' : 'Rental item must start with letter R' });
+        }
+
+        // Validate price per day: Must be a number
+        if (name === 'pricePerDay') {
+            const isValid = !isNaN(value);
+            setErrors({ ...errors, [name]: isValid ? '' : 'Price must be a number' });
+        }
+
+        // Validate handover item: Only letters and spaces allowed
+        if (name === 'handoverItem') {
+            const isValid = /^[a-zA-Z\s]+$/.test(value);
+            setErrors({ ...errors, [name]: isValid ? '' : 'Handover item can only contain letters and spaces' });
+        }
     };
 
     const handleUpdateSubmit = async (e) => {
@@ -72,7 +122,7 @@ const RentalDetailsTable = () => {
         try {
             await axios.put(`http://localhost:4000/Rental/rental/${selectedRental._id}`, updatedFormData);
             setIsEditing(false);
-            fetchRentals(); // Refetch rentals after update
+            fetchRentals();
         } catch (error) {
             console.error('Error updating rental:', error);
         }
@@ -83,7 +133,7 @@ const RentalDetailsTable = () => {
         if (confirmDelete) {
             try {
                 await axios.delete(`http://localhost:4000/Rental/rental/${id}`);
-                fetchRentals(); // Refetch rentals after deletion
+                fetchRentals();
             } catch (error) {
                 console.error('Error deleting rental:', error);
             }
@@ -98,29 +148,20 @@ const RentalDetailsTable = () => {
         const doc = new jsPDF();
 
         doc.setFontSize(12);
-        doc.text("Invoice- Surf shop Rental", 45,  9);
-        doc.text(`Invoice for Rental ID: ${rental._id}`, 10, 10);
-        doc.text(`Customer Name: ${rental.customerName}`, 10, 20);
-        doc.text(`Passport ID: ${rental.passportId}`, 10, 30);
-
-        // Additional details
-        doc.text(`Rental Start Date: ${rental.rentalStartDate}`, 10, 40);
-        doc.text(`Rental End Date: ${rental.rentalEndDate}`, 10, 50);
-        doc.text(`Rental Item: ${rental.rentalItem}`, 10, 60);
-        doc.text(`Price Per Day: ${rental.pricePerDay}`, 10, 70);
-        doc.text(`Handover Item: ${rental.handoverItem}`, 10, 80);
-
-        // Instructions
-        doc.text('Instructions:', 10, 90);
-        doc.text('- Please ensure all items are returned in good condition.', 15, 100);
-        doc.text('- Any damages will incur additional charges.', 15, 110);
-
-        // Signature
-        doc.text('Signature:', 10, 130);
-
-        // Signature box
-        doc.rect(80, 125, 100, 10);
-
+        doc.text("Surf School Rental Invoice", 45,  9);
+        doc.text(`Invoice for Rental ID: ${rental._id}`, 10, 20);
+        doc.text(`Customer Name: ${rental.customerName}`, 10, 30);
+        doc.text(`Passport ID: ${rental.passportId}`, 10, 40);
+        doc.text(`Rental Start Date: ${rental.rentalStartDate}`, 10, 50);
+        doc.text(`Rental End Date: ${rental.rentalEndDate}`, 10, 60);
+        doc.text(`Rental Item: ${rental.rentalItem}`, 10, 70);
+        doc.text(`Price Per Day: ${rental.pricePerDay}`, 10, 80);
+        doc.text(`Handover Item: ${rental.handoverItem}`, 10, 90);
+        doc.text('Instructions:', 10, 100);
+        doc.text('- Please ensure all items are returned in good condition.', 15, 110);
+        doc.text('- Any damages will incur additional charges.', 15, 120);
+        doc.text('Signature:', 10, 140);
+        doc.rect(80, 135, 100, 10);
         doc.save(`invoice_${rental._id}.pdf`);
     };
 
@@ -131,7 +172,7 @@ const RentalDetailsTable = () => {
     );
 
     return (
-        <div style={{ backgroundColor: '#222', padding: '20px', borderRadius: '10px', color: 'white' }}>
+        <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '10px', color: 'black' }}>
             <h2>Rental Details</h2>
             <Link to="/Sales/rental/add" style={{ textDecoration: 'none' }}>
                 <button style={{
@@ -152,35 +193,39 @@ const RentalDetailsTable = () => {
                 placeholder="Search name, passport, or item"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
-                style={{ marginBottom: '10px', padding: '5px',marginLeft:'800px' }}
+                style={{ marginBottom: '10px', padding: '5px' }}
             />
-            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-                <thead>
+            <table style={{ borderCollapse: 'collapse', width: '100%', backgroundColor: '#FFFFFF', border: '1px solid #000' }}>
+                <thead style={{ backgroundColor: '#B3E5FC', color: '#03A9F4' }}>
                     <tr>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Customer Name</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Passport ID</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Rental Start Date</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Rental End Date</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Rental Item</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Price Per Day</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Handover Item</th>
-                        <th style={{ border: '1px solid white', padding: '10px' }}>Actions</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Customer Name</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Passport ID</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Email</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Rental Start Date</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Rental End Date</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Rental Item</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Price Per Day</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Handover Item</th>
+                        <th style={{ padding: '10px', border: '1px solid #000' }}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredRentals.map((rental) => (
-                        <tr key={rental._id} style={{ cursor: 'pointer', backgroundColor: '#333', transition: 'background-color 0.3s' }}>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="customerName"
-                                    value={updatedFormData.customerName}
-                                    onChange={handleInputChange}
-                                />
+                        <tr key={rental._id} style={{ cursor: 'pointer', backgroundColor: '#FFFFFF', transition: 'background-color 0.3s', border: '1px solid #000' }}>
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        name="customerName"
+                                        value={updatedFormData.customerName}
+                                        onChange={handleInputChange}
+                                    />
+                                    {errors.customerName && <span style={{ color: 'red' }}>{errors.customerName}</span>}
+                                </>
                             ) : (
                                 rental.customerName
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
                                 <input
                                     type="text"
                                     name="passportId"
@@ -190,7 +235,17 @@ const RentalDetailsTable = () => {
                             ) : (
                                 rental.passportId
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={updatedFormData.email}
+                                    onChange={handleInputChange}
+                                />
+                            ) : (
+                                rental.email
+                            )}</td>
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
                                 <input
                                     type="date"
                                     name="rentalStartDate"
@@ -200,7 +255,7 @@ const RentalDetailsTable = () => {
                             ) : (
                                 rental.rentalStartDate
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
                                 <input
                                     type="date"
                                     name="rentalEndDate"
@@ -210,37 +265,46 @@ const RentalDetailsTable = () => {
                             ) : (
                                 rental.rentalEndDate
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="rentalItem"
-                                    value={updatedFormData.rentalItem}
-                                    onChange={handleInputChange}
-                                />
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        name="rentalItem"
+                                        value={updatedFormData.rentalItem}
+                                        onChange={handleInputChange}
+                                    />
+                                    {errors.rentalItem && <span style={{ color: 'red' }}>{errors.rentalItem}</span>}
+                                </>
                             ) : (
                                 rental.rentalItem
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="number"
-                                    name="pricePerDay"
-                                    value={updatedFormData.pricePerDay}
-                                    onChange={handleInputChange}
-                                />
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                                <>
+                                    <input
+                                        type="number"
+                                        name="pricePerDay"
+                                        value={updatedFormData.pricePerDay}
+                                        onChange={handleInputChange}
+                                    />
+                                    {errors.pricePerDay && <span style={{ color: 'red' }}>{errors.pricePerDay}</span>}
+                                </>
                             ) : (
                                 rental.pricePerDay
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
-                                <input
-                                    type="text"
-                                    name="handoverItem"
-                                    value={updatedFormData.handoverItem}
-                                    onChange={handleInputChange}
-                                />
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>{isEditing && selectedRental && selectedRental._id === rental._id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        name="handoverItem"
+                                        value={updatedFormData.handoverItem}
+                                        onChange={handleInputChange}
+                                    />
+                                    {errors.handoverItem && <span style={{ color: 'red' }}>{errors.handoverItem}</span>}
+                                </>
                             ) : (
                                 rental.handoverItem
                             )}</td>
-                            <td style={{ border: '1px solid white', padding: '10px' }}>
+                            <td style={{ padding: '10px', border: '1px solid #000' }}>
                                 {isEditing && selectedRental && selectedRental._id === rental._id ? (
                                     <>
                                         <button onClick={handleUpdateSubmit} style={{ backgroundColor: 'blue', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Save</button>
@@ -248,9 +312,15 @@ const RentalDetailsTable = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <button onClick={() => handleUpdateClick(rental)} style={{ backgroundColor: 'green', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Edit</button>
-                                        <button onClick={() => handleDeleteClick(rental._id)} style={{ backgroundColor: 'orange', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>Delete</button>
-                                        <button onClick={() => handleGenerateInvoice(rental)} style={{ backgroundColor: 'purple', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginLeft: '5px' }}>Invoice</button>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            {userData && userData.status !== "Ref" && (
+                                                <>
+                                                    <button onClick={() => handleUpdateClick(rental)} style={{ backgroundColor: 'green', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginRight: '5px' }}>Edit</button>
+                                                    <button onClick={() => handleDeleteClick(rental._id)} style={{ backgroundColor: 'orange', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>Delete</button>
+                                                </>
+                                            )}
+                                            <button onClick={() => handleGenerateInvoice(rental)} style={{ backgroundColor: 'purple', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px', marginLeft: '5px' }}>Invoice</button>
+                                        </div>
                                     </>
                                 )}
                             </td>

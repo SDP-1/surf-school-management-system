@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PaymentGateway from "../pages/FinancialManagement_PaymentGateway";
 
-function App() {
+function App(props) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [items, setItems] = useState([]);
@@ -14,6 +15,11 @@ function App() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [receiptNumber, setReceiptNumber] = useState(1000);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showPaymentGateway, setShowPaymentGateway] = useState(false);
+  const [newReceiptId, setNewReceiptId] = useState(null);
+  const [description, setDescription] = useState('');
+  const [finalAmount, setFinalAmount] = useState(0);
+  const [redirectToCategory, setRedirectToCategory] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -160,9 +166,6 @@ function App() {
       return null;
     }
   };
-  
-
-  
 
   const handleGenerateReceipt = async () => {
     try {
@@ -180,17 +183,19 @@ function App() {
       console.error('Error generating receipt:', error);
     }
   };
-  const handleAddReceiptToDatabase = async () => {
+
+  const handleAddReceiptAndShowPaymentGateway = async () => {
     try {
       const receiptContent = await generateReceipt();
       if (receiptContent) {
         // Fetch the last receipt ID
         const lastReceiptResponse = await fetch('http://localhost:4000/Receipt/receipts/last');
         const lastReceiptData = await lastReceiptResponse.json();
-        const lastReceiptId = lastReceiptData.lastReceiptId || 999; // Assuming the initial receipt ID is 999
+        let lastReceiptId = lastReceiptData.lastReceiptId || 999; // Assuming the initial receipt ID is 999
   
         // Generate a new receipt ID based on the last one
-        const newReceiptId = lastReceiptId ;
+        lastReceiptId = parseInt(lastReceiptId.toString().substring(2)) || 999;
+        const newReceiptId = `RC${lastReceiptId + 1}`;
   
         const description = selectedItems.map(item => `${item.name} - Quantity: ${item.quantity}`).join(', ');
         const finalAmount = totalAmount;
@@ -202,21 +207,31 @@ function App() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            receiptId: `${newReceiptId}`,
+            receiptId: newReceiptId,
             description,
             finalAmount,
           }),
         });
   
-        setSelectedItems([]);
-        setTotalAmount(0);
-        alert('Receipt added to database successfully.');
+        // Show PaymentGateway component with mapped data
+        setShowPaymentGateway(true);
+        setNewReceiptId(newReceiptId);
+        setDescription(description);
+        setFinalAmount(finalAmount);
       }
     } catch (error) {
       console.error('Error adding receipt to database:', error);
     }
   };
   
+  const handleSuccessPayment = () => {
+    // Redirect to the specified frontend link page
+    window.location.href = `/Sales/category/${selectedCategory}`;
+  };
+
+  const handleClosePaymentGateway = () => {
+    setShowPaymentGateway(false); // Hide payment gateway modal
+  };
 
   const filteredItems = items.filter(item =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -306,7 +321,18 @@ function App() {
             </div>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
               <button style={{ backgroundColor: '#4caf50', color: '#fff', border: 'none', borderRadius: '5px', padding: '10px 20px', cursor: 'pointer', marginLeft: '10px' }} onClick={handleGenerateReceipt}>Generate Receipt</button>
-              <button style={{ backgroundColor: '#2196f3', color: '#fff', border: 'none', borderRadius: '5px', padding: '10px 20px', cursor: 'pointer', marginLeft: '10px' }} onClick={handleAddReceiptToDatabase}>Payment</button>
+              <button onClick={handleAddReceiptAndShowPaymentGateway}>Proceed to Payment</button>
+
+              {/* PaymentGateway component */}
+              {showPaymentGateway && (
+                <PaymentGateway
+                  referenceNo={newReceiptId.toString()} // Map receiptId to referenceNo
+                  details={description} // Map description to details
+                  payableAmount={finalAmount} // Map finalAmount to payableAmount
+                  onSuccessPayment={handleSuccessPayment}
+                  onClose={handleClosePaymentGateway}
+                />
+              )}
             </div>
           </div>
         )}
@@ -356,4 +382,5 @@ function App() {
   );
 }
 
+// Wrap the App component with withRouter to access history prop
 export default App;

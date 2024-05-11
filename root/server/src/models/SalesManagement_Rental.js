@@ -11,6 +11,10 @@ const rentalSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String, // Assuming email will be stored as a string
+        required: true
+    },
     rentalStartDate: {
         type: Date,
         required: true
