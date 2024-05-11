@@ -118,7 +118,7 @@ const EditUser = ({ user, onClose, showAllUsers, onUpdated }) => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="Rec">Rec</option>
+              <option value="Rec">Ref</option>
               <option value="Adm">Adm</option>
             </Form.Control>
           </Form.Group>

@@ -21,7 +21,7 @@ const postSchema = new mongoose.Schema({
   status: {
     type: String,
     requied: true,
-    default: "Rec",  //Adm - admin , Rec - recipshanist
+    default: "Ref",  //Adm - admin , Rec - recipshanist
   },
   image: {
     type: String,
