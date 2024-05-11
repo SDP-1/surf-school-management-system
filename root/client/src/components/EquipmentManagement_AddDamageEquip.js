@@ -15,8 +15,6 @@ export default function AddDamageEquip() {
 
     function sendData(e) {
         e.preventDefault();
-        
-        // Validation for technician name
         if (!isValidTechnicianName(technicianname)) {
             alert('Technician name can only contain letters and spaces.');
             return;

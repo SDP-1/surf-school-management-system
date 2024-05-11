@@ -69,11 +69,11 @@ router.route("/").get((req,res)=>{
 
 //route for update
 router.route("/editEquipment/:equipmentno").put(async(req,res)=>{
-     //create a variable for store id
+     
       let userId=req.params.id;
       const{equipmentno,equipmentname,equipmentdescription,quantityinstock,quantityrequired,purchasetobemade,availableequipment,rentalequipment,damageequipment}=req.body;//destructure
 
-      //create a object for update
+      
       const updateEquipment={
         equipmentno,
         equipmentname,
@@ -87,7 +87,7 @@ router.route("/editEquipment/:equipmentno").put(async(req,res)=>{
       }
 
  try{
-    //check the user
+    
     const update=await Equipment.findOneAndUpdate
     ({equipmentno:equipmentno},updateEquipment);
     if(update){
