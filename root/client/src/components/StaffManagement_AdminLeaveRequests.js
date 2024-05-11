@@ -56,14 +56,14 @@ const AdminLeaveRequests = () => {
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
         {leaveRequests.map((leaveRequest) => (
           <div key={leaveRequest._id} style={{ width: '30%', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '20px' }}>
-            <div style={{ padding: '10px' }}>
-              <div>Employee ID: {leaveRequest.employeeId}</div>
-              <div>Leave Type: {leaveRequest.leaveType}</div>
-              <div>Start Date: {leaveRequest.startDate}</div>
-              <div>End Date: {leaveRequest.endDate}</div>
-              <div>Status: {leaveRequest.status}</div>
-              <div>Admin Comment: {leaveRequest.adminComment}</div>
-              <div style={{ marginTop: '10px' }}>
+            <div style={{ padding: '10px', display: 'grid', gap: '5px' }}>
+              <div><strong>Employee ID:</strong> {leaveRequest.employeeId}</div>
+              <div><strong>Leave Type:</strong> {leaveRequest.leaveType}</div>
+              <div><strong>Start Date:</strong> {leaveRequest.startDate}</div>
+              <div><strong>End Date:</strong> {leaveRequest.endDate}</div>
+              <div><strong>Status:</strong> {leaveRequest.status}</div>
+              <div><strong>Admin Comment:</strong> {leaveRequest.adminComment}</div>
+              <div>
                 {leaveRequest.status === 'Concerned' ? (
                   <button style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '3px', marginRight: '5px', cursor: 'pointer' }} onClick={() => handleUnconcern(leaveRequest._id)}>Unconcern</button>
                 ) : (

@@ -49,7 +49,16 @@ export default function Staff_AllWorkSheet() {
         setModalOpen(false);
     };
 
+    const isValidName = (name) => {
+        return /^[a-zA-Z\s]*$/.test(name);
+    };
+
     const handleUpdate = () => {
+        if (!isValidName(editedEname)) {
+            alert("Name can only contain letters and spaces");
+            return;
+        }
+
         axios.put(`http://localhost:4000/worksheet/updatew/${editingWorksheet.Eid}`, {
             Ename: editedEname,
             Role: editedRole,
@@ -145,7 +154,7 @@ export default function Staff_AllWorkSheet() {
                         </div>
                         <div style={{ marginBottom: "15px" }}>
                             <label htmlFor="editedRole">Role:</label>
-                            <input type="text" id="editedRole" value={editedRole} onChange={(e) => setEditedRole(e.target.value)} />
+                            <input type="text" id="editedRole" value={editedRole} readOnly />
                         </div>
                         <div style={{ marginBottom: "15px" }}>
                             <label htmlFor="editedMonday">Monday:</label>
@@ -211,5 +220,5 @@ export default function Staff_AllWorkSheet() {
                 </div>
             )}
         </div>
-    )
+    );
 }

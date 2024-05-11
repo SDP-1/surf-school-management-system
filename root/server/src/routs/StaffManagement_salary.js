@@ -5,7 +5,7 @@ const Salary = require('../models/StaffManagement_Salary');
 // Route to get all salaries
 router.get('/alls', async (req, res) => {
     try {
-        const salaries = await Salary.find();
+        const salaries = await Salary.find({}, { status: 0 });
         res.json(salaries);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -26,7 +26,8 @@ router.post('/adds', async (req, res) => {
         bonus: req.body.bonus,
         paymentMethod: req.body.paymentMethod,
         notes: req.body.notes,
-        paymentDate: req.body.paymentDate
+        paymentDate: req.body.paymentDate,
+        status: 'pending' // Default status is 'pending' for new salaries
     });
 
     try {
@@ -54,6 +55,10 @@ router.patch('/salary/:id', getSalary, async (req, res) => {
     if (req.body.paymentDate != null) {
         res.salary.paymentDate = req.body.paymentDate;
     }
+    // Update the status only if it's an update
+    if (req.body.status != null && res.salary.status === 'pending') {
+        res.salary.status = req.body.status;
+    }
 
     try {
         const updatedSalary = await res.salary.save();
@@ -64,7 +69,7 @@ router.patch('/salary/:id', getSalary, async (req, res) => {
 });
 
 // Route to delete a salary
-router.delete('salary/:id', getSalary, async (req, res) => {
+router.delete('/salary/:id', getSalary, async (req, res) => {
     try {
         await res.salary.remove();
         res.json({ message: 'Deleted Salary' });

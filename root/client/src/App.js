@@ -39,22 +39,27 @@ import Dashboard from "./pages/FinancialManagement_Dashboard";
 import SHeader from "./components/StaffManagement_SHeader";
 import AddEmployee from "./components/StaffManagement_AddEmployee";
 //import {BrowserRouter as Router,Routes, Route} from "react-router-dom"
-import AllEmployees from "./components/StaffManagement_AllEmployees";
-import EditEmployees from "./components/StaffManagement_EditEmployees";
-import DeleteEmployees from "./components/StaffManagement_DeleteEmployees";
-import Staff_WorkSheetAdd from "./components/StaffManagement_WorkSheetAdd";
-import Staff_AllWorkSheet from "./components/StaffManagement_AllWorkSheet";
-import LeaveRequestForm from "./components/StaffManagement_LeaveRequestForm";
-import LeaveDetails from "./components/StaffManagement_LeaveDetails";
-import AdminLeaveRequests from "./components/StaffManagement_AdminLeaveRequests";
-import AddNoticeForm from "./components/StaffManagement_AddNoticeForm";
-import AllNotices from "./components/StaffManagement_AllNotices";
-import AttendanceQRCode from "./components/StaffManagement_AttendanceQRCode";
-import AttendanceManager from "./components/StaffManagement_AttendanceManager";
-import AddAttendance from "./components/StaffManagement_AddAttendance";
-import Staff_Admin from "./components/StaffManagement_Dashboard";
-import Staff_AllNotices from "./components/StaffManagement_ManageNotices";
-import HomePage from "./components/StaffManagement_Dashboard";
+import AllEmployees from './components/StaffManagement_AllEmployees';
+import EditEmployees from './components/StaffManagement_EditEmployees';
+import DeleteEmployees from './components/StaffManagement_DeleteEmployees';
+import Staff_WorkSheetAdd from './components/StaffManagement_WorkSheetAdd';
+import Staff_AllWorkSheet from './components/StaffManagement_AllWorkSheet';
+import LeaveRequestForm from './components/StaffManagement_LeaveRequestForm';
+import LeaveDetails from './components/StaffManagement_LeaveDetails';
+import AdminLeaveRequests from './components/StaffManagement_AdminLeaveRequests';
+import AddNoticeForm from './components/StaffManagement_AddNoticeForm';
+import AllNotices from './components/StaffManagement_AllNotices';
+import AttendanceQRCode from './components/StaffManagement_AttendanceQRCode';
+import AttendanceManager from './components/StaffManagement_AttendanceManager';
+import AddAttendance from './components/StaffManagement_AddAttendance';
+import Staff_Admin from './components/StaffManagement_Dashboard';
+import Staff_AllNotices from './components/StaffManagement_ManageNotices';
+import HomePage from './components/StaffManagement_Dashboard';
+import StaffManagement_WorkSheetView from './components/StaffManagement_WorkSheetView';
+import StaffManagement_AddSalary from './components/StaffManagement_AddSalary';
+
+//staff end
+
 import Home from "./components/sesAndResManagementSys_Home";
 import AddSession from "./components/sesAndResManagementSys_AddSession";
 import Sessions from "./components/sesAndResManagementSys_Sessions";
@@ -62,6 +67,8 @@ import UpdateSession from "./components/sesAndResManagementSys_UpdateSession";
 import AddReservation from "./components/sesAndResManagementSys_AddReservation";
 import Reservations from "./components/sesAndResManagementSys_Reservations";
 import UpdateReservation from "./components/sesAndResManagementSys_UpdateReservation";
+import StaffManagement_salarydetails from './components/StaffManagement_salarydetails';
+
 
 //customermanagement
 import CustomerManagement_AddCustomer from "./components/CustomerManagement_AddCustomer";
@@ -98,12 +105,12 @@ function App() {
         <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/" element={<LoginPage />} />
 
-        {/* Protected routes */}
-        <Route
+         <Route
           path="/*"
-          element={<ProtectedRoutes isLoggedIn={isLoggedIn} />}
-        />
-      </Routes>
+          element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>}
+          />
+         
+     </Routes>
     </Router>
   );
 }
@@ -304,10 +311,7 @@ function ProtectedRoutes({ isLoggedIn }) {
         <Route path="/staff/w" exact element={<Staff_AllWorkSheet />} />
       </Routes>
 
-      <Routes>
-        <Route path="/staff/request" exact element={<LeaveRequestForm />} />
-      </Routes>
-
+      
       <Routes>
         <Route
           path="/staff/request/:employeeId"
@@ -351,7 +355,35 @@ function ProtectedRoutes({ isLoggedIn }) {
       <Routes>
         <Route path="/staff/adnotices" exact element={<Staff_AllNotices />} />
       </Routes>
+      
+       
 
+
+        
+       
+               
+      <Routes>
+        <Route path ="/staff/request" exact element={<LeaveRequestForm/>}/>
+          </Routes> 
+
+        
+         
+         
+
+
+          
+
+          <Routes>
+        <Route path ="/staff/worksheetview" exact element={<StaffManagement_WorkSheetView/>}/>
+          </Routes>
+
+          <Routes>
+        <Route path ="/staff/addsalary" exact element={<StaffManagement_AddSalary/>}/>
+          </Routes>
+
+          <Routes>
+        <Route path ="/staff/details" exact element={<StaffManagement_salarydetails/>}/>
+          </Routes>
       {/* /Sales and rental Management */}
 
       <Routes>
@@ -425,6 +457,10 @@ function ProtectedRoutes({ isLoggedIn }) {
             element={<CustomerManagement_CustomerTable />}
           />
         </Routes>
+
+
+
+        
       </div>
       {/*end*/}
 
