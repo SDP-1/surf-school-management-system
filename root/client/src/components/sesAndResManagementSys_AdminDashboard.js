@@ -226,9 +226,9 @@ const Dashboard = () => {
                     <CCardBody>
                       <CCardTitle>Total Sessions</CCardTitle>
                       <CCardText>{totalSessions}</CCardText>
-                      <CButton color="light" className="mt-3" block>
+                      {/* <CButton color="light" className="mt-3" block>
                         View Details
-                      </CButton>
+                      </CButton> */}
                     </CCardBody>
                   </CCard>
                 </CCol>
@@ -237,9 +237,9 @@ const Dashboard = () => {
                     <CCardBody>
                       <CCardTitle>Total Reservations</CCardTitle>
                       <CCardText>{totalReservations}</CCardText>
-                      <CButton color="light" className="mt-3" block>
+                      {/* <CButton color="light" className="mt-3" block>
                         View Details
-                      </CButton>
+                      </CButton> */}
                     </CCardBody>
                   </CCard>
                 </CCol>
@@ -248,9 +248,9 @@ const Dashboard = () => {
                     <CCardBody>
                       <CCardTitle>Total Students</CCardTitle>
                       <CCardText>{totalStudents}</CCardText>
-                      <CButton color="light" className="mt-3" block>
+                      {/* <CButton color="light" className="mt-3" block>
                         View Details
-                      </CButton>
+                      </CButton> */}
                     </CCardBody>
                   </CCard>
                 </CCol>
@@ -259,9 +259,9 @@ const Dashboard = () => {
                     <CCardBody>
                       <CCardTitle>Reservation Revenue</CCardTitle>
                       <CCardText>${totalRevenue}</CCardText>
-                      <CButton color="light" className="mt-3" block>
+                      {/* <CButton color="light" className="mt-3" block>
                         View Details
-                      </CButton>
+                      </CButton> */}
                     </CCardBody>
                   </CCard>
                 </CCol>

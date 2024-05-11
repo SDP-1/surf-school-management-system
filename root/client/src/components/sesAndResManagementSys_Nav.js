@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+import React,{ useEffect,useState } from "react";
 // Define CSS as const
 const navStyle = {
   backgroundColor: "#1c4c74",
@@ -11,6 +11,30 @@ const navStyle = {
 };
 
 function Nav() {
+
+
+
+
+  const [userData, setUserData] = useState(null);
+  
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+    if (data && data.status === "Ref") {
+      const session = document.getElementById("ses");
+      
+      if (session) session.style.display = "none";
+
+    } else {
+      console.log("User data not found in session.");
+    }
+  }, []);
   const linkStyle = {
     color: "white", // Setting text color to white
   };
@@ -43,7 +67,7 @@ function Nav() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/sesAndResManagement/sessiondetails" className="nav-link" style={linkStyle}>
+                <Link to="/sesAndResManagement/sessiondetails" className="nav-link" id="ses" style={linkStyle}>
                   Sessions
                 </Link>
               </li>
