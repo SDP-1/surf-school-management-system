@@ -9,9 +9,10 @@ const app = express();
 const PORT = process.env.PORT || 8070;
 
 //middleware setup
+app.use(bodyParser.json({ limit: "100MB" }));  
 app.use(express.json());                                      // Parse JSON bodies
 app.use(cors());                                              // Enable CORS
-app.use(bodyParser.json({ limit: "20MB" }));                  // Parse JSON bodies with specified size limit
+                // Parse JSON bodies with specified size limit
 
 // MongoDB connection setup
 const URL = process.env.MONGODB_URL;
