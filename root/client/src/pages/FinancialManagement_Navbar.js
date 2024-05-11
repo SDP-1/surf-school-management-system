@@ -53,13 +53,23 @@ export default function NavBar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
+                  to="/FinancialManagement/exchangeRate"
+                  style={navStyles.brand}
+                >
+                  Exchange Rate
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
                   to="/FinancialManagement/transaction"
                   style={navStyles.brand}
                 >
                   All Transaction
                 </Link>
               </li>
-              <li className="nav-item dropdown">
+              {/* <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
@@ -90,7 +100,7 @@ export default function NavBar() {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   className="nav-link active"
@@ -102,14 +112,14 @@ export default function NavBar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link
+                {/* <Link
                   className="nav-link active"
                   aria-current="page"
                   to="/FinancialManagement/payment"
                   style={navStyles.brand}
                 >
                   Payment
-                </Link>
+                </Link> */}
               </li>
               <li className="nav-item">
                 <Link

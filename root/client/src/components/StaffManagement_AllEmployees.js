@@ -7,6 +7,20 @@ export default function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const getSessionData = () => {
+       
+  
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+  }, []);
+
 
   useEffect(() => {
     async function getEmployees() {
@@ -62,7 +76,14 @@ export default function AllEmployees() {
         onChange={(e) => setSearchTerm(e.target.value)}
         style={{ marginBottom: '20px', padding: '5px', width: '300px' }}
       />
+    <div>
+    {userData && userData.status !== "Ref" && (   
+    <>
       <Link className="btn btn-success mb-4" to="/staff/add"> Add Employee</Link>
+    
+      </>
+      )}
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridGap: '20px', justifyContent: 'center' }}>
         {filteredEmployees.map((employee, index) => (
           <div
@@ -114,8 +135,18 @@ export default function AllEmployees() {
                   <p>Email: {employee.email}</p>
                   <p>Contact No: {employee.contactno}</p>
                   <p>Role: {getRoleFromId(employee.eid)}</p> {/* Display role */}
+                  
+                  <div>
+                  {userData && userData.status !== "Ref" && (   
+                  <>
+
                   <Link className='btn btn-primary me-2' to={`/staff/update/${employee.eid}`}>Edit</Link>
                   <Link className='btn btn-danger' to={`/staff/delete/${employee.eid}`}>Delete</Link>
+
+                </>
+                )}
+                </div>
+
                 </div>
               </div>
             )}

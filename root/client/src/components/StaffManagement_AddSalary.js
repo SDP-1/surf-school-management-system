@@ -23,16 +23,27 @@ const StaffManagement_AddSalary = () => {
             const amount = parseFloat(baseSalary) + parseFloat(bonus);
 
             // Save data to the salaries table
-            const salaryResponse = await axios.post('http://localhost:4000/salaries/adds', {
-                employeeID,
-                employeeName,
-                baseSalary,
-                bonus,
-                paymentMethod,
-                notes,
-                paymentDate
-            });
+            let salaryResponse;
+
+            try {
+                salaryResponse = await axios.post('http://localhost:4000/salaries/adds', {
+                    employeeID,
+                    employeeName,
+                    baseSalary,
+                    bonus,
+                    paymentMethod,
+                    notes,
+                    paymentDate
+                });
     
+                alert('Salary details added successfully!');
+                window.location.href = '/staff/details';
+            } catch (error) {
+                console.error('Failed to add salary details:', error);
+                // Handle errors here if needed
+            }
+            
+            
             // Save data to the outgoing table
             const outgoingResponse = await axios.post('http://localhost:4000/outgoing/save', {
                 refId: referenceID,

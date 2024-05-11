@@ -1,7 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function SHeader(){
+
+  const [userData, setUserData] = useState(null);
+  
+  useEffect(() => {
+    const getSessionData = () => {
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+    if (data && data.status === "Ref") {
+      const leavemanagement = document.getElementById("lv");
+      const manage_worksheet = document.getElementById("mw");
+      const manage_notices = document.getElementById("mn");
+      const attendance_management = document.getElementById("am");
+      const salary = document.getElementById("s");
+      const All_salary = document.getElementById("as");
+
+      if (leavemanagement) leavemanagement.style.display = "none";
+      if (manage_worksheet) manage_worksheet.style.display = "none";
+      if (manage_notices) manage_notices.style.display = "none";
+      if (attendance_management) attendance_management.style.display = "none";
+      if (salary) salary.style.display = "none";
+      if (All_salary) All_salary.style.display = "none";
+
+    } else {
+      console.log("User data not found in session.");
+    }
+  }, []);
+
+
+
     const styles = {
       navbar: {
         backgroundColor: "#1c4c74",
@@ -35,32 +70,32 @@ function SHeader(){
                   <Link to="/staff/request" className="nav-link active" aria-current="page" style={styles.link}>Leave Request</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/staff/requests" className="nav-link active" aria-current="page" style={styles.link}>Leave Management</Link>
+                  <Link to="/staff/requests" className="nav-link active" id="lv" aria-current="page" style={styles.link}>Leave Management</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/staff/w" className="nav-link active" aria-current="page" style={styles.link}>Manage Worksheet</Link>
+                  <Link to="/staff/w" className="nav-link active" id="mw" aria-current="page" style={styles.link}>Manage Worksheet</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/staff/notices" className="nav-link active" aria-current="page" style={styles.link}>Notices</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/staff/adnotices" className="nav-link active" aria-current="page" style={styles.link}>Manage Notices</Link>
+                  <Link to="/staff/adnotices" className="nav-link active" id="mn" aria-current="page" style={styles.link}>Manage Notices</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/staff/generateQRCode" className="nav-link active" aria-current="page" style={styles.link}>QR Code</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/staff/Attendance" className="nav-link active" aria-current="page" style={styles.link}>Attendance Management</Link>
+                  <Link to="/staff/Attendance" className="nav-link active" id="am" aria-current="page" style={styles.link}>Attendance Management</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/staff/worksheetview" className="nav-link active" aria-current="page" style={styles.link}>Worksheet</Link>
                 </li>
                 
                 <li className="nav-item">
-                  <Link to="/staff/addsalary" className="nav-link active" aria-current="page" style={styles.link}>Salary</Link>
+                  <Link to="/staff/addsalary" className="nav-link active" id="s" aria-current="page" style={styles.link}>Salary</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/staff/details" className="nav-link active" aria-current="page" style={styles.link}>All Salary</Link>
+                  <Link to="/staff/details" className="nav-link active" id="as" aria-current="page" style={styles.link}>All Salary</Link>
                 </li>
               </ul>
             </div>
