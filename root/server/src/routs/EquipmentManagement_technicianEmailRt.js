@@ -1,32 +1,32 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
+const express = require("express");
+const nodemailer = require("nodemailer");
+const cors = require("cors");
 const router = express.Router();
 
 const TechnicianEmail = require("../models/EquipmentManagement_technicianEmail");
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
-    user: 'imashanirmani20@gmail.com',
-    pass: 'pgoi jmbj cwus bjhk'
-  }
+    user: "imashanirmani20@gmail.com",
+    pass: "pgoi jmbj cwus bjhk",
+  },
 });
 
 const Email = TechnicianEmail;
 
-router.post('/t', cors(), async (req, res) => {
+router.post("/t", cors(), async (req, res) => {
   const { to, subject, description } = req.body;
 
   if (!to || !subject || !description) {
     return res.status(400).json({
       status: false,
-      respMesg: 'Missing required fields'
+      respMesg: "Missing required fields",
     });
   }
 
   const mailOptions = {
-    from: 'imashanirmani20@gmail.com',
+    from: "imashanirmani20@gmail.com",
     to,
     subject,
     text: description,
@@ -40,33 +40,33 @@ router.post('/t', cors(), async (req, res) => {
           <li>Message: ${description}</li>
         </ul>
       </div>
-    `
+    `,
   };
 
   try {
     const result = await transporter.sendMail(mailOptions);
-    console.log(result);
+    // console.log(result);
 
     const email = new Email({
       to,
       subject,
-      description
+      description,
     });
 
     const savedEmail = await email.save();
-    console.log(savedEmail);
+    // console.log(savedEmail);
 
     res.json({
       status: true,
-      respMesg: 'Email sent successfully',
-      email: savedEmail
+      respMesg: "Email sent successfully",
+      email: savedEmail,
     });
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
       status: false,
-      respMesg: 'Error sending email'
+      respMesg: "Error sending email",
     });
   }
 });
