@@ -2,7 +2,91 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Chart from 'chart.js/auto';
 
-function HDashboard() {
+const CurrencyConverter = () => {
+  const [baseCurrency, setBaseCurrency] = useState('USD');
+  const [displayCurrency, setDisplayCurrency] = useState('USD');
+  const [exchangeRates, setExchangeRates] = useState({});
+  const [amount, setAmount] = useState(0);
+  const [convertedAmount, setConvertedAmount] = useState(0);
+
+  // Fetch exchange rates when component mounts or base currency changes
+  useEffect(() => {
+    const fetchExchangeRates = async () => {
+      try {
+        const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${baseCurrency}`);
+        const data = await response.json();
+        setExchangeRates(data.rates);
+      } catch (error) {
+        console.error('Error fetching exchange rates:', error);
+      }
+    };
+
+    fetchExchangeRates();
+  }, [baseCurrency]);
+
+  // Handler for changing base currency
+  const handleBaseCurrencyChange = (e) => {
+    setBaseCurrency(e.target.value);
+  };
+
+  // Handler for changing display currency
+  const handleDisplayCurrencyChange = (e) => {
+    setDisplayCurrency(e.target.value);
+  };
+
+  // Handler for input amount change
+  const handleAmountChange = (e) => {
+    setAmount(parseFloat(e.target.value));
+  };
+
+  // Convert amount to display currency
+  useEffect(() => {
+    if (exchangeRates && amount) {
+      const converted = amount * exchangeRates[displayCurrency];
+      setConvertedAmount(converted.toFixed(2));
+    } else {
+      setConvertedAmount(0);
+    }
+  }, [amount, displayCurrency, exchangeRates]);
+
+  return (
+    <div style={{ margin: '20px', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+      <h3 style={{ marginBottom: '20px' }}>Currency Converter</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ flex: '0 0 48%' }}>
+          <label htmlFor="baseCurrency" style={{ marginRight: '10px', marginBottom: '5px', display: 'block' }}>Base Currency:</label>
+          <select id="baseCurrency" value={baseCurrency} onChange={handleBaseCurrencyChange} style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', backgroundColor: '#fff' }}>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="LKR">LKR</option>
+            <option value="JPY">JPY</option>
+          </select>
+        </div>
+        <div style={{ flex: '0 0 48%' }}>
+          <label htmlFor="displayCurrency" style={{ marginRight: '10px', marginBottom: '5px', display: 'block' }}>Display in:</label>
+          <select id="displayCurrency" value={displayCurrency} onChange={handleDisplayCurrencyChange} style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', backgroundColor: '#fff' }}>
+            {exchangeRates && Object.keys(exchangeRates).map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div style={{ marginBottom: '20px' }}>
+        <label htmlFor="amount" style={{ marginRight: '10px', marginBottom: '5px', display: 'block' }}>Amount in {baseCurrency}:</label>
+        <input id="amount" type="number" value={amount} onChange={handleAmountChange} style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', backgroundColor: '#fff' }} />
+      </div>
+      <div>
+        <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Converted Amount in {displayCurrency}:</p>
+        <p style={{ fontSize: '24px', color: '#007bff', margin: '0' }}>{convertedAmount}</p>
+      </div>
+    </div>
+  );
+};
+
+
+const HDashboard = () => {
   // Function to get current date in 'YYYY-MM-DD' format
   const getCurrentDate = () => {
     const currentDate = new Date();
@@ -199,6 +283,10 @@ function HDashboard() {
     }
     return movingAverage;
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Extracting only the date part
+  };
 
   return (
     <div style={{ margin: '20px', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -217,16 +305,16 @@ function HDashboard() {
         {/* Navigation Links Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/dashboard" className="nav-link active" aria-current="page"> Dashboard </Link>
+            <Link to="/Sale/Hdashboard" className="nav-link active" aria-current="page"> Dashboard </Link>
           </div>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/category/:category" className="nav-link active" aria-current="page"> Home </Link>
+            <Link to="/Sales/category/:category" className="nav-link active" aria-current="page"> POS </Link>
           </div>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/add" className="nav-link">Add Sales</Link>
+            <Link to="/Sales/receipts" className="nav-link">Sales</Link>
           </div>
           <div className="nav-item" style={{ backgroundColor: '#ADD8E6', padding: '10px', borderRadius: '5px', textAlign: 'center', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/Sale/rental/add" className="nav-link">Rental</Link>
+            <Link to="/Sales/rental/date/:date" className="nav-link">Rental Calendar</Link>
           </div>
           {/* Add more navigation links here */}
         </div>
@@ -238,10 +326,10 @@ function HDashboard() {
         </div>
       </div>
 
-      {/* Rentals Table */}
-      <div style={{ width: '50%', marginTop: '20px', padding: '20px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', backgroundColor: '#fff' }}>
+      {/* Rentals Ending Today and Tomorrow Grid */}
+      <div style={{ width: '70%', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginTop: '20px' }}>
+      <div style={{ padding: '20px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', backgroundColor: '#fff' }}>
         <h3>Rentals Ending Today and Tomorrow</h3>
-        {/* Instructions for colors */}
         <p style={{ textAlign: 'center', marginBottom: '10px' }}>Background color indicates:</p>
         <p style={{ textAlign: 'center', marginBottom: '10px' }}><span style={{ backgroundColor: '#FFD6CC', padding: '5px', borderRadius: '5px' }}>Today</span> <span style={{ backgroundColor: '#FFFFCC', padding: '5px', borderRadius: '5px' }}>Tomorrow</span> Normal color for other days</p>
         <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #000' }}>
@@ -249,10 +337,10 @@ function HDashboard() {
             <tr>
               <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Customer Name</th>
               <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Passport ID</th>
+              <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Email</th>
               <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Rental Start Date</th>
               <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Rental End Date</th>
               <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Rental Item</th>
-              <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Price Per Day</th>
               <th style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>Handover Item</th>
             </tr>
           </thead>
@@ -261,10 +349,10 @@ function HDashboard() {
               <tr key={rental._id} style={{ backgroundColor: isToday(rental.rentalEndDate) ? '#FFD6CC' : isTomorrow(rental.rentalEndDate) ? '#FFFFCC' : 'inherit' }}>
                 <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.customerName}</td>
                 <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.passportId}</td>
-                <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.rentalStartDate}</td>
-                <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.rentalEndDate}</td>
+                <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.email}</td>
+                <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{formatDate(rental.rentalStartDate)}</td>
+                <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{formatDate(rental.rentalEndDate)}</td>
                 <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.rentalItem}</td>
-                <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.pricePerDay}</td>
                 <td style={{ border: '1px solid #000', padding: '8px', textAlign: 'center' }}>{rental.handoverItem}</td>
               </tr>
             ))}
@@ -272,7 +360,10 @@ function HDashboard() {
         </table>
       </div>
     </div>
+      {/* Add the Currency Converter component here */}
+      <CurrencyConverter />
+    </div>
   );
-}
+};
 
 export default HDashboard;

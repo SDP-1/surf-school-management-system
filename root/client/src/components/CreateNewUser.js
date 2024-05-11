@@ -8,7 +8,7 @@ const CreateUserPage = () => {
   const [NIC, setNIC] = useState("");
   const [image, setImage] = useState({});
   const [imageUrl, setImageUrl] = useState("");
-  const [status, setStatus] = useState("Rec");
+  const [status, setStatus] = useState("Ref");
   const [showRemoveImage, setShowRemoveImage] = useState(false);
 
   const pageStyles = `
@@ -176,7 +176,7 @@ const CreateUserPage = () => {
               className="form-control"
               required
             >
-              <option value="Rec">Rec</option>
+              <option value="Rec">Ref</option>
               <option value="Adm">Adm</option>
             </select>
           </div>

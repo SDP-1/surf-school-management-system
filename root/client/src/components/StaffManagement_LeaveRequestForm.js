@@ -9,13 +9,35 @@ const LeaveRequestForm = () => {
     startDate: '',
     endDate: ''
   });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Validate employeeId format
+    if (name === 'employeeId' && !/^[ESRA]\d*$/.test(value)) {
+      setError('Employee ID must start with E, S, R, or A');
+    } else {
+      setError('');
+    }
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleStartDateChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Set the minimum selectable date for the end date
+    const minEndDate = new Date(value);
+    minEndDate.setDate(minEndDate.getDate() + 1); // Minimum end date is one day after start date
+    document.getElementById('endDate').setAttribute('min', minEndDate.toISOString().split('T')[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (error) return; // Prevent submission if there's an error
+
     try {
       const response = await axios.post('http://localhost:4000/LeaveRequest/request', formData);
       console.log(response.data);
@@ -46,6 +68,7 @@ const LeaveRequestForm = () => {
             style={{ width: '100%', padding: '10px', border: '1px solid #ced4da', borderRadius: '4px' }}
             required
           />
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
         <div style={{ marginBottom: '15px' }}>
           <label style={{ fontWeight: 'bold' }}>Leave Type:</label>
@@ -63,7 +86,7 @@ const LeaveRequestForm = () => {
             type="date"
             name="startDate"
             value={formData.startDate}
-            onChange={handleChange}
+            onChange={handleStartDateChange}
             style={{ width: '100%', padding: '10px', border: '1px solid #ced4da', borderRadius: '4px' }}
             required
           />
@@ -72,6 +95,7 @@ const LeaveRequestForm = () => {
           <label style={{ fontWeight: 'bold' }}>End Date:</label>
           <input
             type="date"
+            id="endDate"
             name="endDate"
             value={formData.endDate}
             onChange={handleChange}

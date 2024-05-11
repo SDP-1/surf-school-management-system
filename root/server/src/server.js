@@ -71,8 +71,9 @@ app.use("/Qr", qrCodeRouter);
 const attendanceRouter = require("./routs/StaffManagement_attendance.js");
 app.use("/Attendance", attendanceRouter);
 
-const customerRouter = require("./routs/CustomerManagement_customer.js");
-app.use("/Customer", customerRouter);
+const salaryRouter = require("./routs/StaffManagement_salary.js");
+app.use("/salaries", salaryRouter);
+
 //end
 saleRouter = require("./routs/SalesManagement_sales.js");
 //localhost:4000/sale
