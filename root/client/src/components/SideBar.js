@@ -319,13 +319,7 @@ function SideBar({ children }) {
               <input type="text" placeholder="Search..." />
               <span className="tooltip">Search</span>
             </li>
-            <li>
-              <a href="/LoginPage">
-                <i className="bx bx-grid-alt"></i>
-                <span className="links_name">Dashboard</span>
-              </a>
-              <span className="tooltip">Dashboard</span>
-            </li>
+
             <li id="financialLi">
               <a href="/FinancialManagement/dashboard">
                 <i className="bx bx-money"></i>
@@ -335,7 +329,7 @@ function SideBar({ children }) {
             </li>
             <li>
               <a href="/Event/">
-                <i className="bx bx-chat"></i>
+                <i class="bx bx-calendar-event"></i>
                 <span className="links_name">Event</span>
               </a>
               <span className="tooltip">Event management</span>
@@ -363,17 +357,24 @@ function SideBar({ children }) {
             </li>
             <li>
               <a href="/customer/dashboard">
-                <i className="bx bx-heart"></i>
+                <i class="bx bx-male-female"></i>
                 <span className="links_name">Customer</span>
               </a>
               <span className="tooltip">Customer Dashboard</span>
             </li>
             <li>
-              <a href="/User/UserManagement">
-                <i className="bx bx-cog"></i>
-                <span className="links_name">Setting</span>
+              <a href="#">
+                <i class="bx bx-swim"></i>
+                <span className="links_name">Equipment</span>
               </a>
-              <span className="tooltip">Setting</span>
+              <span className="tooltip">Equipment Management</span>
+            </li>
+            <li>
+              <a href="/User/UserManagement">
+                <i class="bx bxs-user"></i>
+                <span className="links_name">Account</span>
+              </a>
+              <span className="tooltip">Account Management</span>
             </li>
             <li className="profile">
               <div className="profile-details">
