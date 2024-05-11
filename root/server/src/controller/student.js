@@ -24,7 +24,6 @@ const Student = require("../models/student");
 
 //htttp://localhost:5000/student
  const getStudents = async(req,res)=>{
-
     Student.find().then((students) => {
        res.json(students);    
     }).catch((err)=>{
