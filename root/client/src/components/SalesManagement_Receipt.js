@@ -9,6 +9,20 @@ function Receipts() {
   const [showUpdateData, setShowUpdateData] = useState(false);
   const [showReceiptDetails, setShowReceiptDetails] = useState(false); // State for showing receipt details
 
+  const [userData, setUserData] = useState(null);
+    useEffect(() => {
+    const getSessionData = () => {
+       
+  
+      const userData = sessionStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    };
+
+    const data = getSessionData();
+    setUserData(data);
+
+  }, []);
+
   useEffect(() => {
     fetchReceipts();
   }, []);
@@ -111,8 +125,14 @@ function Receipts() {
               <td style={{ padding: '12px', border: '1px solid #ddd' }}>{receipt.finalAmount}</td>
               <td style={{ padding: '12px', border: '1px solid #ddd' }}>{new Date(receipt.createdAt).toLocaleDateString()}</td>
               <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+              <div>
+              {userData && userData.status !== "Ref" && (   
+              <>
                 <button style={{ backgroundColor: '#008CBA', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '5px', marginRight: '5px' }} onClick={() => handleUpdatePopup(receipt)}>Update</button>
                 <button style={{ backgroundColor: '#f44336', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '5px', marginRight: '5px' }} onClick={() => handleDeleteReceipt(receipt._id)}>Delete</button>
+                </>
+                )}
+                </div>
                 <button style={{ backgroundColor: '#555555', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '5px' }} onClick={() => showReceiptPopup(receipt)}>Show</button>
               </td>
             </tr>
