@@ -16,8 +16,14 @@ function SideBar({ children }) {
     setUserData(data);
 
     if (data && data.status === "Ref") {
-      const element = document.getElementById("financialLi");
-      if (element) element.style.display = "none";
+      const financial = document.getElementById("financialLi");
+      const account = document.getElementById("account");
+      if (financial) {
+        financial.style.display = "none";
+      }
+      if (account) {
+        account.style.display = "none";
+      }
     } else {
       console.log("User data not found in session.");
     }
@@ -369,7 +375,7 @@ function SideBar({ children }) {
               </a>
               <span className="tooltip">Equipment Management</span>
             </li>
-            <li>
+            <li id="account">
               <a href="/User/UserManagement">
                 <i class="bx bxs-user"></i>
                 <span className="links_name">Account</span>
