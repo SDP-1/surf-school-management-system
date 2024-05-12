@@ -90,6 +90,8 @@ import CreateUserPage from "./components/CreateNewUser";
 import ShowAllUsers from "./components/ShowAllUsers";
 import UserManage from "./pages/UserManagement";
 
+import CustomerManagement_OfferDetails from "./components/CustomerManagement_OfferDetails";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -458,6 +460,12 @@ function ProtectedRoutes({ isLoggedIn }) {
           />
         </Routes>
 
+        <Routes>
+          <Route
+            path="/customer/offers"
+            element={<CustomerManagement_OfferDetails />}
+          />
+        </Routes>
 
 
         
