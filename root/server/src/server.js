@@ -74,6 +74,9 @@ app.use("/Attendance", attendanceRouter);
 const salaryRouter = require("./routs/StaffManagement_salary.js");
 app.use("/salaries", salaryRouter);
 
+const customerRouter = require("./routs/CustomerManagement_customer.js");
+app.use("/customer", customerRouter);
+
 //end
 saleRouter = require("./routs/SalesManagement_sales.js");
 //localhost:4000/sale
