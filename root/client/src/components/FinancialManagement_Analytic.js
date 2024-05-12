@@ -62,9 +62,11 @@ function Analytic({ year, month }) {
       ) {
         if (transaction.incomeOrOutgoing === "income") {
           incomeSum += transaction.amountPaid;
-        } else if (transaction.status === true) {
+        }
+        if (transaction.status === true) {
           pendingIncomeSum += transaction.amountDue;
-        } else if (transaction.incomeOrOutgoing === "outgoing") {
+        }
+        if (transaction.incomeOrOutgoing === "outgoing") {
           outgoingSum += transaction.amountPaid;
         }
       }
