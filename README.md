@@ -55,7 +55,7 @@ The Surf School Management System is a comprehensive application designed to str
         cd ../root/client
         npm start
 
- ##Sample screenshots(Financial mangement subsystem)
+ ## Sample screenshots(Financial mangement subsystem)
 
 ![Screenshot 2024-05-04 124756](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/7e9c14e0-cb84-4c07-a97a-01eb929101a6)
 ![Screenshot 2024-05-04 124902](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/77e13c1c-9d16-4bec-bd2b-a87405c049fc)
