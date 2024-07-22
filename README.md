@@ -1,52 +1,61 @@
-##**how to run FONTEND**
+# Surf School Management System
 
-go to the client folder and type "npm start" now click the link
+## Overview
 
-npm install recharts
-npm install styled-components
-npm install react-chartjs-2 chart.js
-npm install date-fns
-npm install react-datepicker
-npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
-npm install mdb-react-ui-kit
-npm install react-icons
-npm install jspdf
-npm install jspdf-autotable
-npm install react-time-picker @coreui/react react-to-print @fullcalendar/react @fullcalendar/daygrid
+The Surf School Management System is a comprehensive application designed to streamline the management of a surfing school. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), this system enhances operational efficiency and user experience by integrating various essential features.
 
-npm install react-calendar
+## Features
 
-npm install react-csv
-npm install react-router-dom
-npm install boxicons
-npm install @react-pdf/renderer
+- **Financial Management:** Efficient handling of financial operations, including fee management and financial reporting.
+- **User Authentication:** Role-based login and authentication mechanism to manage different user roles and permissions.
+- **Intuitive Interfaces:** User-friendly interfaces for seamless interaction with various modules of the system.
 
-##**how to run BACKEND using nodemon**
+## Technologies
 
-go to the inside server dir and type "npm run dev" and press enter
+- **Frontend:** React.js
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
 
-npm install --save multer
-npm install instagram-private-api
+## Installation
 
-## install these Extensions
+### Prerequisites
 
-ES7+ React/Redux/React-Native snippets
-Prettier - Code formatter
-Simple React Snippets
+- Node.js and npm (Node Package Manager)
+- MongoDB
 
-## using code to crate...
+### Setup
 
-for backend ->
-npm init
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/SurfSchool.git
+   cd SurfSchool
+   
+2. **Install Dependencies:**
+   - For the backend:
+      ```bash
+        cd root/server
+        npm install
 
-npm install express mongoose dotenv cors nodemon
+  - For the frontend:
+      ```bash
+        cd ../root/client
+        npm install
 
-for fontend ->
-npx create-react-app client
-npm install react-router-dom
-npm install axios
+3. **Configure Environment Variables:**
+    - Create a .env file in the backend directory and add your MongoDB connection string and other necessary environment variables.
 
-##Sample screenshots(Financial mangement subsystem)
+4. **Install Dependencies:**
+   - Start the backend server:
+      ```bash
+        cd root/server
+        npm start
+
+  - In a separate terminal, start the frontend server:
+      ```bash
+        cd ../root/client
+        npm start
+
+ ##Sample screenshots(Financial mangement subsystem)
 
 ![Screenshot 2024-05-04 124756](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/7e9c14e0-cb84-4c07-a97a-01eb929101a6)
 ![Screenshot 2024-05-04 124902](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/77e13c1c-9d16-4bec-bd2b-a87405c049fc)
@@ -66,4 +75,3 @@ npm install axios
 ![Screenshot 2024-05-05 215433](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/7a0af036-644b-4240-9cfc-0e46d9b45037)
 ![Screenshot 2024-05-05 214145](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/4c39787f-6050-4992-a232-492ea02fb048)
 ![Screenshot 2024-05-05 213843](https://github.com/SDP-1/Surf-school-management-system/assets/98279413/759216ac-e656-46bc-8710-091358e7cc11)
-
